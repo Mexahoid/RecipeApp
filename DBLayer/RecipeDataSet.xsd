@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="RecipeConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RecipeConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.RecipeApp.Properties.Settings.GlobalReference.Default.RecipeConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="RecipeConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="RecipeConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.DBLayer.Properties.Settings.GlobalReference.Default.RecipeConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DeviceTableAdapter" GeneratorDataComponentClassName="DeviceTableAdapter" Name="Device" UserDataComponentName="DeviceTableAdapter">
@@ -382,7 +382,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
   <xs:element name="RecipeDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="RecipeDataSet" msprop:Generator_UserDSName="RecipeDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Device" msprop:Generator_TableClassName="DeviceDataTable" msprop:Generator_TableVarName="tableDevice" msprop:Generator_TablePropName="Device" msprop:Generator_RowDeletingName="DeviceRowDeleting" msprop:Generator_RowChangingName="DeviceRowChanging" msprop:Generator_RowEvHandlerName="DeviceRowChangeEventHandler" msprop:Generator_RowDeletedName="DeviceRowDeleted" msprop:Generator_UserTableName="Device" msprop:Generator_RowChangedName="DeviceRowChanged" msprop:Generator_RowEvArgName="DeviceRowChangeEvent" msprop:Generator_RowClassName="DeviceRow">
+        <xs:element name="Device" msprop:Generator_TableClassName="DeviceDataTable" msprop:Generator_TableVarName="tableDevice" msprop:Generator_RowChangedName="DeviceRowChanged" msprop:Generator_TablePropName="Device" msprop:Generator_RowDeletingName="DeviceRowDeleting" msprop:Generator_RowChangingName="DeviceRowChanging" msprop:Generator_RowEvHandlerName="DeviceRowChangeEventHandler" msprop:Generator_RowDeletedName="DeviceRowDeleted" msprop:Generator_RowClassName="DeviceRow" msprop:Generator_UserTableName="Device" msprop:Generator_RowEvArgName="DeviceRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -396,7 +396,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Ingredient" msprop:Generator_TableClassName="IngredientDataTable" msprop:Generator_TableVarName="tableIngredient" msprop:Generator_TablePropName="Ingredient" msprop:Generator_RowDeletingName="IngredientRowDeleting" msprop:Generator_RowChangingName="IngredientRowChanging" msprop:Generator_RowEvHandlerName="IngredientRowChangeEventHandler" msprop:Generator_RowDeletedName="IngredientRowDeleted" msprop:Generator_UserTableName="Ingredient" msprop:Generator_RowChangedName="IngredientRowChanged" msprop:Generator_RowEvArgName="IngredientRowChangeEvent" msprop:Generator_RowClassName="IngredientRow">
+        <xs:element name="Ingredient" msprop:Generator_TableClassName="IngredientDataTable" msprop:Generator_TableVarName="tableIngredient" msprop:Generator_RowChangedName="IngredientRowChanged" msprop:Generator_TablePropName="Ingredient" msprop:Generator_RowDeletingName="IngredientRowDeleting" msprop:Generator_RowChangingName="IngredientRowChanging" msprop:Generator_RowEvHandlerName="IngredientRowChangeEventHandler" msprop:Generator_RowDeletedName="IngredientRowDeleted" msprop:Generator_RowClassName="IngredientRow" msprop:Generator_UserTableName="Ingredient" msprop:Generator_RowEvArgName="IngredientRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -417,7 +417,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Kitchen" msprop:Generator_TableClassName="KitchenDataTable" msprop:Generator_TableVarName="tableKitchen" msprop:Generator_TablePropName="Kitchen" msprop:Generator_RowDeletingName="KitchenRowDeleting" msprop:Generator_RowChangingName="KitchenRowChanging" msprop:Generator_RowEvHandlerName="KitchenRowChangeEventHandler" msprop:Generator_RowDeletedName="KitchenRowDeleted" msprop:Generator_UserTableName="Kitchen" msprop:Generator_RowChangedName="KitchenRowChanged" msprop:Generator_RowEvArgName="KitchenRowChangeEvent" msprop:Generator_RowClassName="KitchenRow">
+        <xs:element name="Kitchen" msprop:Generator_TableClassName="KitchenDataTable" msprop:Generator_TableVarName="tableKitchen" msprop:Generator_RowChangedName="KitchenRowChanged" msprop:Generator_TablePropName="Kitchen" msprop:Generator_RowDeletingName="KitchenRowDeleting" msprop:Generator_RowChangingName="KitchenRowChanging" msprop:Generator_RowEvHandlerName="KitchenRowChangeEventHandler" msprop:Generator_RowDeletedName="KitchenRowDeleted" msprop:Generator_RowClassName="KitchenRow" msprop:Generator_UserTableName="Kitchen" msprop:Generator_RowEvArgName="KitchenRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -431,7 +431,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Recipe" msprop:Generator_TableClassName="RecipeDataTable" msprop:Generator_TableVarName="tableRecipe" msprop:Generator_TablePropName="Recipe" msprop:Generator_RowDeletingName="RecipeRowDeleting" msprop:Generator_RowChangingName="RecipeRowChanging" msprop:Generator_RowEvHandlerName="RecipeRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeRowDeleted" msprop:Generator_UserTableName="Recipe" msprop:Generator_RowChangedName="RecipeRowChanged" msprop:Generator_RowEvArgName="RecipeRowChangeEvent" msprop:Generator_RowClassName="RecipeRow">
+        <xs:element name="Recipe" msprop:Generator_TableClassName="RecipeDataTable" msprop:Generator_TableVarName="tableRecipe" msprop:Generator_RowChangedName="RecipeRowChanged" msprop:Generator_TablePropName="Recipe" msprop:Generator_RowDeletingName="RecipeRowDeleting" msprop:Generator_RowChangingName="RecipeRowChanging" msprop:Generator_RowEvHandlerName="RecipeRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeRowDeleted" msprop:Generator_RowClassName="RecipeRow" msprop:Generator_UserTableName="Recipe" msprop:Generator_RowEvArgName="RecipeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -461,7 +461,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RecipeDevice" msprop:Generator_TableClassName="RecipeDeviceDataTable" msprop:Generator_TableVarName="tableRecipeDevice" msprop:Generator_TablePropName="RecipeDevice" msprop:Generator_RowDeletingName="RecipeDeviceRowDeleting" msprop:Generator_RowChangingName="RecipeDeviceRowChanging" msprop:Generator_RowEvHandlerName="RecipeDeviceRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeDeviceRowDeleted" msprop:Generator_UserTableName="RecipeDevice" msprop:Generator_RowChangedName="RecipeDeviceRowChanged" msprop:Generator_RowEvArgName="RecipeDeviceRowChangeEvent" msprop:Generator_RowClassName="RecipeDeviceRow">
+        <xs:element name="RecipeDevice" msprop:Generator_TableClassName="RecipeDeviceDataTable" msprop:Generator_TableVarName="tableRecipeDevice" msprop:Generator_RowChangedName="RecipeDeviceRowChanged" msprop:Generator_TablePropName="RecipeDevice" msprop:Generator_RowDeletingName="RecipeDeviceRowDeleting" msprop:Generator_RowChangingName="RecipeDeviceRowChanging" msprop:Generator_RowEvHandlerName="RecipeDeviceRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeDeviceRowDeleted" msprop:Generator_RowClassName="RecipeDeviceRow" msprop:Generator_UserTableName="RecipeDevice" msprop:Generator_RowEvArgName="RecipeDeviceRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IDRecipe" msprop:Generator_ColumnVarNameInTable="columnIDRecipe" msprop:Generator_ColumnPropNameInRow="IDRecipe" msprop:Generator_ColumnPropNameInTable="IDRecipeColumn" msprop:Generator_UserColumnName="IDRecipe" type="xs:int" />
@@ -469,7 +469,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RecipeIngredient" msprop:Generator_TableClassName="RecipeIngredientDataTable" msprop:Generator_TableVarName="tableRecipeIngredient" msprop:Generator_TablePropName="RecipeIngredient" msprop:Generator_RowDeletingName="RecipeIngredientRowDeleting" msprop:Generator_RowChangingName="RecipeIngredientRowChanging" msprop:Generator_RowEvHandlerName="RecipeIngredientRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeIngredientRowDeleted" msprop:Generator_UserTableName="RecipeIngredient" msprop:Generator_RowChangedName="RecipeIngredientRowChanged" msprop:Generator_RowEvArgName="RecipeIngredientRowChangeEvent" msprop:Generator_RowClassName="RecipeIngredientRow">
+        <xs:element name="RecipeIngredient" msprop:Generator_TableClassName="RecipeIngredientDataTable" msprop:Generator_TableVarName="tableRecipeIngredient" msprop:Generator_RowChangedName="RecipeIngredientRowChanged" msprop:Generator_TablePropName="RecipeIngredient" msprop:Generator_RowDeletingName="RecipeIngredientRowDeleting" msprop:Generator_RowChangingName="RecipeIngredientRowChanging" msprop:Generator_RowEvHandlerName="RecipeIngredientRowChangeEventHandler" msprop:Generator_RowDeletedName="RecipeIngredientRowDeleted" msprop:Generator_RowClassName="RecipeIngredientRow" msprop:Generator_UserTableName="RecipeIngredient" msprop:Generator_RowEvArgName="RecipeIngredientRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="IDIngred" msprop:Generator_ColumnVarNameInTable="columnIDIngred" msprop:Generator_ColumnPropNameInRow="IDIngred" msprop:Generator_ColumnPropNameInTable="IDIngredColumn" msprop:Generator_UserColumnName="IDIngred" type="xs:int" />
@@ -478,7 +478,7 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Type" msprop:Generator_TableClassName="TypeDataTable" msprop:Generator_TableVarName="tableType" msprop:Generator_TablePropName="Type" msprop:Generator_RowDeletingName="TypeRowDeleting" msprop:Generator_RowChangingName="TypeRowChanging" msprop:Generator_RowEvHandlerName="TypeRowChangeEventHandler" msprop:Generator_RowDeletedName="TypeRowDeleted" msprop:Generator_UserTableName="Type" msprop:Generator_RowChangedName="TypeRowChanged" msprop:Generator_RowEvArgName="TypeRowChangeEvent" msprop:Generator_RowClassName="TypeRow">
+        <xs:element name="Type" msprop:Generator_TableClassName="TypeDataTable" msprop:Generator_TableVarName="tableType" msprop:Generator_RowChangedName="TypeRowChanged" msprop:Generator_TablePropName="Type" msprop:Generator_RowDeletingName="TypeRowDeleting" msprop:Generator_RowChangingName="TypeRowChanging" msprop:Generator_RowEvHandlerName="TypeRowChangeEventHandler" msprop:Generator_RowDeletedName="TypeRowDeleted" msprop:Generator_RowClassName="TypeRow" msprop:Generator_UserTableName="Type" msprop:Generator_RowEvArgName="TypeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -527,8 +527,8 @@ SELECT ID, Name FROM Type WHERE (ID = @ID)</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK_RecipeKitchen" msdata:parent="Kitchen" msdata:child="Recipe" msdata:parentkey="ID" msdata:childkey="IDKitchen" msprop:Generator_UserChildTable="Recipe" msprop:Generator_ChildPropName="GetRecipeRows" msprop:Generator_UserRelationName="FK_RecipeKitchen" msprop:Generator_ParentPropName="KitchenRow" msprop:Generator_RelationVarName="relationFK_RecipeKitchen" msprop:Generator_UserParentTable="Kitchen" />
-      <msdata:Relationship name="FK_RecipeType" msdata:parent="Type" msdata:child="Recipe" msdata:parentkey="ID" msdata:childkey="IDType" msprop:Generator_UserChildTable="Recipe" msprop:Generator_ChildPropName="GetRecipeRows" msprop:Generator_UserRelationName="FK_RecipeType" msprop:Generator_RelationVarName="relationFK_RecipeType" msprop:Generator_UserParentTable="Type" msprop:Generator_ParentPropName="TypeRow" />
+      <msdata:Relationship name="FK_RecipeKitchen" msdata:parent="Kitchen" msdata:child="Recipe" msdata:parentkey="ID" msdata:childkey="IDKitchen" msprop:Generator_UserChildTable="Recipe" msprop:Generator_ChildPropName="GetRecipeRows" msprop:Generator_UserRelationName="FK_RecipeKitchen" msprop:Generator_RelationVarName="relationFK_RecipeKitchen" msprop:Generator_UserParentTable="Kitchen" msprop:Generator_ParentPropName="KitchenRow" />
+      <msdata:Relationship name="FK_RecipeType" msdata:parent="Type" msdata:child="Recipe" msdata:parentkey="ID" msdata:childkey="IDType" msprop:Generator_UserChildTable="Recipe" msprop:Generator_ChildPropName="GetRecipeRows" msprop:Generator_UserRelationName="FK_RecipeType" msprop:Generator_ParentPropName="TypeRow" msprop:Generator_RelationVarName="relationFK_RecipeType" msprop:Generator_UserParentTable="Type" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -8,17 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBLayer;
 
 namespace RecipeApp
 {
     public partial class FormMain : Form
     {
+        public Connector conn;
         public FormMain()
         {
             InitializeComponent();
             CtrlDGVNames.AutoGenerateColumns = true;
             CtrlDGVIngreds.AutoGenerateColumns = true;
             CtrlDGVDevices.AutoGenerateColumns = true;
+            conn = new Connector();
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
@@ -60,22 +63,11 @@ namespace RecipeApp
             CtrlTBType.Text = Arr[2].ToString();
         }
 
-        private static DataTable GetTable(string selectCommand)
+        private DataTable GetTable(string selectCommand)
         {
             try
             {
-                string connectionString = System.Configuration.ConfigurationManager.
-                    ConnectionStrings["RecipeConnectionString"].ConnectionString;
-
-                var dataAdapter = new SqlDataAdapter(selectCommand, connectionString);
-
-
-                var table = new DataTable
-                {
-                    Locale = System.Globalization.CultureInfo.InvariantCulture
-                };
-                dataAdapter.Fill(table);
-                return table;
+                return conn.GetTable(selectCommand);
             }
             catch (SqlException exception)
             {

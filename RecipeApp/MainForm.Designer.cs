@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.CtrlBindSourceNames = new System.Windows.Forms.BindingSource(this.components);
-            this.recipeDataSet = new RecipeApp.RecipeDataSet();
+            this.recipeDataSet = new DBLayer.RecipeDataSet();
             this.CtrlButReload = new System.Windows.Forms.Button();
             this.CtrlDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlPanel = new System.Windows.Forms.Panel();
@@ -285,7 +285,7 @@
         #endregion
 
         private System.Windows.Forms.BindingSource CtrlBindSourceNames;
-        private RecipeDataSet recipeDataSet;
+        private DBLayer.RecipeDataSet recipeDataSet;
         private System.Windows.Forms.Button CtrlButReload;
         private System.Windows.Forms.DataGridView CtrlDGVNames;
         private System.Windows.Forms.Panel CtrlPanel;

@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace RecipeApp {
+namespace DBLayer {
     
     
     /// <summary>
@@ -3189,7 +3189,7 @@ namespace RecipeApp {
         }
     }
 }
-namespace RecipeApp.RecipeDataSetTableAdapters {
+namespace DBLayer.RecipeDataSetTableAdapters {
     
     
     /// <summary>
@@ -3344,7 +3344,7 @@ namespace RecipeApp.RecipeDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3667,7 +3667,7 @@ namespace RecipeApp.RecipeDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4008,7 +4008,7 @@ namespace RecipeApp.RecipeDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4349,7 +4349,7 @@ SELECT ID, Name, Description, Link, IDType, IDKitchen FROM Recipe WHERE (ID = @I
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4752,7 +4752,7 @@ SELECT IDRecipe, IDDevice FROM RecipeDevice WHERE (IDDevice = @IDDevice) AND (ID
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5060,7 +5060,7 @@ SELECT IDIngred, IDRecipe, Quantity FROM RecipeIngredient WHERE (IDIngred = @IDI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5386,7 +5386,7 @@ SELECT IDIngred, IDRecipe, Quantity FROM RecipeIngredient WHERE (IDIngred = @IDI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::RecipeApp.Properties.Settings.Default.RecipeConnectionString;
+            this._connection.ConnectionString = global::DBLayer.Properties.Settings.Default.RecipeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
