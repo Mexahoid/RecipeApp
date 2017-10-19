@@ -95,6 +95,7 @@
             this.CtrlDGVNames.ColumnHeadersVisible = false;
             this.CtrlDGVNames.DataSource = this.CtrlBindSourceNames;
             this.CtrlDGVNames.Location = new System.Drawing.Point(13, 42);
+            this.CtrlDGVNames.MultiSelect = false;
             this.CtrlDGVNames.Name = "CtrlDGVNames";
             this.CtrlDGVNames.ReadOnly = true;
             this.CtrlDGVNames.RowHeadersVisible = false;
@@ -267,6 +268,7 @@
             this.Controls.Add(this.CtrlButReload);
             this.Name = "FormMain";
             this.Text = "Книга рецептов";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceNames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVNames)).EndInit();

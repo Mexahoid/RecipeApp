@@ -14,14 +14,13 @@ namespace RecipeApp
 {
     public partial class FormMain : Form
     {
-        public Connector connector;
+        private Connector connector;
         public FormMain()
         {
             InitializeComponent();
             CtrlDGVNames.AutoGenerateColumns = true;
             CtrlDGVIngreds.AutoGenerateColumns = true;
             CtrlDGVDevices.AutoGenerateColumns = true;
-            connector = new Connector();
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
@@ -88,6 +87,16 @@ namespace RecipeApp
                 return null;
             }
 
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            //if (!loaded)
+            {
+                connector = new Connector();
+                GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
+                CtrlDGVNames.ClearSelection();
+            }
         }
     }
 }
