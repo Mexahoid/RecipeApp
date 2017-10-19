@@ -14,14 +14,14 @@ namespace RecipeApp
 {
     public partial class FormMain : Form
     {
-        public Connector conn;
+        public Connector connector;
         public FormMain()
         {
             InitializeComponent();
             CtrlDGVNames.AutoGenerateColumns = true;
             CtrlDGVIngreds.AutoGenerateColumns = true;
             CtrlDGVDevices.AutoGenerateColumns = true;
-            conn = new Connector();
+            connector = new Connector();
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
@@ -48,26 +48,39 @@ namespace RecipeApp
                                          " WHERE R.Name = '" + str + "'";
             GetData(selectCommand, CtrlDGVIngreds, CtrlBindSourceIngreds);
 
+            selectCommand = "SELECT [Name] " +
+                            "FROM [Device] " +
+                            "WHERE ID " +
+                            " IN (SELECT [IDDevice] " +
+                            "FROM [RecipeDevice] " +
+                            "WHERE [IDRecipe] = " +
+                            "(SELECT [ID] " +
+                            "FROM [Recipe] " +
+                            "WHERE [Name] = '" + str + "')); ";
+
+            GetData(selectCommand, CtrlDGVDevices, CtrlBindSourceDevices);
+
             selectCommand = "SELECT R.[Description], R.[Link], T.[Name], K.[Name] " +
                             " FROM [Recipe] AS R"+
                             " LEFT JOIN [Type] AS T ON T.ID = R.IDType" +
                             " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
                             "  WHERE R.Name = '"+ str + "'";
             DataRowCollection rows = GetTable(selectCommand).Rows;
-            object[] Arr = rows[0].ItemArray;
+            object[] arr = rows[0].ItemArray;
 
-            CtrlTBText.Text = Arr[0].ToString();
-            str = Arr[3].ToString();
+            CtrlTBText.Text = arr[0].ToString();
+            str = arr[3].ToString();
             CtrlTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
-            CtrlTBLink.Text = Arr[1].ToString();
-            CtrlTBType.Text = Arr[2].ToString();
+            CtrlTBLink.Text = arr[1].ToString();
+            CtrlTBType.Text = arr[2].ToString();
+
         }
 
         private DataTable GetTable(string selectCommand)
         {
             try
             {
-                return conn.GetTable(selectCommand);
+                return connector.GetTable(selectCommand);
             }
             catch (SqlException exception)
             {
