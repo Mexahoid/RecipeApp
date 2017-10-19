@@ -34,6 +34,8 @@
             this.CtrlButReload = new System.Windows.Forms.Button();
             this.CtrlDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlPanel = new System.Windows.Forms.Panel();
+            this.CtrlTBType = new System.Windows.Forms.TextBox();
+            this.CtrlLblType = new System.Windows.Forms.Label();
             this.CtrlTBKitchen = new System.Windows.Forms.TextBox();
             this.CtrlLblKitchen = new System.Windows.Forms.Label();
             this.CtrlRecipeTabs = new System.Windows.Forms.TabControl();
@@ -47,8 +49,6 @@
             this.CtrlBindSourceDevices = new System.Windows.Forms.BindingSource(this.components);
             this.CtrlTBLink = new System.Windows.Forms.TextBox();
             this.CtrlLblLink = new System.Windows.Forms.Label();
-            this.CtrlTBType = new System.Windows.Forms.TextBox();
-            this.CtrlLblType = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceNames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVNames)).BeginInit();
@@ -95,6 +95,7 @@
             this.CtrlDGVNames.ColumnHeadersVisible = false;
             this.CtrlDGVNames.DataSource = this.CtrlBindSourceNames;
             this.CtrlDGVNames.Location = new System.Drawing.Point(13, 42);
+            this.CtrlDGVNames.MultiSelect = false;
             this.CtrlDGVNames.Name = "CtrlDGVNames";
             this.CtrlDGVNames.ReadOnly = true;
             this.CtrlDGVNames.RowHeadersVisible = false;
@@ -112,10 +113,27 @@
             this.CtrlPanel.Controls.Add(this.CtrlRecipeTabs);
             this.CtrlPanel.Controls.Add(this.CtrlTBLink);
             this.CtrlPanel.Controls.Add(this.CtrlLblLink);
-            this.CtrlPanel.Location = new System.Drawing.Point(352, 42);
+            this.CtrlPanel.Location = new System.Drawing.Point(279, 42);
             this.CtrlPanel.Name = "CtrlPanel";
             this.CtrlPanel.Size = new System.Drawing.Size(476, 468);
             this.CtrlPanel.TabIndex = 2;
+            // 
+            // CtrlTBType
+            // 
+            this.CtrlTBType.Location = new System.Drawing.Point(345, 38);
+            this.CtrlTBType.Name = "CtrlTBType";
+            this.CtrlTBType.ReadOnly = true;
+            this.CtrlTBType.Size = new System.Drawing.Size(128, 20);
+            this.CtrlTBType.TabIndex = 8;
+            // 
+            // CtrlLblType
+            // 
+            this.CtrlLblType.AutoSize = true;
+            this.CtrlLblType.Location = new System.Drawing.Point(296, 41);
+            this.CtrlLblType.Name = "CtrlLblType";
+            this.CtrlLblType.Size = new System.Drawing.Size(32, 13);
+            this.CtrlLblType.TabIndex = 7;
+            this.CtrlLblType.Text = "Тип: ";
             // 
             // CtrlTBKitchen
             // 
@@ -151,7 +169,7 @@
             this.CtrlTPRecipeText.Location = new System.Drawing.Point(4, 22);
             this.CtrlTPRecipeText.Name = "CtrlTPRecipeText";
             this.CtrlTPRecipeText.Padding = new System.Windows.Forms.Padding(3);
-            this.CtrlTPRecipeText.Size = new System.Drawing.Size(459, 330);
+            this.CtrlTPRecipeText.Size = new System.Drawing.Size(459, 375);
             this.CtrlTPRecipeText.TabIndex = 0;
             this.CtrlTPRecipeText.Text = "Текст рецепта";
             this.CtrlTPRecipeText.UseVisualStyleBackColor = true;
@@ -163,7 +181,7 @@
             this.CtrlTBText.Multiline = true;
             this.CtrlTBText.Name = "CtrlTBText";
             this.CtrlTBText.ReadOnly = true;
-            this.CtrlTBText.Size = new System.Drawing.Size(453, 324);
+            this.CtrlTBText.Size = new System.Drawing.Size(453, 369);
             this.CtrlTBText.TabIndex = 0;
             // 
             // CtrlTPRecipeIngreds
@@ -200,13 +218,16 @@
             this.CtrlTPRecipeDevices.Controls.Add(this.CtrlDGVDevices);
             this.CtrlTPRecipeDevices.Location = new System.Drawing.Point(4, 22);
             this.CtrlTPRecipeDevices.Name = "CtrlTPRecipeDevices";
-            this.CtrlTPRecipeDevices.Size = new System.Drawing.Size(459, 330);
+            this.CtrlTPRecipeDevices.Size = new System.Drawing.Size(459, 375);
             this.CtrlTPRecipeDevices.TabIndex = 2;
             this.CtrlTPRecipeDevices.Text = "Устройства";
             this.CtrlTPRecipeDevices.UseVisualStyleBackColor = true;
             // 
             // CtrlDGVDevices
             // 
+            this.CtrlDGVDevices.AllowUserToAddRows = false;
+            this.CtrlDGVDevices.AllowUserToDeleteRows = false;
+            this.CtrlDGVDevices.AllowUserToResizeColumns = false;
             this.CtrlDGVDevices.AutoGenerateColumns = false;
             this.CtrlDGVDevices.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CtrlDGVDevices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -217,7 +238,7 @@
             this.CtrlDGVDevices.Name = "CtrlDGVDevices";
             this.CtrlDGVDevices.ReadOnly = true;
             this.CtrlDGVDevices.RowHeadersVisible = false;
-            this.CtrlDGVDevices.Size = new System.Drawing.Size(459, 330);
+            this.CtrlDGVDevices.Size = new System.Drawing.Size(459, 375);
             this.CtrlDGVDevices.TabIndex = 0;
             // 
             // CtrlTBLink
@@ -237,33 +258,17 @@
             this.CtrlLblLink.TabIndex = 1;
             this.CtrlLblLink.Text = "Ссылка: ";
             // 
-            // CtrlTBType
-            // 
-            this.CtrlTBType.Location = new System.Drawing.Point(345, 38);
-            this.CtrlTBType.Name = "CtrlTBType";
-            this.CtrlTBType.ReadOnly = true;
-            this.CtrlTBType.Size = new System.Drawing.Size(128, 20);
-            this.CtrlTBType.TabIndex = 8;
-            // 
-            // CtrlLblType
-            // 
-            this.CtrlLblType.AutoSize = true;
-            this.CtrlLblType.Location = new System.Drawing.Point(296, 41);
-            this.CtrlLblType.Name = "CtrlLblType";
-            this.CtrlLblType.Size = new System.Drawing.Size(32, 13);
-            this.CtrlLblType.TabIndex = 7;
-            this.CtrlLblType.Text = "Тип: ";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 522);
+            this.ClientSize = new System.Drawing.Size(765, 522);
             this.Controls.Add(this.CtrlPanel);
             this.Controls.Add(this.CtrlDGVNames);
             this.Controls.Add(this.CtrlButReload);
             this.Name = "FormMain";
             this.Text = "Книга рецептов";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceNames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVNames)).EndInit();
