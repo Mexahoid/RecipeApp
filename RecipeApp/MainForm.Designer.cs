@@ -49,6 +49,39 @@
             this.CtrlBindSourceDevices = new System.Windows.Forms.BindingSource(this.components);
             this.CtrlTBLink = new System.Windows.Forms.TextBox();
             this.CtrlLblLink = new System.Windows.Forms.Label();
+            this.CtrlTCMain = new System.Windows.Forms.TabControl();
+            this.CtrlTabView = new System.Windows.Forms.TabPage();
+            this.CtrlTabEdit = new System.Windows.Forms.TabPage();
+            this.CtrlTCEdits = new System.Windows.Forms.TabControl();
+            this.CtrlTPRecipeAdder = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CtrlDGVRIngreds = new System.Windows.Forms.DataGridView();
+            this.CtrlBtnRAdd = new System.Windows.Forms.Button();
+            this.CtrlLBTypes = new System.Windows.Forms.ListBox();
+            this.CtrlLblRType = new System.Windows.Forms.Label();
+            this.CtrlLBDevices = new System.Windows.Forms.ListBox();
+            this.CtrlLblRDevice = new System.Windows.Forms.Label();
+            this.CtrlLBKitchens = new System.Windows.Forms.ListBox();
+            this.CtrlLblRKitchen = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CtrlLblRText = new System.Windows.Forms.Label();
+            this.CtrlLblRLink = new System.Windows.Forms.Label();
+            this.CtrlLblRName = new System.Windows.Forms.Label();
+            this.CtrlLblRRecipes = new System.Windows.Forms.Label();
+            this.CtrlDGVRRecipes = new System.Windows.Forms.DataGridView();
+            this.CtrlTPDevices = new System.Windows.Forms.TabPage();
+            this.CtrlGrBTablesChoice = new System.Windows.Forms.GroupBox();
+            this.CtrlRBTypes = new System.Windows.Forms.RadioButton();
+            this.CtrlRBDevices = new System.Windows.Forms.RadioButton();
+            this.CtrlRBKitchens = new System.Windows.Forms.RadioButton();
+            this.CtrlGrBTPDevices = new System.Windows.Forms.GroupBox();
+            this.CtrlBtnTPDevicesAdd = new System.Windows.Forms.Button();
+            this.CtrlTbTPDevicesName = new System.Windows.Forms.TextBox();
+            this.CtrlLblTPDevicesName = new System.Windows.Forms.Label();
+            this.CtrlLblTableText = new System.Windows.Forms.Label();
+            this.CtrlDGVRUniv = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceNames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.recipeDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVNames)).BeginInit();
@@ -61,6 +94,18 @@
             this.CtrlTPRecipeDevices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVDevices)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceDevices)).BeginInit();
+            this.CtrlTCMain.SuspendLayout();
+            this.CtrlTabView.SuspendLayout();
+            this.CtrlTabEdit.SuspendLayout();
+            this.CtrlTCEdits.SuspendLayout();
+            this.CtrlTPRecipeAdder.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRIngreds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRRecipes)).BeginInit();
+            this.CtrlTPDevices.SuspendLayout();
+            this.CtrlGrBTablesChoice.SuspendLayout();
+            this.CtrlGrBTPDevices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRUniv)).BeginInit();
             this.SuspendLayout();
             // 
             // CtrlBindSourceNames
@@ -75,7 +120,7 @@
             // 
             // CtrlButReload
             // 
-            this.CtrlButReload.Location = new System.Drawing.Point(13, 13);
+            this.CtrlButReload.Location = new System.Drawing.Point(3, 6);
             this.CtrlButReload.Name = "CtrlButReload";
             this.CtrlButReload.Size = new System.Drawing.Size(75, 23);
             this.CtrlButReload.TabIndex = 0;
@@ -94,7 +139,7 @@
             this.CtrlDGVNames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CtrlDGVNames.ColumnHeadersVisible = false;
             this.CtrlDGVNames.DataSource = this.CtrlBindSourceNames;
-            this.CtrlDGVNames.Location = new System.Drawing.Point(13, 42);
+            this.CtrlDGVNames.Location = new System.Drawing.Point(3, 32);
             this.CtrlDGVNames.MultiSelect = false;
             this.CtrlDGVNames.Name = "CtrlDGVNames";
             this.CtrlDGVNames.ReadOnly = true;
@@ -113,7 +158,7 @@
             this.CtrlPanel.Controls.Add(this.CtrlRecipeTabs);
             this.CtrlPanel.Controls.Add(this.CtrlTBLink);
             this.CtrlPanel.Controls.Add(this.CtrlLblLink);
-            this.CtrlPanel.Location = new System.Drawing.Point(279, 42);
+            this.CtrlPanel.Location = new System.Drawing.Point(269, 32);
             this.CtrlPanel.Name = "CtrlPanel";
             this.CtrlPanel.Size = new System.Drawing.Size(476, 468);
             this.CtrlPanel.TabIndex = 2;
@@ -258,14 +303,368 @@
             this.CtrlLblLink.TabIndex = 1;
             this.CtrlLblLink.Text = "Ссылка: ";
             // 
+            // CtrlTCMain
+            // 
+            this.CtrlTCMain.Controls.Add(this.CtrlTabView);
+            this.CtrlTCMain.Controls.Add(this.CtrlTabEdit);
+            this.CtrlTCMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CtrlTCMain.Location = new System.Drawing.Point(0, 0);
+            this.CtrlTCMain.Name = "CtrlTCMain";
+            this.CtrlTCMain.SelectedIndex = 0;
+            this.CtrlTCMain.Size = new System.Drawing.Size(756, 529);
+            this.CtrlTCMain.TabIndex = 3;
+            // 
+            // CtrlTabView
+            // 
+            this.CtrlTabView.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.CtrlTabView.Controls.Add(this.CtrlPanel);
+            this.CtrlTabView.Controls.Add(this.CtrlButReload);
+            this.CtrlTabView.Controls.Add(this.CtrlDGVNames);
+            this.CtrlTabView.ForeColor = System.Drawing.Color.Black;
+            this.CtrlTabView.Location = new System.Drawing.Point(4, 22);
+            this.CtrlTabView.Name = "CtrlTabView";
+            this.CtrlTabView.Padding = new System.Windows.Forms.Padding(3);
+            this.CtrlTabView.Size = new System.Drawing.Size(748, 503);
+            this.CtrlTabView.TabIndex = 0;
+            this.CtrlTabView.Text = "Книга рецептов";
+            // 
+            // CtrlTabEdit
+            // 
+            this.CtrlTabEdit.BackColor = System.Drawing.SystemColors.Control;
+            this.CtrlTabEdit.Controls.Add(this.CtrlTCEdits);
+            this.CtrlTabEdit.Location = new System.Drawing.Point(4, 22);
+            this.CtrlTabEdit.Name = "CtrlTabEdit";
+            this.CtrlTabEdit.Padding = new System.Windows.Forms.Padding(3);
+            this.CtrlTabEdit.Size = new System.Drawing.Size(748, 503);
+            this.CtrlTabEdit.TabIndex = 1;
+            this.CtrlTabEdit.Text = "Редактор";
+            // 
+            // CtrlTCEdits
+            // 
+            this.CtrlTCEdits.Controls.Add(this.CtrlTPRecipeAdder);
+            this.CtrlTCEdits.Controls.Add(this.CtrlTPDevices);
+            this.CtrlTCEdits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CtrlTCEdits.Location = new System.Drawing.Point(3, 3);
+            this.CtrlTCEdits.Name = "CtrlTCEdits";
+            this.CtrlTCEdits.SelectedIndex = 0;
+            this.CtrlTCEdits.Size = new System.Drawing.Size(742, 497);
+            this.CtrlTCEdits.TabIndex = 0;
+            // 
+            // CtrlTPRecipeAdder
+            // 
+            this.CtrlTPRecipeAdder.Controls.Add(this.groupBox1);
+            this.CtrlTPRecipeAdder.Controls.Add(this.CtrlLblRRecipes);
+            this.CtrlTPRecipeAdder.Controls.Add(this.CtrlDGVRRecipes);
+            this.CtrlTPRecipeAdder.Location = new System.Drawing.Point(4, 22);
+            this.CtrlTPRecipeAdder.Name = "CtrlTPRecipeAdder";
+            this.CtrlTPRecipeAdder.Padding = new System.Windows.Forms.Padding(3);
+            this.CtrlTPRecipeAdder.Size = new System.Drawing.Size(734, 471);
+            this.CtrlTPRecipeAdder.TabIndex = 0;
+            this.CtrlTPRecipeAdder.Text = "Добавление рецепта";
+            this.CtrlTPRecipeAdder.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.CtrlDGVRIngreds);
+            this.groupBox1.Controls.Add(this.CtrlBtnRAdd);
+            this.groupBox1.Controls.Add(this.CtrlLBTypes);
+            this.groupBox1.Controls.Add(this.CtrlLblRType);
+            this.groupBox1.Controls.Add(this.CtrlLBDevices);
+            this.groupBox1.Controls.Add(this.CtrlLblRDevice);
+            this.groupBox1.Controls.Add(this.CtrlLBKitchens);
+            this.groupBox1.Controls.Add(this.CtrlLblRKitchen);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.CtrlLblRText);
+            this.groupBox1.Controls.Add(this.CtrlLblRLink);
+            this.groupBox1.Controls.Add(this.CtrlLblRName);
+            this.groupBox1.Location = new System.Drawing.Point(212, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(516, 459);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Информация";
+            // 
+            // CtrlDGVRIngreds
+            // 
+            this.CtrlDGVRIngreds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CtrlDGVRIngreds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlDGVRIngreds.ColumnHeadersVisible = false;
+            this.CtrlDGVRIngreds.Location = new System.Drawing.Point(283, 112);
+            this.CtrlDGVRIngreds.Name = "CtrlDGVRIngreds";
+            this.CtrlDGVRIngreds.RowHeadersVisible = false;
+            this.CtrlDGVRIngreds.Size = new System.Drawing.Size(219, 296);
+            this.CtrlDGVRIngreds.TabIndex = 13;
+            // 
+            // CtrlBtnRAdd
+            // 
+            this.CtrlBtnRAdd.Location = new System.Drawing.Point(350, 430);
+            this.CtrlBtnRAdd.Name = "CtrlBtnRAdd";
+            this.CtrlBtnRAdd.Size = new System.Drawing.Size(75, 23);
+            this.CtrlBtnRAdd.TabIndex = 12;
+            this.CtrlBtnRAdd.Text = "Добавить";
+            this.CtrlBtnRAdd.UseVisualStyleBackColor = true;
+            // 
+            // CtrlLBTypes
+            // 
+            this.CtrlLBTypes.FormattingEnabled = true;
+            this.CtrlLBTypes.Location = new System.Drawing.Point(167, 358);
+            this.CtrlLBTypes.Name = "CtrlLBTypes";
+            this.CtrlLBTypes.Size = new System.Drawing.Size(95, 95);
+            this.CtrlLBTypes.TabIndex = 11;
+            // 
+            // CtrlLblRType
+            // 
+            this.CtrlLblRType.AutoSize = true;
+            this.CtrlLblRType.Location = new System.Drawing.Point(164, 342);
+            this.CtrlLblRType.Name = "CtrlLblRType";
+            this.CtrlLblRType.Size = new System.Drawing.Size(67, 13);
+            this.CtrlLblRType.TabIndex = 10;
+            this.CtrlLblRType.Text = "Тип блюда: ";
+            // 
+            // CtrlLBDevices
+            // 
+            this.CtrlLBDevices.FormattingEnabled = true;
+            this.CtrlLBDevices.Location = new System.Drawing.Point(167, 236);
+            this.CtrlLBDevices.Name = "CtrlLBDevices";
+            this.CtrlLBDevices.Size = new System.Drawing.Size(95, 95);
+            this.CtrlLBDevices.TabIndex = 9;
+            // 
+            // CtrlLblRDevice
+            // 
+            this.CtrlLblRDevice.AutoSize = true;
+            this.CtrlLblRDevice.Location = new System.Drawing.Point(164, 220);
+            this.CtrlLblRDevice.Name = "CtrlLblRDevice";
+            this.CtrlLblRDevice.Size = new System.Drawing.Size(73, 13);
+            this.CtrlLblRDevice.TabIndex = 8;
+            this.CtrlLblRDevice.Text = "Устройство: ";
+            // 
+            // CtrlLBKitchens
+            // 
+            this.CtrlLBKitchens.FormattingEnabled = true;
+            this.CtrlLBKitchens.Location = new System.Drawing.Point(167, 112);
+            this.CtrlLBKitchens.Name = "CtrlLBKitchens";
+            this.CtrlLBKitchens.Size = new System.Drawing.Size(95, 95);
+            this.CtrlLBKitchens.TabIndex = 7;
+            // 
+            // CtrlLblRKitchen
+            // 
+            this.CtrlLblRKitchen.AutoSize = true;
+            this.CtrlLblRKitchen.Location = new System.Drawing.Point(164, 96);
+            this.CtrlLblRKitchen.Name = "CtrlLblRKitchen";
+            this.CtrlLblRKitchen.Size = new System.Drawing.Size(42, 13);
+            this.CtrlLblRKitchen.TabIndex = 6;
+            this.CtrlLblRKitchen.Text = "Кухня: ";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(9, 112);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(152, 341);
+            this.textBox3.TabIndex = 5;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(75, 55);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(263, 20);
+            this.textBox2.TabIndex = 4;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(75, 27);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(263, 20);
+            this.textBox1.TabIndex = 3;
+            // 
+            // CtrlLblRText
+            // 
+            this.CtrlLblRText.AutoSize = true;
+            this.CtrlLblRText.Location = new System.Drawing.Point(6, 96);
+            this.CtrlLblRText.Name = "CtrlLblRText";
+            this.CtrlLblRText.Size = new System.Drawing.Size(43, 13);
+            this.CtrlLblRText.TabIndex = 2;
+            this.CtrlLblRText.Text = "Текст: ";
+            // 
+            // CtrlLblRLink
+            // 
+            this.CtrlLblRLink.AutoSize = true;
+            this.CtrlLblRLink.Location = new System.Drawing.Point(6, 58);
+            this.CtrlLblRLink.Name = "CtrlLblRLink";
+            this.CtrlLblRLink.Size = new System.Drawing.Size(52, 13);
+            this.CtrlLblRLink.TabIndex = 1;
+            this.CtrlLblRLink.Text = "Ссылка: ";
+            // 
+            // CtrlLblRName
+            // 
+            this.CtrlLblRName.AutoSize = true;
+            this.CtrlLblRName.Location = new System.Drawing.Point(6, 30);
+            this.CtrlLblRName.Name = "CtrlLblRName";
+            this.CtrlLblRName.Size = new System.Drawing.Size(63, 13);
+            this.CtrlLblRName.TabIndex = 0;
+            this.CtrlLblRName.Text = "Название: ";
+            // 
+            // CtrlLblRRecipes
+            // 
+            this.CtrlLblRRecipes.AutoSize = true;
+            this.CtrlLblRRecipes.Location = new System.Drawing.Point(6, 3);
+            this.CtrlLblRRecipes.Name = "CtrlLblRRecipes";
+            this.CtrlLblRRecipes.Size = new System.Drawing.Size(116, 13);
+            this.CtrlLblRRecipes.TabIndex = 3;
+            this.CtrlLblRRecipes.Text = "Имеющиеся рецепты";
+            // 
+            // CtrlDGVRRecipes
+            // 
+            this.CtrlDGVRRecipes.AllowUserToAddRows = false;
+            this.CtrlDGVRRecipes.AllowUserToDeleteRows = false;
+            this.CtrlDGVRRecipes.AllowUserToResizeColumns = false;
+            this.CtrlDGVRRecipes.AllowUserToResizeRows = false;
+            this.CtrlDGVRRecipes.AutoGenerateColumns = false;
+            this.CtrlDGVRRecipes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CtrlDGVRRecipes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlDGVRRecipes.ColumnHeadersVisible = false;
+            this.CtrlDGVRRecipes.DataSource = this.CtrlBindSourceNames;
+            this.CtrlDGVRRecipes.Location = new System.Drawing.Point(9, 19);
+            this.CtrlDGVRRecipes.MultiSelect = false;
+            this.CtrlDGVRRecipes.Name = "CtrlDGVRRecipes";
+            this.CtrlDGVRRecipes.ReadOnly = true;
+            this.CtrlDGVRRecipes.RowHeadersVisible = false;
+            this.CtrlDGVRRecipes.RowHeadersWidth = 18;
+            this.CtrlDGVRRecipes.Size = new System.Drawing.Size(197, 446);
+            this.CtrlDGVRRecipes.TabIndex = 2;
+            // 
+            // CtrlTPDevices
+            // 
+            this.CtrlTPDevices.Controls.Add(this.CtrlGrBTablesChoice);
+            this.CtrlTPDevices.Controls.Add(this.CtrlGrBTPDevices);
+            this.CtrlTPDevices.Controls.Add(this.CtrlLblTableText);
+            this.CtrlTPDevices.Controls.Add(this.CtrlDGVRUniv);
+            this.CtrlTPDevices.Location = new System.Drawing.Point(4, 22);
+            this.CtrlTPDevices.Name = "CtrlTPDevices";
+            this.CtrlTPDevices.Padding = new System.Windows.Forms.Padding(3);
+            this.CtrlTPDevices.Size = new System.Drawing.Size(734, 471);
+            this.CtrlTPDevices.TabIndex = 1;
+            this.CtrlTPDevices.Text = "Редактор";
+            this.CtrlTPDevices.UseVisualStyleBackColor = true;
+            // 
+            // CtrlGrBTablesChoice
+            // 
+            this.CtrlGrBTablesChoice.Controls.Add(this.CtrlRBTypes);
+            this.CtrlGrBTablesChoice.Controls.Add(this.CtrlRBDevices);
+            this.CtrlGrBTablesChoice.Controls.Add(this.CtrlRBKitchens);
+            this.CtrlGrBTablesChoice.Location = new System.Drawing.Point(182, 50);
+            this.CtrlGrBTablesChoice.Name = "CtrlGrBTablesChoice";
+            this.CtrlGrBTablesChoice.Size = new System.Drawing.Size(216, 100);
+            this.CtrlGrBTablesChoice.TabIndex = 8;
+            this.CtrlGrBTablesChoice.TabStop = false;
+            this.CtrlGrBTablesChoice.Text = "Выбор";
+            // 
+            // CtrlRBTypes
+            // 
+            this.CtrlRBTypes.AutoSize = true;
+            this.CtrlRBTypes.Location = new System.Drawing.Point(6, 43);
+            this.CtrlRBTypes.Name = "CtrlRBTypes";
+            this.CtrlRBTypes.Size = new System.Drawing.Size(81, 17);
+            this.CtrlRBTypes.TabIndex = 6;
+            this.CtrlRBTypes.Text = "Типы блюд";
+            this.CtrlRBTypes.UseVisualStyleBackColor = true;
+            // 
+            // CtrlRBDevices
+            // 
+            this.CtrlRBDevices.AutoSize = true;
+            this.CtrlRBDevices.Location = new System.Drawing.Point(6, 66);
+            this.CtrlRBDevices.Name = "CtrlRBDevices";
+            this.CtrlRBDevices.Size = new System.Drawing.Size(85, 17);
+            this.CtrlRBDevices.TabIndex = 7;
+            this.CtrlRBDevices.Text = "Устройства";
+            this.CtrlRBDevices.UseVisualStyleBackColor = true;
+            // 
+            // CtrlRBKitchens
+            // 
+            this.CtrlRBKitchens.AutoSize = true;
+            this.CtrlRBKitchens.Checked = true;
+            this.CtrlRBKitchens.Location = new System.Drawing.Point(6, 20);
+            this.CtrlRBKitchens.Name = "CtrlRBKitchens";
+            this.CtrlRBKitchens.Size = new System.Drawing.Size(54, 17);
+            this.CtrlRBKitchens.TabIndex = 5;
+            this.CtrlRBKitchens.TabStop = true;
+            this.CtrlRBKitchens.Text = "Кухни";
+            this.CtrlRBKitchens.UseVisualStyleBackColor = true;
+            // 
+            // CtrlGrBTPDevices
+            // 
+            this.CtrlGrBTPDevices.Controls.Add(this.CtrlBtnTPDevicesAdd);
+            this.CtrlGrBTPDevices.Controls.Add(this.CtrlTbTPDevicesName);
+            this.CtrlGrBTPDevices.Controls.Add(this.CtrlLblTPDevicesName);
+            this.CtrlGrBTPDevices.Location = new System.Drawing.Point(182, 176);
+            this.CtrlGrBTPDevices.Name = "CtrlGrBTPDevices";
+            this.CtrlGrBTPDevices.Size = new System.Drawing.Size(216, 117);
+            this.CtrlGrBTPDevices.TabIndex = 4;
+            this.CtrlGrBTPDevices.TabStop = false;
+            this.CtrlGrBTPDevices.Text = "Добавление";
+            // 
+            // CtrlBtnTPDevicesAdd
+            // 
+            this.CtrlBtnTPDevicesAdd.Location = new System.Drawing.Point(9, 83);
+            this.CtrlBtnTPDevicesAdd.Name = "CtrlBtnTPDevicesAdd";
+            this.CtrlBtnTPDevicesAdd.Size = new System.Drawing.Size(75, 23);
+            this.CtrlBtnTPDevicesAdd.TabIndex = 2;
+            this.CtrlBtnTPDevicesAdd.Text = "Добавить";
+            this.CtrlBtnTPDevicesAdd.UseVisualStyleBackColor = true;
+            // 
+            // CtrlTbTPDevicesName
+            // 
+            this.CtrlTbTPDevicesName.Location = new System.Drawing.Point(69, 31);
+            this.CtrlTbTPDevicesName.Name = "CtrlTbTPDevicesName";
+            this.CtrlTbTPDevicesName.Size = new System.Drawing.Size(138, 20);
+            this.CtrlTbTPDevicesName.TabIndex = 1;
+            // 
+            // CtrlLblTPDevicesName
+            // 
+            this.CtrlLblTPDevicesName.AutoSize = true;
+            this.CtrlLblTPDevicesName.Location = new System.Drawing.Point(6, 34);
+            this.CtrlLblTPDevicesName.Name = "CtrlLblTPDevicesName";
+            this.CtrlLblTPDevicesName.Size = new System.Drawing.Size(60, 13);
+            this.CtrlLblTPDevicesName.TabIndex = 0;
+            this.CtrlLblTPDevicesName.Text = "Название:";
+            // 
+            // CtrlLblTableText
+            // 
+            this.CtrlLblTableText.AutoSize = true;
+            this.CtrlLblTableText.Location = new System.Drawing.Point(7, 13);
+            this.CtrlLblTableText.Name = "CtrlLblTableText";
+            this.CtrlLblTableText.Size = new System.Drawing.Size(36, 13);
+            this.CtrlLblTableText.TabIndex = 3;
+            this.CtrlLblTableText.Text = "Кухни";
+            // 
+            // CtrlDGVRUniv
+            // 
+            this.CtrlDGVRUniv.AllowUserToAddRows = false;
+            this.CtrlDGVRUniv.AllowUserToDeleteRows = false;
+            this.CtrlDGVRUniv.AllowUserToResizeColumns = false;
+            this.CtrlDGVRUniv.AllowUserToResizeRows = false;
+            this.CtrlDGVRUniv.AutoGenerateColumns = false;
+            this.CtrlDGVRUniv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CtrlDGVRUniv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlDGVRUniv.ColumnHeadersVisible = false;
+            this.CtrlDGVRUniv.DataSource = this.CtrlBindSourceNames;
+            this.CtrlDGVRUniv.Location = new System.Drawing.Point(10, 50);
+            this.CtrlDGVRUniv.MultiSelect = false;
+            this.CtrlDGVRUniv.Name = "CtrlDGVRUniv";
+            this.CtrlDGVRUniv.ReadOnly = true;
+            this.CtrlDGVRUniv.RowHeadersVisible = false;
+            this.CtrlDGVRUniv.RowHeadersWidth = 18;
+            this.CtrlDGVRUniv.Size = new System.Drawing.Size(155, 415);
+            this.CtrlDGVRUniv.TabIndex = 2;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(765, 522);
-            this.Controls.Add(this.CtrlPanel);
-            this.Controls.Add(this.CtrlDGVNames);
-            this.Controls.Add(this.CtrlButReload);
+            this.ClientSize = new System.Drawing.Size(756, 529);
+            this.Controls.Add(this.CtrlTCMain);
             this.Name = "FormMain";
             this.Text = "Книга рецептов";
             this.Load += new System.EventHandler(this.FormMain_Load);
@@ -283,6 +682,23 @@
             this.CtrlTPRecipeDevices.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVDevices)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlBindSourceDevices)).EndInit();
+            this.CtrlTCMain.ResumeLayout(false);
+            this.CtrlTabView.ResumeLayout(false);
+            this.CtrlTabEdit.ResumeLayout(false);
+            this.CtrlTCEdits.ResumeLayout(false);
+            this.CtrlTPRecipeAdder.ResumeLayout(false);
+            this.CtrlTPRecipeAdder.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRIngreds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRRecipes)).EndInit();
+            this.CtrlTPDevices.ResumeLayout(false);
+            this.CtrlTPDevices.PerformLayout();
+            this.CtrlGrBTablesChoice.ResumeLayout(false);
+            this.CtrlGrBTablesChoice.PerformLayout();
+            this.CtrlGrBTPDevices.ResumeLayout(false);
+            this.CtrlGrBTPDevices.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlDGVRUniv)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -309,6 +725,39 @@
         private System.Windows.Forms.BindingSource CtrlBindSourceDevices;
         private System.Windows.Forms.TextBox CtrlTBType;
         private System.Windows.Forms.Label CtrlLblType;
+        private System.Windows.Forms.TabControl CtrlTCMain;
+        private System.Windows.Forms.TabPage CtrlTabView;
+        private System.Windows.Forms.TabPage CtrlTabEdit;
+        private System.Windows.Forms.TabControl CtrlTCEdits;
+        private System.Windows.Forms.TabPage CtrlTPRecipeAdder;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label CtrlLblRRecipes;
+        private System.Windows.Forms.DataGridView CtrlDGVRRecipes;
+        private System.Windows.Forms.TabPage CtrlTPDevices;
+        private System.Windows.Forms.GroupBox CtrlGrBTablesChoice;
+        private System.Windows.Forms.RadioButton CtrlRBTypes;
+        private System.Windows.Forms.RadioButton CtrlRBDevices;
+        private System.Windows.Forms.RadioButton CtrlRBKitchens;
+        private System.Windows.Forms.GroupBox CtrlGrBTPDevices;
+        private System.Windows.Forms.Button CtrlBtnTPDevicesAdd;
+        private System.Windows.Forms.TextBox CtrlTbTPDevicesName;
+        private System.Windows.Forms.Label CtrlLblTPDevicesName;
+        private System.Windows.Forms.Label CtrlLblTableText;
+        private System.Windows.Forms.DataGridView CtrlDGVRUniv;
+        private System.Windows.Forms.Button CtrlBtnRAdd;
+        private System.Windows.Forms.ListBox CtrlLBTypes;
+        private System.Windows.Forms.Label CtrlLblRType;
+        private System.Windows.Forms.ListBox CtrlLBDevices;
+        private System.Windows.Forms.Label CtrlLblRDevice;
+        private System.Windows.Forms.ListBox CtrlLBKitchens;
+        private System.Windows.Forms.Label CtrlLblRKitchen;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label CtrlLblRText;
+        private System.Windows.Forms.Label CtrlLblRLink;
+        private System.Windows.Forms.Label CtrlLblRName;
+        private System.Windows.Forms.DataGridView CtrlDGVRIngreds;
     }
 }
 

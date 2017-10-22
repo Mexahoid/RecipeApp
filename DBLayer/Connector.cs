@@ -6,18 +6,17 @@ namespace DBLayer
 {
     public class Connector
     {
-        private readonly string connectionString;
+        private readonly string _connectionString;
         public Connector()
         {
-            connectionString = Properties.Settings.Default.RecipeConnectionString;
+            _connectionString = Properties.Settings.Default.RecipeConnectionString;
         }
+
         public DataTable GetTable(string selectCommand)
         {
-            try
+            using (var conn = new SqlConnection(_connectionString))
             {
-                var dataAdapter = new SqlDataAdapter(selectCommand, connectionString);
-
-
+                var dataAdapter = new SqlDataAdapter(selectCommand, conn);
                 var table = new DataTable
                 {
                     Locale = System.Globalization.CultureInfo.InvariantCulture
@@ -25,11 +24,6 @@ namespace DBLayer
                 dataAdapter.Fill(table);
                 return table;
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
         }
     }
 }

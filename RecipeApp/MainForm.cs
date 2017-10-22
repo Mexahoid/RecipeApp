@@ -14,18 +14,21 @@ namespace RecipeApp
 {
     public partial class FormMain : Form
     {
-        private Connector connector;
+        private Connector _connector;
         public FormMain()
         {
             InitializeComponent();
             CtrlDGVNames.AutoGenerateColumns = true;
             CtrlDGVIngreds.AutoGenerateColumns = true;
             CtrlDGVDevices.AutoGenerateColumns = true;
+            CtrlDGVRRecipes.AutoGenerateColumns = true;
+            CtrlDGVRIngreds.AutoGenerateColumns = true;
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
         {
             GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
+            GetData("Select Name From Recipe", CtrlDGVRRecipes, CtrlBindSourceNames);
         }
 
         private void GetData(string selectCommand, DataGridView DGV, BindingSource BS)
@@ -55,15 +58,15 @@ namespace RecipeApp
                             "WHERE [IDRecipe] = " +
                             "(SELECT [ID] " +
                             "FROM [Recipe] " +
-                            "WHERE [Name] = '" + str + "')); ";
+                            "WHERE [Name] = '" + str + "')) ";
 
             GetData(selectCommand, CtrlDGVDevices, CtrlBindSourceDevices);
 
             selectCommand = "SELECT R.[Description], R.[Link], T.[Name], K.[Name] " +
-                            " FROM [Recipe] AS R"+
+                            " FROM [Recipe] AS R" +
                             " LEFT JOIN [Type] AS T ON T.ID = R.IDType" +
                             " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
-                            "  WHERE R.Name = '"+ str + "'";
+                            " WHERE R.Name = '" + str + "'";
             DataRowCollection rows = GetTable(selectCommand).Rows;
             object[] arr = rows[0].ItemArray;
 
@@ -79,7 +82,7 @@ namespace RecipeApp
         {
             try
             {
-                return connector.GetTable(selectCommand);
+                return _connector.GetTable(selectCommand);
             }
             catch (SqlException exception)
             {
@@ -91,12 +94,9 @@ namespace RecipeApp
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            //if (!loaded)
-            {
-                connector = new Connector();
-                GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
-                CtrlDGVNames.ClearSelection();
-            }
+            _connector = new Connector();
+            GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
+            CtrlDGVNames.ClearSelection();
         }
     }
 }

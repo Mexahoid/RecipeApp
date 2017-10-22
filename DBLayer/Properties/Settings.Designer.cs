@@ -26,7 +26,8 @@ namespace DBLayer.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MEX-NOTEBOOK;Initial Catalog=Recipe;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MEX-PC\\SQLDEV;Initial Catalog=Recipe;Integrated Security=True")]
+        //[global::System.Configuration.DefaultSettingValueAttribute("Data Source=MEX-NOTEBOOK;Initial Catalog=Recipe;Integrated Security=True")]
         public string RecipeConnectionString {
             get {
                 return ((string)(this["RecipeConnectionString"]));
