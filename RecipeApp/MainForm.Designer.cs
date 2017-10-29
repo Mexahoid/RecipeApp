@@ -570,6 +570,7 @@
             this.CtrlRBTypes.TabIndex = 6;
             this.CtrlRBTypes.Text = "Типы блюд";
             this.CtrlRBTypes.UseVisualStyleBackColor = true;
+            this.CtrlRBTypes.CheckedChanged += new System.EventHandler(this.CtrlRB_CheckedChanged);
             // 
             // CtrlRBDevices
             // 
@@ -580,6 +581,7 @@
             this.CtrlRBDevices.TabIndex = 7;
             this.CtrlRBDevices.Text = "Устройства";
             this.CtrlRBDevices.UseVisualStyleBackColor = true;
+            this.CtrlRBDevices.CheckedChanged += new System.EventHandler(this.CtrlRB_CheckedChanged);
             // 
             // CtrlRBKitchens
             // 
@@ -592,6 +594,7 @@
             this.CtrlRBKitchens.TabStop = true;
             this.CtrlRBKitchens.Text = "Кухни";
             this.CtrlRBKitchens.UseVisualStyleBackColor = true;
+            this.CtrlRBKitchens.CheckedChanged += new System.EventHandler(this.CtrlRB_CheckedChanged);
             // 
             // CtrlGrBTPDevices
             // 

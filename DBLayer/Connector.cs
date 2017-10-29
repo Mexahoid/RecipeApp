@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 
 namespace DBLayer
@@ -11,18 +12,36 @@ namespace DBLayer
         {
             _connectionString = Properties.Settings.Default.RecipeConnectionString;
         }
+        
 
-        public DataTable GetTable(string selectCommand)
+        public DataTable GetTable(string selectCommand, params Tuple<string, string>[] tuples)
         {
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(_connectionString))  //Заменяет трай кэтч
             {
-                var dataAdapter = new SqlDataAdapter(selectCommand, conn);
-                var table = new DataTable
+                SqlCommand cmd = new SqlCommand(selectCommand, conn);
+
+                foreach (var tuple in tuples)
                 {
-                    Locale = System.Globalization.CultureInfo.InvariantCulture
-                };
-                dataAdapter.Fill(table);
-                return table;
+                    cmd.Parameters.AddWithValue(tuple.Item1, tuple.Item2);
+                }
+                
+                try
+                {
+                    conn.Open();
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    var table = new DataTable
+                    {
+                        Locale = System.Globalization.CultureInfo.InvariantCulture
+                    };
+                    table.Load(rd);
+                    return table;
+
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
     }

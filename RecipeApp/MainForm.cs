@@ -15,6 +15,7 @@ namespace RecipeApp
     public partial class FormMain : Form
     {
         private Connector _connector;
+        private QueryFactory _queries;
         public FormMain()
         {
             InitializeComponent();
@@ -27,13 +28,21 @@ namespace RecipeApp
 
         private void CtrlButReload_Click(object sender, EventArgs e)
         {
-            GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
-            GetData("Select Name From Recipe", CtrlDGVRRecipes, CtrlBindSourceNames);
+            //GetRecipesNames();
         }
 
-        private void GetData(string selectCommand, DataGridView DGV, BindingSource BS)
+
+        private void GetRecipesNames()
         {
-            DataTable table = GetTable(selectCommand);
+            var str = _queries.GetQuery(QueryFactory.Queries.QuerySelectRecipeNames);
+
+            GetData(CtrlDGVNames, CtrlBindSourceNames, str);
+            GetData(CtrlDGVRRecipes, CtrlBindSourceNames, str);
+        }
+
+        private void GetData(DataGridView DGV, BindingSource BS, string selectCommand, params Tuple<string, string>[] tuples)
+        {
+            DataTable table = GetTable(selectCommand, tuples);
 
             BS.DataSource = table;
             DGV.DataSource = null;
@@ -43,32 +52,25 @@ namespace RecipeApp
         private void CtrlDGVNames_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string str = (string)CtrlDGVNames.Rows[CtrlDGVNames.CurrentCell.RowIndex].Cells[0].Value;
-            string selectCommand = "SELECT I.[Name] AS 'Название', RI.[Quantity] AS 'Количество', I.[Units] AS 'Единицы измерения'" +
-                                         " FROM [RecipeIngredient] AS RI" +
-                                         " LEFT JOIN [Recipe] AS R ON R.ID = RI.IDRecipe" +
-                                         " LEFT JOIN [Ingredient] AS I ON I.ID = RI.IDIngred" +
-                                         " WHERE R.Name = '" + str + "'";
-            GetData(selectCommand, CtrlDGVIngreds, CtrlBindSourceIngreds);
+            string selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectIngreds);
+            Tuple<string, string> pars = new Tuple<string, string>("@Name", str);
 
-            selectCommand = "SELECT [Name] " +
-                            "FROM [Device] " +
-                            "WHERE ID " +
-                            " IN (SELECT [IDDevice] " +
-                            "FROM [RecipeDevice] " +
-                            "WHERE [IDRecipe] = " +
-                            "(SELECT [ID] " +
-                            "FROM [Recipe] " +
-                            "WHERE [Name] = '" + str + "')) ";
+            GetData(CtrlDGVIngreds, CtrlBindSourceIngreds, selectCommand, pars);
 
-            GetData(selectCommand, CtrlDGVDevices, CtrlBindSourceDevices);
+            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectDevices);
+            GetData(CtrlDGVDevices, CtrlBindSourceDevices, selectCommand, pars);
 
-            selectCommand = "SELECT R.[Description], R.[Link], T.[Name], K.[Name] " +
-                            " FROM [Recipe] AS R" +
-                            " LEFT JOIN [Type] AS T ON T.ID = R.IDType" +
-                            " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
-                            " WHERE R.Name = '" + str + "'";
-            DataRowCollection rows = GetTable(selectCommand).Rows;
-            object[] arr = rows[0].ItemArray;
+            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectMiscData);
+            DataRowCollection rows = GetTable(selectCommand, pars).Rows;
+            object[] arr;
+            if (rows.Count != 0)
+            {
+                arr = rows[0].ItemArray;
+            }
+            else
+            {
+                arr = new object[]{"Ошибка вызова", "Ошибка вызова", "Ошибка вызова", ""};
+            }
 
             CtrlTBText.Text = arr[0].ToString();
             str = arr[3].ToString();
@@ -78,11 +80,11 @@ namespace RecipeApp
 
         }
 
-        private DataTable GetTable(string selectCommand)
+        private DataTable GetTable(string selectCommand, params Tuple<string, string>[] tuples)
         {
             try
             {
-                return _connector.GetTable(selectCommand);
+                return _connector.GetTable(selectCommand, tuples);
             }
             catch (SqlException exception)
             {
@@ -95,8 +97,15 @@ namespace RecipeApp
         private void FormMain_Load(object sender, EventArgs e)
         {
             _connector = new Connector();
-            GetData("Select Name From Recipe", CtrlDGVNames, CtrlBindSourceNames);
+            _queries = new QueryFactory();
+            GetRecipesNames();
             CtrlDGVNames.ClearSelection();
+            CtrlDGVRRecipes.ClearSelection();
+        }
+
+        private void CtrlRB_CheckedChanged(object sender, EventArgs e)
+        {
+            CtrlLblTableText.Text = (sender as Control)?.Text;
         }
     }
 }
