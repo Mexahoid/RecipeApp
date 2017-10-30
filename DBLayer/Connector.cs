@@ -18,7 +18,7 @@ namespace DBLayer
         {
             using (var conn = new SqlConnection(_connectionString))  //Заменяет трай кэтч
             {
-                SqlCommand cmd = new SqlCommand(selectCommand, conn);
+                var cmd = new SqlCommand(selectCommand, conn);
 
                 foreach (var tuple in tuples)
                 {
@@ -28,7 +28,7 @@ namespace DBLayer
                 try
                 {
                     conn.Open();
-                    SqlDataReader rd = cmd.ExecuteReader();
+                    var rd = cmd.ExecuteReader();
 
                     var table = new DataTable
                     {
