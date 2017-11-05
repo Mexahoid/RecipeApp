@@ -13,7 +13,11 @@ namespace DBLayer
             
             QueryRedactorSelectKitchens,
             QueryRedactorSelectDevices,
-            QueryRedactorSelectTypes
+            QueryRedactorSelectTypes,
+            
+            QueryRedactorInsertNewKitchen,
+            QueryRedactorInsertNewDevice,
+            QueryRedactorInsertNewType
         }
 
         private readonly string[] _queries;
@@ -28,7 +32,7 @@ namespace DBLayer
                 " FROM RecipeIngredient AS RI" +
                 " LEFT JOIN Recipe AS R ON R.ID = RI.IDRecipe" +
                 " LEFT JOIN Ingredient AS I ON I.ID = RI.IDIngred" +
-                " WHERE R.Name = '@Name'",            //Вывод списка ингредиентов для первой вкладки
+                " WHERE R.Name = @Name",            //Вывод списка ингредиентов для первой вкладки
 
                 "SELECT Name " +
                 "FROM Device " +
@@ -38,19 +42,25 @@ namespace DBLayer
                 "WHERE IDRecipe = " +
                 "(SELECT ID " +
                 "FROM Recipe " +
-                "WHERE Name = '@Name'))",             //Вывод списка устройств для данного рецепта на первой вкладке
+                "WHERE Name = @Name))",             //Вывод списка устройств для данного рецепта на первой вкладке
 
                 "SELECT R.[Description], R.[Link], T.[Name], K.[Name] " +
                 " FROM [Recipe] AS R" +
                 " LEFT JOIN [Type] AS T ON T.ID = R.IDType" +
                 " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
-                " WHERE R.Name = '@Name'",            //Вывод MiscData для рецепта на первой вкладке
+                " WHERE R.Name = @Name",            //Вывод MiscData для рецепта на первой вкладке
 
-                "",
+                "SELECT Name FROM Kitchen",
 
-                "",
+                "SELECT Name FROM Device",
 
-                ""
+                "SELECT Name FROM Type",
+
+                "INSERT INTO Kitchen VALUES (@Name)",
+
+                "INSERT INTO Device VALUES (@Name)",
+
+                "INSERT INTO Type VALUES (@Name)",
             };
         }
 

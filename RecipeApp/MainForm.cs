@@ -24,6 +24,7 @@ namespace RecipeApp
             CtrlDGVDevices.AutoGenerateColumns = true;
             CtrlDGVRRecipes.AutoGenerateColumns = true;
             CtrlDGVRIngreds.AutoGenerateColumns = true;
+            CtrlDGVRUniv.AutoGenerateColumns = true;
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace RecipeApp
             }
             else
             {
-                arr = new object[]{"Ошибка вызова", "Ошибка вызова", "Ошибка вызова", ""};
+                arr = new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
             }
 
             CtrlTBText.Text = arr[0].ToString();
@@ -88,8 +89,16 @@ namespace RecipeApp
             }
             catch (SqlException exception)
             {
-                MessageBox.Show(exception.Message);
-                return null;
+                switch (exception.Number)
+                {
+                    case 2627:
+                        MessageBox.Show("Нельзя создавать дублирующие записи");
+                        return null;
+
+                    default:
+                        MessageBox.Show(exception.Message);
+                        return null;
+                }
             }
 
         }
@@ -106,6 +115,24 @@ namespace RecipeApp
         private void CtrlRB_CheckedChanged(object sender, EventArgs e)
         {
             CtrlLblTableText.Text = (sender as Control)?.Text;
+            CtrlGrBRTablesChoice.Tag = (sender as Control)?.Tag;
+            ShowUnivTable();
+            CtrlGrBRAdder.Enabled = true;
+        }
+
+        private void ShowUnivTable()
+        {
+            string query = _queries.GetQuery((QueryFactory.Queries)Convert.ToInt32(CtrlGrBRTablesChoice.Tag));
+            GetData(CtrlDGVRUniv, CtrlBindSourceUniv, query);
+        }
+
+
+        private void CtrlBtnTPDevicesAdd_Click(object sender, EventArgs e)
+        {
+            string query = _queries.GetQuery((QueryFactory.Queries)Convert.ToInt32(CtrlGrBRTablesChoice.Tag) + 3);
+            Tuple<string, string> nameTuple = new Tuple<string, string>("@Name", CtrlTbTPName.Text);
+            GetTable(query, nameTuple);
+            ShowUnivTable();
         }
     }
 }
