@@ -17,7 +17,10 @@ namespace DBLayer
             
             QueryRedactorInsertNewKitchen,
             QueryRedactorInsertNewDevice,
-            QueryRedactorInsertNewType
+            QueryRedactorInsertNewType,
+
+            QueryRedactorInsertIngreds,
+            QueryRedactorSelectPureIngreds
         }
 
         private readonly string[] _queries;
@@ -61,6 +64,10 @@ namespace DBLayer
                 "INSERT INTO Device VALUES (@Name)",
 
                 "INSERT INTO Type VALUES (@Name)",
+
+                "INSERT INTO Ingredient VALUES (@Name, @Units)",
+
+                "SELECT [Name] AS 'Название', [Units] AS 'Единицы измерения' FROM Ingredient"
             };
         }
 

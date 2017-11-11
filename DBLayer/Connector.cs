@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Data.OleDb;
 using System.Data.SqlClient;
 
 namespace DBLayer
@@ -28,7 +27,7 @@ namespace DBLayer
                 try
                 {
                     conn.Open();
-                    var rd = cmd.ExecuteReader();
+                    SqlDataReader rd = cmd.ExecuteReader();
 
                     var table = new DataTable
                     {

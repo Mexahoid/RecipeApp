@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -19,12 +20,15 @@ namespace RecipeApp
         public FormMain()
         {
             InitializeComponent();
-            CtrlDGVNames.AutoGenerateColumns = true;
-            CtrlDGVIngreds.AutoGenerateColumns = true;
-            CtrlDGVDevices.AutoGenerateColumns = true;
-            CtrlDGVRRecipes.AutoGenerateColumns = true;
-            CtrlDGVRIngreds.AutoGenerateColumns = true;
+            CtrlViewDGVNames.AutoGenerateColumns = true;
+            CtrlViewDGVIngreds.AutoGenerateColumns = true;
+            CtrlViewDGVDevices.AutoGenerateColumns = true;
+            CtrlEditorDGVNames.AutoGenerateColumns = true;
+            CtrlEditorInfoDGVRNewIngreds.AutoGenerateColumns = true;
             CtrlDGVRUniv.AutoGenerateColumns = true;
+            //CtrlEditorInfoDGVRNewIngreds.ColumnCount = 3;
+            //CtrlEditorInfoDGVRNewIngreds.RowCount = 1;
+            CtrlEditorDGVIngredsView.AutoGenerateColumns = true;
         }
 
         private void CtrlButReload_Click(object sender, EventArgs e)
@@ -37,48 +41,42 @@ namespace RecipeApp
         {
             var str = _queries.GetQuery(QueryFactory.Queries.QuerySelectRecipeNames);
 
-            GetData(CtrlDGVNames, CtrlBindSourceNames, str);
-            GetData(CtrlDGVRRecipes, CtrlBindSourceNames, str);
+            GetData(CtrlViewDGVNames, str);
+            GetData(CtrlEditorDGVNames, str);
         }
 
-        private void GetData(DataGridView DGV, BindingSource BS, string selectCommand, params Tuple<string, string>[] tuples)
+        private void GetData(DataGridView DGV, string selectCommand, params Tuple<string, string>[] tuples)
         {
-            DataTable table = GetTable(selectCommand, tuples);
-
-            BS.DataSource = table;
-            DGV.DataSource = null;
-            DGV.DataSource = BS;
+            DGV.DataSource = GetTable(selectCommand, tuples);
         }
+        private void GetData(ListControl LB, string selectCommand, params Tuple<string, string>[] tuples)
+        {
+            LB.DataSource = GetTable(selectCommand, tuples);
+            LB.DisplayMember = "Name";
+        }
+
+
 
         private void CtrlDGVNames_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string str = (string)CtrlDGVNames.Rows[CtrlDGVNames.CurrentCell.RowIndex].Cells[0].Value;
+            string str = (string)CtrlViewDGVNames.Rows[CtrlViewDGVNames.CurrentCell.RowIndex].Cells[0].Value;
             string selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectIngreds);
             Tuple<string, string> pars = new Tuple<string, string>("@Name", str);
 
-            GetData(CtrlDGVIngreds, CtrlBindSourceIngreds, selectCommand, pars);
+            GetData(CtrlViewDGVIngreds, selectCommand, pars);
 
             selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectDevices);
-            GetData(CtrlDGVDevices, CtrlBindSourceDevices, selectCommand, pars);
+            GetData(CtrlViewDGVDevices, selectCommand, pars);
 
             selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectMiscData);
             DataRowCollection rows = GetTable(selectCommand, pars).Rows;
-            object[] arr;
-            if (rows.Count != 0)
-            {
-                arr = rows[0].ItemArray;
-            }
-            else
-            {
-                arr = new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
-            }
+            var arr = rows.Count != 0 ? rows[0].ItemArray : new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
 
-            CtrlTBText.Text = arr[0].ToString();
+            CtrlViewTBText.Text = arr[0].ToString();
             str = arr[3].ToString();
-            CtrlTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
-            CtrlTBLink.Text = arr[1].ToString();
-            CtrlTBType.Text = arr[2].ToString();
-
+            CtrlViewTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
+            CtrlViewTBLink.Text = arr[1].ToString();
+            CtrlViewTBType.Text = arr[2].ToString();
         }
 
         private DataTable GetTable(string selectCommand, params Tuple<string, string>[] tuples)
@@ -108,8 +106,10 @@ namespace RecipeApp
             _connector = new Connector();
             _queries = new QueryFactory();
             GetRecipesNames();
-            CtrlDGVNames.ClearSelection();
-            CtrlDGVRRecipes.ClearSelection();
+            CtrlViewDGVNames.ClearSelection();
+            CtrlEditorDGVNames.ClearSelection();
+            ShowIngredsPure();
+            FillListBoxes();
         }
 
         private void CtrlRB_CheckedChanged(object sender, EventArgs e)
@@ -123,16 +123,42 @@ namespace RecipeApp
         private void ShowUnivTable()
         {
             string query = _queries.GetQuery((QueryFactory.Queries)Convert.ToInt32(CtrlGrBRTablesChoice.Tag));
-            GetData(CtrlDGVRUniv, CtrlBindSourceUniv, query);
+            GetData(CtrlDGVRUniv, query);
         }
 
 
         private void CtrlBtnTPDevicesAdd_Click(object sender, EventArgs e)
         {
             string query = _queries.GetQuery((QueryFactory.Queries)Convert.ToInt32(CtrlGrBRTablesChoice.Tag) + 3);
-            Tuple<string, string> nameTuple = new Tuple<string, string>("@Name", CtrlTbTPName.Text);
-            GetTable(query, nameTuple);
+            GetTable(query, new Tuple<string, string>("@Name", CtrlTbTPName.Text));
             ShowUnivTable();
+        }
+
+        private void CtrlEditorBtnIngredsAdd_Click(object sender, EventArgs e)
+        {
+            string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorInsertIngreds);
+            string name = CtrlEditorTBIngredsName.Text;
+            string units = CtrlEditorTBIngredsUnits.Text.Replace(".", string.Empty);
+            units += '.';
+            GetTable(query, new Tuple<string, string>("@Name", name), new Tuple<string, string>("@Units", units));
+            ShowIngredsPure();
+        }
+
+        private void ShowIngredsPure()
+        {
+            string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectPureIngreds);
+            GetData(CtrlEditorDGVIngredsView, query);
+            GetData(CtrlEditorInfoDGVRNewIngreds, query);
+        }
+
+        private void FillListBoxes()
+        {
+            string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectKitchens);
+            GetData(CtrlEditorInfoLBKitchens, query);
+            query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectDevices);
+            GetData(CtrlEditorInfoLBDevices, query);
+            query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectTypes);
+            GetData(CtrlEditorInfoLBTypes, query);
         }
     }
 }
