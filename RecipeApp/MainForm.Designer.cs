@@ -50,18 +50,24 @@
             this.CtrlTCEditor = new System.Windows.Forms.TabControl();
             this.CtrlEditorTPRecipe = new System.Windows.Forms.TabPage();
             this.CtriEditorGrbInfo = new System.Windows.Forms.GroupBox();
+            this.CtrlEditorInfoDGVRIngredsToAdd = new System.Windows.Forms.DataGridView();
+            this.CtrlEditorLBIngredsAll = new System.Windows.Forms.ListBox();
+            this.CtrlEditorBtnAddRecipe = new System.Windows.Forms.Button();
+            this.CtrlEditorLblUnits = new System.Windows.Forms.Label();
+            this.CtrlEditorTBIngredCount = new System.Windows.Forms.TextBox();
+            this.CtrlEditorLblIngredCount = new System.Windows.Forms.Label();
+            this.CtrlEditorBtnDeleteIngred = new System.Windows.Forms.Button();
             this.CtrlEditorInfoLblIngreds = new System.Windows.Forms.Label();
-            this.CtrlEditorInfoDGVRNewIngreds = new System.Windows.Forms.DataGridView();
-            this.CtrlBtnRAdd = new System.Windows.Forms.Button();
+            this.CtrlEditorBtnAddIngred = new System.Windows.Forms.Button();
             this.CtrlEditorInfoLBTypes = new System.Windows.Forms.ListBox();
             this.CtrlEditorInfoLblType = new System.Windows.Forms.Label();
             this.CtrlEditorInfoLBDevices = new System.Windows.Forms.ListBox();
             this.CtrlEditorInfoLblDevice = new System.Windows.Forms.Label();
             this.CtrlEditorInfoLBKitchens = new System.Windows.Forms.ListBox();
             this.CtrlEditorInfoLblKitchen = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.CtrlEditorTBText = new System.Windows.Forms.TextBox();
+            this.CtrlEditorTBLink = new System.Windows.Forms.TextBox();
+            this.CtrlEditorTBName = new System.Windows.Forms.TextBox();
             this.CtrlEditorInfoLblText = new System.Windows.Forms.Label();
             this.CtrlEditorInfoLblLink = new System.Windows.Forms.Label();
             this.CtrlEditorInfoLblName = new System.Windows.Forms.Label();
@@ -102,7 +108,7 @@
             this.CtrlTCEditor.SuspendLayout();
             this.CtrlEditorTPRecipe.SuspendLayout();
             this.CtriEditorGrbInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorInfoDGVRNewIngreds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorInfoDGVRIngredsToAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorDGVNames)).BeginInit();
             this.CtrlEditorTPMisc.SuspendLayout();
             this.CtrlGrbRIngreds.SuspendLayout();
@@ -359,18 +365,24 @@
             // 
             // CtriEditorGrbInfo
             // 
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoDGVRIngredsToAdd);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorLBIngredsAll);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorBtnAddRecipe);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorLblUnits);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorTBIngredCount);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorLblIngredCount);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorBtnDeleteIngred);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblIngreds);
-            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoDGVRNewIngreds);
-            this.CtriEditorGrbInfo.Controls.Add(this.CtrlBtnRAdd);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorBtnAddIngred);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLBTypes);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblType);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLBDevices);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblDevice);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLBKitchens);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblKitchen);
-            this.CtriEditorGrbInfo.Controls.Add(this.textBox3);
-            this.CtriEditorGrbInfo.Controls.Add(this.textBox2);
-            this.CtriEditorGrbInfo.Controls.Add(this.textBox1);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorTBText);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorTBLink);
+            this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorTBName);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblText);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblLink);
             this.CtriEditorGrbInfo.Controls.Add(this.CtrlEditorInfoLblName);
@@ -381,42 +393,92 @@
             this.CtriEditorGrbInfo.TabStop = false;
             this.CtriEditorGrbInfo.Text = "Информация";
             // 
+            // CtrlEditorInfoDGVRIngredsToAdd
+            // 
+            this.CtrlEditorInfoDGVRIngredsToAdd.AllowUserToAddRows = false;
+            this.CtrlEditorInfoDGVRIngredsToAdd.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CtrlEditorInfoDGVRIngredsToAdd.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlEditorInfoDGVRIngredsToAdd.Location = new System.Drawing.Point(283, 96);
+            this.CtrlEditorInfoDGVRIngredsToAdd.Name = "CtrlEditorInfoDGVRIngredsToAdd";
+            this.CtrlEditorInfoDGVRIngredsToAdd.RowHeadersVisible = false;
+            this.CtrlEditorInfoDGVRIngredsToAdd.Size = new System.Drawing.Size(219, 126);
+            this.CtrlEditorInfoDGVRIngredsToAdd.TabIndex = 15;
+            // 
+            // CtrlEditorLBIngredsAll
+            // 
+            this.CtrlEditorLBIngredsAll.FormattingEnabled = true;
+            this.CtrlEditorLBIngredsAll.Location = new System.Drawing.Point(9, 101);
+            this.CtrlEditorLBIngredsAll.Name = "CtrlEditorLBIngredsAll";
+            this.CtrlEditorLBIngredsAll.Size = new System.Drawing.Size(165, 121);
+            this.CtrlEditorLBIngredsAll.TabIndex = 21;
+            this.CtrlEditorLBIngredsAll.SelectedIndexChanged += new System.EventHandler(this.CtrlEditorLBIngredsAll_SelectedIndexChanged);
+            // 
+            // CtrlEditorBtnAddRecipe
+            // 
+            this.CtrlEditorBtnAddRecipe.Location = new System.Drawing.Point(130, 407);
+            this.CtrlEditorBtnAddRecipe.Name = "CtrlEditorBtnAddRecipe";
+            this.CtrlEditorBtnAddRecipe.Size = new System.Drawing.Size(145, 23);
+            this.CtrlEditorBtnAddRecipe.TabIndex = 20;
+            this.CtrlEditorBtnAddRecipe.Text = "Добавить рецепт";
+            this.CtrlEditorBtnAddRecipe.UseVisualStyleBackColor = true;
+            // 
+            // CtrlEditorLblUnits
+            // 
+            this.CtrlEditorLblUnits.AutoSize = true;
+            this.CtrlEditorLblUnits.Location = new System.Drawing.Point(252, 130);
+            this.CtrlEditorLblUnits.Name = "CtrlEditorLblUnits";
+            this.CtrlEditorLblUnits.Size = new System.Drawing.Size(0, 13);
+            this.CtrlEditorLblUnits.TabIndex = 19;
+            // 
+            // CtrlEditorTBIngredCount
+            // 
+            this.CtrlEditorTBIngredCount.Location = new System.Drawing.Point(180, 127);
+            this.CtrlEditorTBIngredCount.Name = "CtrlEditorTBIngredCount";
+            this.CtrlEditorTBIngredCount.Size = new System.Drawing.Size(66, 20);
+            this.CtrlEditorTBIngredCount.TabIndex = 18;
+            // 
+            // CtrlEditorLblIngredCount
+            // 
+            this.CtrlEditorLblIngredCount.AutoSize = true;
+            this.CtrlEditorLblIngredCount.Location = new System.Drawing.Point(180, 101);
+            this.CtrlEditorLblIngredCount.Name = "CtrlEditorLblIngredCount";
+            this.CtrlEditorLblIngredCount.Size = new System.Drawing.Size(69, 13);
+            this.CtrlEditorLblIngredCount.TabIndex = 17;
+            this.CtrlEditorLblIngredCount.Text = "Количество:";
+            // 
+            // CtrlEditorBtnDeleteIngred
+            // 
+            this.CtrlEditorBtnDeleteIngred.Location = new System.Drawing.Point(180, 197);
+            this.CtrlEditorBtnDeleteIngred.Name = "CtrlEditorBtnDeleteIngred";
+            this.CtrlEditorBtnDeleteIngred.Size = new System.Drawing.Size(95, 23);
+            this.CtrlEditorBtnDeleteIngred.TabIndex = 16;
+            this.CtrlEditorBtnDeleteIngred.Text = "Удалить <<";
+            this.CtrlEditorBtnDeleteIngred.UseVisualStyleBackColor = true;
+            this.CtrlEditorBtnDeleteIngred.Click += new System.EventHandler(this.CtrlEditorBtnDeleteIngred_Click);
+            // 
             // CtrlEditorInfoLblIngreds
             // 
             this.CtrlEditorInfoLblIngreds.AutoSize = true;
-            this.CtrlEditorInfoLblIngreds.Location = new System.Drawing.Point(280, 96);
+            this.CtrlEditorInfoLblIngreds.Location = new System.Drawing.Point(6, 85);
             this.CtrlEditorInfoLblIngreds.Name = "CtrlEditorInfoLblIngreds";
             this.CtrlEditorInfoLblIngreds.Size = new System.Drawing.Size(81, 13);
             this.CtrlEditorInfoLblIngreds.TabIndex = 14;
             this.CtrlEditorInfoLblIngreds.Text = "Ингредиенты: ";
             // 
-            // CtrlEditorInfoDGVRNewIngreds
+            // CtrlEditorBtnAddIngred
             // 
-            this.CtrlEditorInfoDGVRNewIngreds.AllowUserToAddRows = false;
-            this.CtrlEditorInfoDGVRNewIngreds.AllowUserToDeleteRows = false;
-            this.CtrlEditorInfoDGVRNewIngreds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.CtrlEditorInfoDGVRNewIngreds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CtrlEditorInfoDGVRNewIngreds.ColumnHeadersVisible = false;
-            this.CtrlEditorInfoDGVRNewIngreds.Location = new System.Drawing.Point(283, 112);
-            this.CtrlEditorInfoDGVRNewIngreds.Name = "CtrlEditorInfoDGVRNewIngreds";
-            this.CtrlEditorInfoDGVRNewIngreds.ReadOnly = true;
-            this.CtrlEditorInfoDGVRNewIngreds.RowHeadersVisible = false;
-            this.CtrlEditorInfoDGVRNewIngreds.Size = new System.Drawing.Size(219, 296);
-            this.CtrlEditorInfoDGVRNewIngreds.TabIndex = 13;
-            // 
-            // CtrlBtnRAdd
-            // 
-            this.CtrlBtnRAdd.Location = new System.Drawing.Point(350, 430);
-            this.CtrlBtnRAdd.Name = "CtrlBtnRAdd";
-            this.CtrlBtnRAdd.Size = new System.Drawing.Size(75, 23);
-            this.CtrlBtnRAdd.TabIndex = 12;
-            this.CtrlBtnRAdd.Text = "Добавить";
-            this.CtrlBtnRAdd.UseVisualStyleBackColor = true;
+            this.CtrlEditorBtnAddIngred.Location = new System.Drawing.Point(180, 153);
+            this.CtrlEditorBtnAddIngred.Name = "CtrlEditorBtnAddIngred";
+            this.CtrlEditorBtnAddIngred.Size = new System.Drawing.Size(95, 23);
+            this.CtrlEditorBtnAddIngred.TabIndex = 12;
+            this.CtrlEditorBtnAddIngred.Text = "Добавить >>";
+            this.CtrlEditorBtnAddIngred.UseVisualStyleBackColor = true;
+            this.CtrlEditorBtnAddIngred.Click += new System.EventHandler(this.CtrlEditorBtnAddIngred_Click);
             // 
             // CtrlEditorInfoLBTypes
             // 
             this.CtrlEditorInfoLBTypes.FormattingEnabled = true;
-            this.CtrlEditorInfoLBTypes.Location = new System.Drawing.Point(167, 358);
+            this.CtrlEditorInfoLBTypes.Location = new System.Drawing.Point(346, 239);
             this.CtrlEditorInfoLBTypes.Name = "CtrlEditorInfoLBTypes";
             this.CtrlEditorInfoLBTypes.Size = new System.Drawing.Size(95, 95);
             this.CtrlEditorInfoLBTypes.TabIndex = 11;
@@ -424,7 +486,7 @@
             // CtrlEditorInfoLblType
             // 
             this.CtrlEditorInfoLblType.AutoSize = true;
-            this.CtrlEditorInfoLblType.Location = new System.Drawing.Point(164, 342);
+            this.CtrlEditorInfoLblType.Location = new System.Drawing.Point(343, 223);
             this.CtrlEditorInfoLblType.Name = "CtrlEditorInfoLblType";
             this.CtrlEditorInfoLblType.Size = new System.Drawing.Size(67, 13);
             this.CtrlEditorInfoLblType.TabIndex = 10;
@@ -433,7 +495,7 @@
             // CtrlEditorInfoLBDevices
             // 
             this.CtrlEditorInfoLBDevices.FormattingEnabled = true;
-            this.CtrlEditorInfoLBDevices.Location = new System.Drawing.Point(167, 236);
+            this.CtrlEditorInfoLBDevices.Location = new System.Drawing.Point(9, 239);
             this.CtrlEditorInfoLBDevices.Name = "CtrlEditorInfoLBDevices";
             this.CtrlEditorInfoLBDevices.Size = new System.Drawing.Size(95, 95);
             this.CtrlEditorInfoLBDevices.TabIndex = 9;
@@ -441,7 +503,7 @@
             // CtrlEditorInfoLblDevice
             // 
             this.CtrlEditorInfoLblDevice.AutoSize = true;
-            this.CtrlEditorInfoLblDevice.Location = new System.Drawing.Point(164, 220);
+            this.CtrlEditorInfoLblDevice.Location = new System.Drawing.Point(6, 223);
             this.CtrlEditorInfoLblDevice.Name = "CtrlEditorInfoLblDevice";
             this.CtrlEditorInfoLblDevice.Size = new System.Drawing.Size(73, 13);
             this.CtrlEditorInfoLblDevice.TabIndex = 8;
@@ -450,7 +512,7 @@
             // CtrlEditorInfoLBKitchens
             // 
             this.CtrlEditorInfoLBKitchens.FormattingEnabled = true;
-            this.CtrlEditorInfoLBKitchens.Location = new System.Drawing.Point(167, 112);
+            this.CtrlEditorInfoLBKitchens.Location = new System.Drawing.Point(180, 239);
             this.CtrlEditorInfoLBKitchens.Name = "CtrlEditorInfoLBKitchens";
             this.CtrlEditorInfoLBKitchens.Size = new System.Drawing.Size(95, 95);
             this.CtrlEditorInfoLBKitchens.TabIndex = 7;
@@ -458,38 +520,38 @@
             // CtrlEditorInfoLblKitchen
             // 
             this.CtrlEditorInfoLblKitchen.AutoSize = true;
-            this.CtrlEditorInfoLblKitchen.Location = new System.Drawing.Point(164, 96);
+            this.CtrlEditorInfoLblKitchen.Location = new System.Drawing.Point(177, 223);
             this.CtrlEditorInfoLblKitchen.Name = "CtrlEditorInfoLblKitchen";
             this.CtrlEditorInfoLblKitchen.Size = new System.Drawing.Size(42, 13);
             this.CtrlEditorInfoLblKitchen.TabIndex = 6;
             this.CtrlEditorInfoLblKitchen.Text = "Кухня: ";
             // 
-            // textBox3
+            // CtrlEditorTBText
             // 
-            this.textBox3.Location = new System.Drawing.Point(9, 112);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(152, 341);
-            this.textBox3.TabIndex = 5;
+            this.CtrlEditorTBText.Location = new System.Drawing.Point(271, 13);
+            this.CtrlEditorTBText.Multiline = true;
+            this.CtrlEditorTBText.Name = "CtrlEditorTBText";
+            this.CtrlEditorTBText.Size = new System.Drawing.Size(231, 68);
+            this.CtrlEditorTBText.TabIndex = 5;
             // 
-            // textBox2
+            // CtrlEditorTBLink
             // 
-            this.textBox2.Location = new System.Drawing.Point(75, 55);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(263, 20);
-            this.textBox2.TabIndex = 4;
+            this.CtrlEditorTBLink.Location = new System.Drawing.Point(75, 41);
+            this.CtrlEditorTBLink.Name = "CtrlEditorTBLink";
+            this.CtrlEditorTBLink.Size = new System.Drawing.Size(130, 20);
+            this.CtrlEditorTBLink.TabIndex = 4;
             // 
-            // textBox1
+            // CtrlEditorTBName
             // 
-            this.textBox1.Location = new System.Drawing.Point(75, 27);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(263, 20);
-            this.textBox1.TabIndex = 3;
+            this.CtrlEditorTBName.Location = new System.Drawing.Point(75, 13);
+            this.CtrlEditorTBName.Name = "CtrlEditorTBName";
+            this.CtrlEditorTBName.Size = new System.Drawing.Size(130, 20);
+            this.CtrlEditorTBName.TabIndex = 3;
             // 
             // CtrlEditorInfoLblText
             // 
             this.CtrlEditorInfoLblText.AutoSize = true;
-            this.CtrlEditorInfoLblText.Location = new System.Drawing.Point(6, 96);
+            this.CtrlEditorInfoLblText.Location = new System.Drawing.Point(222, 16);
             this.CtrlEditorInfoLblText.Name = "CtrlEditorInfoLblText";
             this.CtrlEditorInfoLblText.Size = new System.Drawing.Size(43, 13);
             this.CtrlEditorInfoLblText.TabIndex = 2;
@@ -498,7 +560,7 @@
             // CtrlEditorInfoLblLink
             // 
             this.CtrlEditorInfoLblLink.AutoSize = true;
-            this.CtrlEditorInfoLblLink.Location = new System.Drawing.Point(6, 58);
+            this.CtrlEditorInfoLblLink.Location = new System.Drawing.Point(6, 44);
             this.CtrlEditorInfoLblLink.Name = "CtrlEditorInfoLblLink";
             this.CtrlEditorInfoLblLink.Size = new System.Drawing.Size(52, 13);
             this.CtrlEditorInfoLblLink.TabIndex = 1;
@@ -507,7 +569,7 @@
             // CtrlEditorInfoLblName
             // 
             this.CtrlEditorInfoLblName.AutoSize = true;
-            this.CtrlEditorInfoLblName.Location = new System.Drawing.Point(6, 30);
+            this.CtrlEditorInfoLblName.Location = new System.Drawing.Point(6, 16);
             this.CtrlEditorInfoLblName.Name = "CtrlEditorInfoLblName";
             this.CtrlEditorInfoLblName.Size = new System.Drawing.Size(63, 13);
             this.CtrlEditorInfoLblName.TabIndex = 0;
@@ -801,7 +863,7 @@
             this.CtrlEditorTPRecipe.PerformLayout();
             this.CtriEditorGrbInfo.ResumeLayout(false);
             this.CtriEditorGrbInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorInfoDGVRNewIngreds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorInfoDGVRIngredsToAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlEditorDGVNames)).EndInit();
             this.CtrlEditorTPMisc.ResumeLayout(false);
             this.CtrlGrbRIngreds.ResumeLayout(false);
@@ -856,20 +918,19 @@
         private System.Windows.Forms.Label CtrlLblTPDevicesName;
         private System.Windows.Forms.Label CtrlLblTableText;
         private System.Windows.Forms.DataGridView CtrlDGVRUniv;
-        private System.Windows.Forms.Button CtrlBtnRAdd;
+        private System.Windows.Forms.Button CtrlEditorBtnAddIngred;
         private System.Windows.Forms.ListBox CtrlEditorInfoLBTypes;
         private System.Windows.Forms.Label CtrlEditorInfoLblType;
         private System.Windows.Forms.ListBox CtrlEditorInfoLBDevices;
         private System.Windows.Forms.Label CtrlEditorInfoLblDevice;
         private System.Windows.Forms.ListBox CtrlEditorInfoLBKitchens;
         private System.Windows.Forms.Label CtrlEditorInfoLblKitchen;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox CtrlEditorTBText;
+        private System.Windows.Forms.TextBox CtrlEditorTBLink;
+        private System.Windows.Forms.TextBox CtrlEditorTBName;
         private System.Windows.Forms.Label CtrlEditorInfoLblText;
         private System.Windows.Forms.Label CtrlEditorInfoLblLink;
         private System.Windows.Forms.Label CtrlEditorInfoLblName;
-        private System.Windows.Forms.DataGridView CtrlEditorInfoDGVRNewIngreds;
         private System.Windows.Forms.Label CtrlEditorInfoLblIngreds;
         private System.Windows.Forms.GroupBox CtrlGrbRIngreds;
         private System.Windows.Forms.DataGridView CtrlEditorDGVIngredsView;
@@ -881,6 +942,13 @@
         private System.Windows.Forms.Label CtrlLblGrbAddName;
         private System.Windows.Forms.TextBox CtrlEditorTBIngredsUnits;
         private System.Windows.Forms.Label CtrlLblGrbAddUnits;
+        private System.Windows.Forms.Button CtrlEditorBtnDeleteIngred;
+        private System.Windows.Forms.DataGridView CtrlEditorInfoDGVRIngredsToAdd;
+        private System.Windows.Forms.TextBox CtrlEditorTBIngredCount;
+        private System.Windows.Forms.Label CtrlEditorLblIngredCount;
+        private System.Windows.Forms.Label CtrlEditorLblUnits;
+        private System.Windows.Forms.Button CtrlEditorBtnAddRecipe;
+        private System.Windows.Forms.ListBox CtrlEditorLBIngredsAll;
     }
 }
 
