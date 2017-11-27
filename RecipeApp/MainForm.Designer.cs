@@ -403,6 +403,7 @@
             this.CtrlEditorInfoDGVRIngredsToAdd.RowHeadersVisible = false;
             this.CtrlEditorInfoDGVRIngredsToAdd.Size = new System.Drawing.Size(219, 126);
             this.CtrlEditorInfoDGVRIngredsToAdd.TabIndex = 15;
+            this.CtrlEditorInfoDGVRIngredsToAdd.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlEditorInfoDGVRIngredsToAdd_CellClick);
             // 
             // CtrlEditorLBIngredsAll
             // 

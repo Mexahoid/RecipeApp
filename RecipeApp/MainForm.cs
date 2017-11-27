@@ -200,20 +200,24 @@ namespace RecipeApp
 
         private bool CheckExistence(string name)
         {
-            bool ans = false;
-
             foreach (DataGridViewRow row in CtrlEditorInfoDGVRIngredsToAdd.Rows)
             {
                 if (row.Cells[0].Value.ToString().Equals(name))
                     return true;
             }
-
-            return ans;
+            return false;
         }
 
         private void CtrlEditorBtnDeleteIngred_Click(object sender, EventArgs e)
         {
+            CtrlEditorInfoDGVRIngredsToAdd.Rows.RemoveAt(CtrlEditorInfoDGVRIngredsToAdd.CurrentCell.RowIndex);
+            CtrlEditorInfoDGVRIngredsToAdd.ClearSelection();
+            CtrlEditorBtnDeleteIngred.Enabled = false;
+        }
 
+        private void CtrlEditorInfoDGVRIngredsToAdd_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CtrlEditorBtnDeleteIngred.Enabled = true;
         }
     }
 }
