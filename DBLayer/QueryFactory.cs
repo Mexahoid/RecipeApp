@@ -49,7 +49,7 @@ namespace DBLayer
 
                 "SELECT R.[Description], R.[Link], T.[Name], K.[Name] " +
                 " FROM [Recipe] AS R" +
-                " LEFT JOIN [Type] AS T ON T.ID = R.IDType" +
+                " LEFT JOIN [Type] AS T ON T.ID = R.IDType" + 
                 " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
                 " WHERE R.Name = @Name",            //Вывод MiscData для рецепта на первой вкладке
 
