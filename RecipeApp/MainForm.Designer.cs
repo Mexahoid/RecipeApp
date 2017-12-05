@@ -94,6 +94,7 @@
             this.CtrlRBTypes = new System.Windows.Forms.RadioButton();
             this.CtrlRBDevices = new System.Windows.Forms.RadioButton();
             this.CtrlRBKitchens = new System.Windows.Forms.RadioButton();
+            this.CBKitchen = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlViewDGVNames)).BeginInit();
             this.CtrlViewPanel.SuspendLayout();
             this.CtrlViewTCMisc.SuspendLayout();
@@ -151,6 +152,7 @@
             // 
             // CtrlViewPanel
             // 
+            this.CtrlViewPanel.Controls.Add(this.CBKitchen);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
@@ -184,7 +186,7 @@
             this.CtrlViewTBKitchen.Location = new System.Drawing.Point(64, 38);
             this.CtrlViewTBKitchen.Name = "CtrlViewTBKitchen";
             this.CtrlViewTBKitchen.ReadOnly = true;
-            this.CtrlViewTBKitchen.Size = new System.Drawing.Size(128, 20);
+            this.CtrlViewTBKitchen.Size = new System.Drawing.Size(50, 20);
             this.CtrlViewTBKitchen.TabIndex = 6;
             // 
             // CtrlViewLblKitchen
@@ -837,6 +839,17 @@
             this.CtrlRBKitchens.UseVisualStyleBackColor = true;
             this.CtrlRBKitchens.CheckedChanged += new System.EventHandler(this.CtrlRB_CheckedChanged);
             // 
+            // CBKitchen
+            // 
+            this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBKitchen.FormattingEnabled = true;
+            this.CBKitchen.Location = new System.Drawing.Point(120, 37);
+            this.CBKitchen.Name = "CBKitchen";
+            this.CBKitchen.Size = new System.Drawing.Size(121, 21);
+            this.CBKitchen.TabIndex = 9;
+            this.CBKitchen.SelectedIndexChanged += new System.EventHandler(this.CBKitchen_SelectedIndexChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -950,6 +963,7 @@
         private System.Windows.Forms.Label CtrlEditorLblUnits;
         private System.Windows.Forms.Button CtrlEditorBtnAddRecipe;
         private System.Windows.Forms.ListBox CtrlEditorLBIngredsAll;
+        private System.Windows.Forms.ComboBox CBKitchen;
     }
 }
 

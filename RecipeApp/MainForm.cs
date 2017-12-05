@@ -157,13 +157,22 @@ namespace RecipeApp
             string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectKitchens);
             GetData(CtrlEditorInfoLBKitchens, query);
             CtrlEditorInfoLBKitchens.ClearSelected();
+            DataTable dt = GetTable(query);
+            foreach (DataRow dtRow in dt.Rows)
+            {
+                CBKitchen.Items.Add(dtRow.ItemArray[0]);
+            }
+            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
             query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectDevices);
             GetData(CtrlEditorInfoLBDevices, query);
             CtrlEditorInfoLBDevices.ClearSelected();
             query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectTypes);
             GetData(CtrlEditorInfoLBTypes, query);
             CtrlEditorInfoLBTypes.ClearSelected();
-        } 
+        }
+
+
+
 
         private void CtrlEditorLBIngredsAll_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -177,7 +186,7 @@ namespace RecipeApp
                 MessageBox.Show("Падла, зполни количество");
                 return;
             }
-            if(CtrlEditorLBIngredsAll.SelectedIndex < 0)
+            if (CtrlEditorLBIngredsAll.SelectedIndex < 0)
             {
                 MessageBox.Show("Падла, выбери ингредиент");
                 return;
@@ -219,5 +228,25 @@ namespace RecipeApp
         {
             CtrlEditorBtnDeleteIngred.Enabled = true;
         }
+
+        private void CBKitchen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CBKitchen.SelectedIndex != CBKitchen.Items.Count - 1)
+            {
+                if (CBKitchen.Items[CBKitchen.SelectedIndex - 1].Equals(Properties.Resources.AddNewKitchen))
+                {
+                    string name = "";
+                    using (Adder add = new Adder(text => name = text))
+                    {
+                        if (add.ShowDialog() == DialogResult.OK)
+                        {
+                            CBKitchen.Items[CBKitchen.Items.Count - 1] = name;
+                            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
