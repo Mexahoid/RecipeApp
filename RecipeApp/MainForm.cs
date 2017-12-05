@@ -24,9 +24,11 @@ namespace RecipeApp
             CtrlViewDGVIngreds.AutoGenerateColumns = true;
             CtrlViewDGVDevices.AutoGenerateColumns = true;
             CtrlEditorDGVNames.AutoGenerateColumns = true;
-            CtrlEditorInfoDGVRNewIngreds.AutoGenerateColumns = true;
             CtrlDGVRUniv.AutoGenerateColumns = true;
-            //CtrlEditorInfoDGVRNewIngreds.ColumnCount = 3;
+            CtrlEditorDGVIngredsView.ColumnCount = 3;
+            CtrlEditorInfoDGVRIngredsToAdd.Columns.Add("Название", "Название");
+            CtrlEditorInfoDGVRIngredsToAdd.Columns.Add("Количество", "Количество");
+            CtrlEditorInfoDGVRIngredsToAdd.Columns.Add("Единиц", "Единиц");
             //CtrlEditorInfoDGVRNewIngreds.RowCount = 1;
             CtrlEditorDGVIngredsView.AutoGenerateColumns = true;
         }
@@ -54,9 +56,6 @@ namespace RecipeApp
             LB.DataSource = GetTable(selectCommand, tuples);
             LB.DisplayMember = "Name";
         }
-
-
-
         private void CtrlDGVNames_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             string str = (string)CtrlViewDGVNames.Rows[CtrlViewDGVNames.CurrentCell.RowIndex].Cells[0].Value;
@@ -148,17 +147,106 @@ namespace RecipeApp
         {
             string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectPureIngreds);
             GetData(CtrlEditorDGVIngredsView, query);
-            GetData(CtrlEditorInfoDGVRNewIngreds, query);
+            CtrlEditorLBIngredsAll.DataSource = GetTable(query);
+            CtrlEditorLBIngredsAll.DisplayMember = "Название";
+            CtrlEditorLBIngredsAll.ClearSelected();
         }
 
         private void FillListBoxes()
         {
             string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectKitchens);
             GetData(CtrlEditorInfoLBKitchens, query);
+            CtrlEditorInfoLBKitchens.ClearSelected();
+            DataTable dt = GetTable(query);
+            foreach (DataRow dtRow in dt.Rows)
+            {
+                CBKitchen.Items.Add(dtRow.ItemArray[0]);
+            }
+            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
             query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectDevices);
             GetData(CtrlEditorInfoLBDevices, query);
+            CtrlEditorInfoLBDevices.ClearSelected();
             query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectTypes);
             GetData(CtrlEditorInfoLBTypes, query);
+            CtrlEditorInfoLBTypes.ClearSelected();
         }
+
+
+
+
+        private void CtrlEditorLBIngredsAll_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CtrlEditorLblUnits.Text = (CtrlEditorLBIngredsAll.SelectedItem as DataRowView)?.Row.ItemArray[1].ToString();
+        }
+
+        private void CtrlEditorBtnAddIngred_Click(object sender, EventArgs e)
+        {
+            if (CtrlEditorTBIngredCount.Text.Equals(""))
+            {
+                MessageBox.Show("Падла, зполни количество");
+                return;
+            }
+            if (CtrlEditorLBIngredsAll.SelectedIndex < 0)
+            {
+                MessageBox.Show("Падла, выбери ингредиент");
+                return;
+            }
+            string name = (CtrlEditorLBIngredsAll.SelectedItem as DataRowView)?.Row.ItemArray[0].ToString();
+            if (CheckExistence(name))
+            {
+                MessageBox.Show("Падла, не добавляй существующие");
+                return;
+            }
+            CtrlEditorInfoDGVRIngredsToAdd.Rows.Add();
+            CtrlEditorInfoDGVRIngredsToAdd.Rows[CtrlEditorInfoDGVRIngredsToAdd.RowCount - 1].Cells[1].Value =
+                CtrlEditorTBIngredCount.Text;
+            CtrlEditorInfoDGVRIngredsToAdd.Rows[CtrlEditorInfoDGVRIngredsToAdd.RowCount - 1].Cells[0].Value =
+                (CtrlEditorLBIngredsAll.SelectedItem as DataRowView)?.Row.ItemArray[0].ToString();
+            CtrlEditorInfoDGVRIngredsToAdd.Rows[CtrlEditorInfoDGVRIngredsToAdd.RowCount - 1].Cells[2].Value =
+                CtrlEditorLblUnits.Text;
+
+        }
+
+        private bool CheckExistence(string name)
+        {
+            foreach (DataGridViewRow row in CtrlEditorInfoDGVRIngredsToAdd.Rows)
+            {
+                if (row.Cells[0].Value.ToString().Equals(name))
+                    return true;
+            }
+            return false;
+        }
+
+        private void CtrlEditorBtnDeleteIngred_Click(object sender, EventArgs e)
+        {
+            CtrlEditorInfoDGVRIngredsToAdd.Rows.RemoveAt(CtrlEditorInfoDGVRIngredsToAdd.CurrentCell.RowIndex);
+            CtrlEditorInfoDGVRIngredsToAdd.ClearSelection();
+            CtrlEditorBtnDeleteIngred.Enabled = false;
+        }
+
+        private void CtrlEditorInfoDGVRIngredsToAdd_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            CtrlEditorBtnDeleteIngred.Enabled = true;
+        }
+
+        private void CBKitchen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CBKitchen.SelectedIndex != CBKitchen.Items.Count - 1)
+            {
+                if (CBKitchen.Items[CBKitchen.SelectedIndex - 1].Equals(Properties.Resources.AddNewKitchen))
+                {
+                    string name = "";
+                    using (Adder add = new Adder(text => name = text))
+                    {
+                        if (add.ShowDialog() == DialogResult.OK)
+                        {
+                            CBKitchen.Items[CBKitchen.Items.Count - 1] = name;
+                            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }
