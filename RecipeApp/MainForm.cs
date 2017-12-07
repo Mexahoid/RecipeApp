@@ -10,13 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
+using RecipeApp.Controllers;
 
 namespace RecipeApp
 {
     public partial class FormMain : Form
     {
-        private Connector _connector;
         private QueryFactory _queries;
+        private RecipeNamesController _rnc;
         public FormMain()
         {
             InitializeComponent();
@@ -31,11 +32,6 @@ namespace RecipeApp
             CtrlEditorInfoDGVRIngredsToAdd.Columns.Add("Единиц", "Единиц");
             //CtrlEditorInfoDGVRNewIngreds.RowCount = 1;
             CtrlEditorDGVIngredsView.AutoGenerateColumns = true;
-        }
-
-        private void CtrlButReload_Click(object sender, EventArgs e)
-        {
-            //GetRecipesNames();
         }
 
 
@@ -58,31 +54,31 @@ namespace RecipeApp
         }
         private void CtrlDGVNames_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            string str = (string)CtrlViewDGVNames.Rows[CtrlViewDGVNames.CurrentCell.RowIndex].Cells[0].Value;
-            string selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectIngreds);
-            Tuple<string, string> pars = new Tuple<string, string>("@Name", str);
+            //string str = (string)CtrlViewDGVNames.Rows[CtrlViewDGVNames.CurrentCell.RowIndex].Cells[0].Value;
+            //string selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectIngreds);
+            //Tuple<string, string> pars = new Tuple<string, string>("@Name", str);
 
-            GetData(CtrlViewDGVIngreds, selectCommand, pars);
+            //GetData(CtrlViewDGVIngreds, selectCommand, pars);
 
-            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectDevices);
-            GetData(CtrlViewDGVDevices, selectCommand, pars);
+            //selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectDevices);
+            //GetData(CtrlViewDGVDevices, selectCommand, pars);
 
-            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectMiscData);
-            DataRowCollection rows = GetTable(selectCommand, pars).Rows;
-            var arr = rows.Count != 0 ? rows[0].ItemArray : new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
+            //selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectMiscData);
+            //DataRowCollection rows = GetTable(selectCommand, pars).Rows;
+            //var arr = rows.Count != 0 ? rows[0].ItemArray : new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
 
-            CtrlViewTBText.Text = arr[0].ToString();
-            str = arr[3].ToString();
-            CtrlViewTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
-            CtrlViewTBLink.Text = arr[1].ToString();
-            CtrlViewTBType.Text = arr[2].ToString();
+            //CtrlViewTBText.Text = arr[0].ToString();
+            //str = arr[3].ToString();
+            //CtrlViewTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
+            //CtrlViewTBLink.Text = arr[1].ToString();
+            //CtrlViewTBType.Text = arr[2].ToString();
         }
 
         private DataTable GetTable(string selectCommand, params Tuple<string, string>[] tuples)
         {
             try
             {
-                return _connector.GetTable(selectCommand, tuples);
+                return Connector.GetTable(selectCommand, tuples);
             }
             catch (SqlException exception)
             {
@@ -102,13 +98,16 @@ namespace RecipeApp
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            _connector = new Connector();
             _queries = new QueryFactory();
-            GetRecipesNames();
+            //GetRecipesNames();
             CtrlViewDGVNames.ClearSelection();
+            _rnc = new RecipeNamesController(CtrlViewDGVNames);
+            _rnc.InitAdder(CtrlBtnAccept, CtrlBtnReject);
+            //_rnc.ShowRecipeNames();
+            
             CtrlEditorDGVNames.ClearSelection();
-            ShowIngredsPure();
-            FillListBoxes();
+            //ShowIngredsPure();
+            //FillListBoxes();
         }
 
         private void CtrlRB_CheckedChanged(object sender, EventArgs e)
@@ -231,12 +230,12 @@ namespace RecipeApp
 
         private void CBKitchen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CBKitchen.SelectedIndex != CBKitchen.Items.Count - 1)
+            if (CBKitchen.SelectedIndex == CBKitchen.Items.Count - 1)
             {
-                if (CBKitchen.Items[CBKitchen.SelectedIndex - 1].Equals(Properties.Resources.AddNewKitchen))
+                if (CBKitchen.Items[CBKitchen.SelectedIndex].Equals(Properties.Resources.AddNewKitchen))
                 {
                     string name = "";
-                    using (Adder add = new Adder(text => name = text))
+                    using (var add = new HelperForm(HelperForm.Operation.Add, text => name = text))
                     {
                         if (add.ShowDialog() == DialogResult.OK)
                         {
@@ -248,5 +247,34 @@ namespace RecipeApp
             }
         }
 
+        private void CtrlRBSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            _rnc.ChangeMode();
+        }
+
+        private void CtrlViewDGVNames_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            _rnc.DGVButton_Clicked(sender, e, GetAllData);
+        }
+
+        private void GetAllData(string name)
+        {
+            string selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectIngreds);
+            var pars = new Tuple<string, string>("@Name", name);
+
+            GetData(CtrlViewDGVIngreds, selectCommand, pars);
+
+            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectDevices);
+            GetData(CtrlViewDGVDevices, selectCommand, pars);
+
+            selectCommand = _queries.GetQuery(QueryFactory.Queries.QueryViewerSelectMiscData);
+            DataRowCollection rows = GetTable(selectCommand, pars).Rows;
+            var arr = rows.Count != 0 ? rows[0].ItemArray : new object[] { "Ошибка вызова", "Ошибка вызова", "Ошибка вызова", "" };
+            CtrlViewTBText.Text = arr[0].ToString();
+            string str = arr[3].ToString();
+            CtrlViewTBKitchen.Text = str.Equals("") ? "Без кухни" : str;
+            CtrlViewTBLink.Text = arr[1].ToString();
+            CtrlViewTBType.Text = arr[2].ToString();
+        }
     }
 }

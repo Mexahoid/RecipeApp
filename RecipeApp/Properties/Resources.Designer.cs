@@ -61,11 +61,29 @@ namespace RecipeApp.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Новая....
+        ///   Ищет локализованную строку, похожую на &lt;Новая...&gt;.
         /// </summary>
         internal static string AddNewKitchen {
             get {
                 return ResourceManager.GetString("AddNewKitchen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Новый рецепт...&gt;.
+        /// </summary>
+        internal static string AddNewRecipe {
+            get {
+                return ResourceManager.GetString("AddNewRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Новый...&gt;.
+        /// </summary>
+        internal static string AddNewType {
+            get {
+                return ResourceManager.GetString("AddNewType", resourceCulture);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace RecipeApp
 {
-    partial class Adder
+    partial class HelperForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,13 +37,13 @@
             // 
             this.CtrlTBName.Location = new System.Drawing.Point(12, 12);
             this.CtrlTBName.Name = "CtrlTBName";
-            this.CtrlTBName.Size = new System.Drawing.Size(232, 20);
+            this.CtrlTBName.Size = new System.Drawing.Size(235, 20);
             this.CtrlTBName.TabIndex = 0;
             // 
             // CtrlBtnAdd
             // 
             this.CtrlBtnAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.CtrlBtnAdd.Location = new System.Drawing.Point(12, 66);
+            this.CtrlBtnAdd.Location = new System.Drawing.Point(12, 55);
             this.CtrlBtnAdd.Name = "CtrlBtnAdd";
             this.CtrlBtnAdd.Size = new System.Drawing.Size(75, 23);
             this.CtrlBtnAdd.TabIndex = 1;
@@ -53,8 +53,7 @@
             // 
             // CtrlBtnReject
             // 
-            this.CtrlBtnReject.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CtrlBtnReject.Location = new System.Drawing.Point(169, 66);
+            this.CtrlBtnReject.Location = new System.Drawing.Point(172, 55);
             this.CtrlBtnReject.Name = "CtrlBtnReject";
             this.CtrlBtnReject.Size = new System.Drawing.Size(75, 23);
             this.CtrlBtnReject.TabIndex = 2;
@@ -66,13 +65,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(256, 98);
+            this.ClientSize = new System.Drawing.Size(262, 87);
             this.Controls.Add(this.CtrlBtnReject);
             this.Controls.Add(this.CtrlBtnAdd);
             this.Controls.Add(this.CtrlTBName);
-            this.Name = "Adder";
+            this.Name = "HelperForm";
             this.Text = "Adder";
-            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

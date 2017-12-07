@@ -10,25 +10,32 @@ using System.Windows.Forms;
 
 namespace RecipeApp
 {
-    public partial class Adder : Form
+    public partial class HelperForm : Form
     {
-        private event Action<string> _del;
-        
-        public Adder(Action<string> act)
+        public enum Operation
+        {
+            Add,
+            Rename
+        }
+
+        private event Action<string> Del;
+
+        public HelperForm(Operation op, Action<string> act)
         {
             InitializeComponent();
-            _del += act;
+            CtrlBtnAdd.Text = op == Operation.Add ? "Добавить" : "Изменить";
+            Del += act;
         }
 
         private void CtrlBtnAdd_Click(object sender, EventArgs e)
         {
-            _del(CtrlTBName.Text);
+            Del?.Invoke(CtrlTBName.Text);
             this.Close();
         }
 
         private void CtrlBtnReject_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

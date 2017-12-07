@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddNewKitchen" xml:space="preserve">
-    <value>Новая...</value>
+    <value>&lt;Новая...&gt;</value>
+  </data>
+  <data name="AddNewRecipe" xml:space="preserve">
+    <value>&lt;Новый рецепт...&gt;</value>
+  </data>
+  <data name="AddNewType" xml:space="preserve">
+    <value>&lt;Новый...&gt;</value>
   </data>
 </root>

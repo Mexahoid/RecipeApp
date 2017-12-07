@@ -71,6 +71,18 @@ namespace DBLayer
             };
         }
 
+        private string[] quers =
+        {
+            "SELECT Name FROM Recipe",
+
+            "UPDATE Recipe SET Name = @New WHERE Name = @Old",
+
+            "DELETE FROM Recipe WHERE Name = @Name",
+
+            "INSERT INTO Recipe (Name, Description, Link, IDType, IDKitchen) VALUES " +
+            "(@Name, @Desc, @Kink, @IdType, @IdKit)"
+        };
+
         public string GetQuery(Queries q)
         {
             return _queries[(int) q];

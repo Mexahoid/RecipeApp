@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CtrlButReload = new System.Windows.Forms.Button();
             this.CtrlViewDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlViewPanel = new System.Windows.Forms.Panel();
+            this.CBKitchen = new System.Windows.Forms.ComboBox();
             this.CtrlViewTBType = new System.Windows.Forms.TextBox();
             this.CtrlViewLblType = new System.Windows.Forms.Label();
             this.CtrlViewTBKitchen = new System.Windows.Forms.TextBox();
@@ -46,6 +46,8 @@
             this.CtrlViewDGVDevices = new System.Windows.Forms.DataGridView();
             this.CtrlTCMain = new System.Windows.Forms.TabControl();
             this.CtrlTPView = new System.Windows.Forms.TabPage();
+            this.CtrlRBEdit = new System.Windows.Forms.RadioButton();
+            this.CtrlRBSelect = new System.Windows.Forms.RadioButton();
             this.CtrlTPEditor = new System.Windows.Forms.TabPage();
             this.CtrlTCEditor = new System.Windows.Forms.TabControl();
             this.CtrlEditorTPRecipe = new System.Windows.Forms.TabPage();
@@ -94,7 +96,8 @@
             this.CtrlRBTypes = new System.Windows.Forms.RadioButton();
             this.CtrlRBDevices = new System.Windows.Forms.RadioButton();
             this.CtrlRBKitchens = new System.Windows.Forms.RadioButton();
-            this.CBKitchen = new System.Windows.Forms.ComboBox();
+            this.CtrlBtnAccept = new System.Windows.Forms.Button();
+            this.CtrlBtnReject = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CtrlViewDGVNames)).BeginInit();
             this.CtrlViewPanel.SuspendLayout();
             this.CtrlViewTCMisc.SuspendLayout();
@@ -121,16 +124,6 @@
             this.CtrlGrBRTablesChoice.SuspendLayout();
             this.SuspendLayout();
             // 
-            // CtrlButReload
-            // 
-            this.CtrlButReload.Location = new System.Drawing.Point(3, 6);
-            this.CtrlButReload.Name = "CtrlButReload";
-            this.CtrlButReload.Size = new System.Drawing.Size(75, 23);
-            this.CtrlButReload.TabIndex = 0;
-            this.CtrlButReload.Text = "Обновить";
-            this.CtrlButReload.UseVisualStyleBackColor = true;
-            this.CtrlButReload.Click += new System.EventHandler(this.CtrlButReload_Click);
-            // 
             // CtrlViewDGVNames
             // 
             this.CtrlViewDGVNames.AllowUserToAddRows = false;
@@ -140,15 +133,15 @@
             this.CtrlViewDGVNames.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CtrlViewDGVNames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CtrlViewDGVNames.ColumnHeadersVisible = false;
-            this.CtrlViewDGVNames.Location = new System.Drawing.Point(3, 32);
+            this.CtrlViewDGVNames.Location = new System.Drawing.Point(3, 47);
             this.CtrlViewDGVNames.MultiSelect = false;
             this.CtrlViewDGVNames.Name = "CtrlViewDGVNames";
             this.CtrlViewDGVNames.ReadOnly = true;
             this.CtrlViewDGVNames.RowHeadersVisible = false;
             this.CtrlViewDGVNames.RowHeadersWidth = 18;
-            this.CtrlViewDGVNames.Size = new System.Drawing.Size(260, 468);
+            this.CtrlViewDGVNames.Size = new System.Drawing.Size(260, 418);
             this.CtrlViewDGVNames.TabIndex = 1;
-            this.CtrlViewDGVNames.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlDGVNames_CellClick);
+            this.CtrlViewDGVNames.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlViewDGVNames_CellContentClick);
             // 
             // CtrlViewPanel
             // 
@@ -156,13 +149,25 @@
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
+            this.CtrlViewPanel.Controls.Add(this.CtrlViewTCMisc);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblKitchen);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBLink);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblLink);
-            this.CtrlViewPanel.Location = new System.Drawing.Point(269, 32);
+            this.CtrlViewPanel.Location = new System.Drawing.Point(269, 6);
             this.CtrlViewPanel.Name = "CtrlViewPanel";
-            this.CtrlViewPanel.Size = new System.Drawing.Size(476, 468);
+            this.CtrlViewPanel.Size = new System.Drawing.Size(476, 494);
             this.CtrlViewPanel.TabIndex = 2;
+            // 
+            // CBKitchen
+            // 
+            this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBKitchen.FormattingEnabled = true;
+            this.CBKitchen.Location = new System.Drawing.Point(120, 37);
+            this.CBKitchen.Name = "CBKitchen";
+            this.CBKitchen.Size = new System.Drawing.Size(121, 21);
+            this.CBKitchen.TabIndex = 9;
+            this.CBKitchen.SelectedIndexChanged += new System.EventHandler(this.CBKitchen_SelectedIndexChanged);
             // 
             // CtrlViewTBType
             // 
@@ -220,7 +225,7 @@
             this.CtrlViewTCMisc.Controls.Add(this.CtrlViewTPText);
             this.CtrlViewTCMisc.Controls.Add(this.CtrlViewTPIngreds);
             this.CtrlViewTCMisc.Controls.Add(this.CtrlViewTPDevices);
-            this.CtrlViewTCMisc.Location = new System.Drawing.Point(275, 107);
+            this.CtrlViewTCMisc.Location = new System.Drawing.Point(6, 89);
             this.CtrlViewTCMisc.Name = "CtrlViewTCMisc";
             this.CtrlViewTCMisc.SelectedIndex = 0;
             this.CtrlViewTCMisc.Size = new System.Drawing.Size(467, 400);
@@ -318,9 +323,11 @@
             // CtrlTPView
             // 
             this.CtrlTPView.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.CtrlTPView.Controls.Add(this.CtrlViewTCMisc);
+            this.CtrlTPView.Controls.Add(this.CtrlBtnReject);
+            this.CtrlTPView.Controls.Add(this.CtrlBtnAccept);
+            this.CtrlTPView.Controls.Add(this.CtrlRBEdit);
+            this.CtrlTPView.Controls.Add(this.CtrlRBSelect);
             this.CtrlTPView.Controls.Add(this.CtrlViewPanel);
-            this.CtrlTPView.Controls.Add(this.CtrlButReload);
             this.CtrlTPView.Controls.Add(this.CtrlViewDGVNames);
             this.CtrlTPView.ForeColor = System.Drawing.Color.Black;
             this.CtrlTPView.Location = new System.Drawing.Point(4, 22);
@@ -329,6 +336,29 @@
             this.CtrlTPView.Size = new System.Drawing.Size(748, 503);
             this.CtrlTPView.TabIndex = 0;
             this.CtrlTPView.Text = "Книга рецептов";
+            // 
+            // CtrlRBEdit
+            // 
+            this.CtrlRBEdit.AutoSize = true;
+            this.CtrlRBEdit.Location = new System.Drawing.Point(8, 24);
+            this.CtrlRBEdit.Name = "CtrlRBEdit";
+            this.CtrlRBEdit.Size = new System.Drawing.Size(184, 17);
+            this.CtrlRBEdit.TabIndex = 6;
+            this.CtrlRBEdit.Text = "Режим изменения/добавления";
+            this.CtrlRBEdit.UseVisualStyleBackColor = true;
+            // 
+            // CtrlRBSelect
+            // 
+            this.CtrlRBSelect.AutoSize = true;
+            this.CtrlRBSelect.Checked = true;
+            this.CtrlRBSelect.Location = new System.Drawing.Point(8, 6);
+            this.CtrlRBSelect.Name = "CtrlRBSelect";
+            this.CtrlRBSelect.Size = new System.Drawing.Size(101, 17);
+            this.CtrlRBSelect.TabIndex = 5;
+            this.CtrlRBSelect.TabStop = true;
+            this.CtrlRBSelect.Text = "Режим выбора";
+            this.CtrlRBSelect.UseVisualStyleBackColor = true;
+            this.CtrlRBSelect.CheckedChanged += new System.EventHandler(this.CtrlRBSelect_CheckedChanged);
             // 
             // CtrlTPEditor
             // 
@@ -839,16 +869,25 @@
             this.CtrlRBKitchens.UseVisualStyleBackColor = true;
             this.CtrlRBKitchens.CheckedChanged += new System.EventHandler(this.CtrlRB_CheckedChanged);
             // 
-            // CBKitchen
+            // CtrlBtnAccept
             // 
-            this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CBKitchen.FormattingEnabled = true;
-            this.CBKitchen.Location = new System.Drawing.Point(120, 37);
-            this.CBKitchen.Name = "CBKitchen";
-            this.CBKitchen.Size = new System.Drawing.Size(121, 21);
-            this.CBKitchen.TabIndex = 9;
-            this.CBKitchen.SelectedIndexChanged += new System.EventHandler(this.CBKitchen_SelectedIndexChanged);
+            this.CtrlBtnAccept.Enabled = false;
+            this.CtrlBtnAccept.Location = new System.Drawing.Point(8, 472);
+            this.CtrlBtnAccept.Name = "CtrlBtnAccept";
+            this.CtrlBtnAccept.Size = new System.Drawing.Size(75, 23);
+            this.CtrlBtnAccept.TabIndex = 7;
+            this.CtrlBtnAccept.Text = "Принять";
+            this.CtrlBtnAccept.UseVisualStyleBackColor = true;
+            // 
+            // CtrlBtnReject
+            // 
+            this.CtrlBtnReject.Enabled = false;
+            this.CtrlBtnReject.Location = new System.Drawing.Point(188, 472);
+            this.CtrlBtnReject.Name = "CtrlBtnReject";
+            this.CtrlBtnReject.Size = new System.Drawing.Size(75, 23);
+            this.CtrlBtnReject.TabIndex = 8;
+            this.CtrlBtnReject.Text = "Отменить";
+            this.CtrlBtnReject.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -871,6 +910,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CtrlViewDGVDevices)).EndInit();
             this.CtrlTCMain.ResumeLayout(false);
             this.CtrlTPView.ResumeLayout(false);
+            this.CtrlTPView.PerformLayout();
             this.CtrlTPEditor.ResumeLayout(false);
             this.CtrlTCEditor.ResumeLayout(false);
             this.CtrlEditorTPRecipe.ResumeLayout(false);
@@ -897,7 +937,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button CtrlButReload;
         private System.Windows.Forms.DataGridView CtrlViewDGVNames;
         private System.Windows.Forms.Panel CtrlViewPanel;
         private System.Windows.Forms.TabControl CtrlViewTCMisc;
@@ -964,6 +1003,10 @@
         private System.Windows.Forms.Button CtrlEditorBtnAddRecipe;
         private System.Windows.Forms.ListBox CtrlEditorLBIngredsAll;
         private System.Windows.Forms.ComboBox CBKitchen;
+        private System.Windows.Forms.RadioButton CtrlRBEdit;
+        private System.Windows.Forms.RadioButton CtrlRBSelect;
+        private System.Windows.Forms.Button CtrlBtnReject;
+        private System.Windows.Forms.Button CtrlBtnAccept;
     }
 }
 

@@ -42,11 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adder.cs">
+    <Compile Include="Controllers\RecipeAddController.cs" />
+    <Compile Include="Controllers\RecipeNamesController.cs" />
+    <Compile Include="HelperForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Adder.Designer.cs">
-      <DependentUpon>Adder.cs</DependentUpon>
+    <Compile Include="HelperForm.Designer.cs">
+      <DependentUpon>HelperForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -54,11 +56,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecipeNamesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecondaryDBAdder.cs" />
-    <EmbeddedResource Include="Adder.resx">
-      <DependentUpon>Adder.cs</DependentUpon>
+    <EmbeddedResource Include="HelperForm.resx">
+      <DependentUpon>HelperForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -91,6 +93,9 @@
       <Project>{c5fe4b64-49fd-4ca3-a1de-31cc4879e74d}</Project>
       <Name>DBLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
