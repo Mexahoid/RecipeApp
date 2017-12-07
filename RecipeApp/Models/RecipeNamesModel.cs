@@ -13,11 +13,18 @@ namespace RecipeApp.Models
     {
         private DataGridView _dgv;
         private DataTable _dataTable;
+        private event Action<DataGridViewRowCollection> OnDataChange;
+        private event Action OnButtonClick;
+        private event Action OnCellClick;
         public int Count { get; set; }
-        public RecipeNamesModel(DataGridView recipeNamesDgv)
+        public RecipeNamesModel(DataGridView recipeNamesDgv, Action<DataGridViewRowCollection> action,
+            Tuple<Action, Action> actions)
         {
             _dgv = recipeNamesDgv;
             _dgv.AutoGenerateColumns = true;
+            OnDataChange += action;
+            OnButtonClick += actions.Item1;
+            OnCellClick += actions.Item2;
         }
 
         public void ClearData()
@@ -34,16 +41,39 @@ namespace RecipeApp.Models
             };
         }
 
-        public void AddRow(object o)
+        public void AlterButtonRow(string text)
         {
-            if (o is DataGridViewButtonCell btn)
+            if (_dgv.Rows[_dgv.RowCount - 1].Cells[0].GetType() == typeof(DataGridViewButtonCell))
             {
-                _dgv.Rows.Add();
-                _dgv.Rows[_dgv.RowCount - 1].Cells[0] = btn;
-                Count++;
+                _dgv.Rows[_dgv.RowCount - 1].Cells[0] = new DataGridViewTextBoxCell
+                {
+                    Value = text
+                };
             }
-            //_dataTable.Rows.Add();
-            //_dataTable.Rows[_dataTable.Rows.Count - 1].ItemArray[0] = o;
+            else
+            {
+                var btn = new DataGridViewButtonCell
+                {
+                    Value = "Добавить новый рецепт",
+                    FlatStyle = FlatStyle.System
+                };
+                _dgv.Rows[_dgv.RowCount - 1].Cells[0] = btn;
+            }
+        }
+
+        public void 
+
+        public void AddRow()
+        {
+            var btn = new DataGridViewButtonCell
+            {
+                Value = "Добавить новый рецепт",
+                FlatStyle = FlatStyle.System
+            };
+            _dgv.Rows.Add();
+            _dgv.Rows[_dgv.RowCount - 1].Cells[0] = btn;
+                Count++;
+            
         }
 
         public void RemoveRow()
@@ -64,6 +94,19 @@ namespace RecipeApp.Models
             {
                 _dgv.Rows.Add(dataTableRow.ItemArray[0]);
                 Count++;
+            }
+        }
+
+        private void CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if ((sender as DataGridView)?.Rows[e.RowIndex].Cells[e.ColumnIndex] is
+                DataGridViewButtonCell)
+            {
+
+            }
+            else
+            {
+                
             }
         }
     }

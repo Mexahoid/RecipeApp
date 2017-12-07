@@ -42,27 +42,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\RecipeAddController.cs" />
+    <Compile Include="Controllers\ButtonController.cs" />
+    <Compile Include="Controllers\KitchenController.cs" />
+    <Compile Include="Controllers\LinkController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\RecipeNamesController.cs" />
-    <Compile Include="HelperForm.cs">
+    <Compile Include="Forms\HelperForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HelperForm.Designer.cs">
+    <Compile Include="Forms\HelperForm.Designer.cs">
       <DependentUpon>HelperForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\KitchensModel.cs" />
+    <Compile Include="Models\TextBoxModel.cs" />
     <Compile Include="Models\RecipeNamesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="HelperForm.resx">
+    <EmbeddedResource Include="Forms\HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -94,8 +99,6 @@
       <Name>DBLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

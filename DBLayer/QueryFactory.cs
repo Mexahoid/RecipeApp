@@ -20,7 +20,9 @@ namespace DBLayer
             QueryRedactorInsertNewType,
 
             QueryRedactorInsertIngreds,
-            QueryRedactorSelectPureIngreds
+            QueryRedactorSelectPureIngreds,
+            SelectAllKitchens,
+            UpdateOneKitchen
         }
 
         private readonly string[] _queries;
@@ -53,7 +55,7 @@ namespace DBLayer
                 " LEFT JOIN [Kitchen] AS K ON K.ID = R.IDKitchen" +
                 " WHERE R.Name = @Name",            //Вывод MiscData для рецепта на первой вкладке
 
-                "SELECT Name FROM Kitchen",
+                "SELECT Name FROM Kitchen WHERE Id = (SELECT IDKitchen FROM Recipe WHERE Name = @Name)",
 
                 "SELECT Name FROM Device",
 
@@ -67,7 +69,11 @@ namespace DBLayer
 
                 "INSERT INTO Ingredient VALUES (@Name, @Units)",
 
-                "SELECT [Name] AS 'Название', [Units] AS 'Единицы измерения' FROM Ingredient"
+                "SELECT [Name] AS 'Название', [Units] AS 'Единицы измерения' FROM Ingredient",
+
+                "SELECT Name FROM Kitchen ORDER BY Name",
+
+                "UPDATE Kitchen SET Name = @New WHERE Name = @Old"
             };
         }
 

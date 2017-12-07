@@ -37,5 +37,19 @@ namespace RecipeApp
         {
             this.Close();
         }
+
+        public static string Invoke(bool isAdding = true)
+        {
+            string name = "";
+            var op = isAdding ? Operation.Add : Operation.Rename;
+            using (var add = new HelperForm(op, text => name = text))
+            {
+                if (add.ShowDialog() == DialogResult.OK)
+                {
+                    return name;
+                }
+            }
+            return null;
+        }
     }
 }

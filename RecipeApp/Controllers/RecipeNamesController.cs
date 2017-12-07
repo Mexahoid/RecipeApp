@@ -14,25 +14,36 @@ namespace RecipeApp.Controllers
     {
         private bool _editing;
 
-        private RecipeNamesModel _model;
-        private RecipeAddController _adder;
+        private readonly RecipeNamesModel _model;
+        private event Action OnChangeLock;
+        private List<Tuple<string, string>> _data;
 
-        public RecipeNamesController(DataGridView recipeNames)
+        public RecipeNamesController(DataGridView recipeNames, Action onChangeAction)
         {
-            _model = new RecipeNamesModel(recipeNames);
+            _model = new RecipeNamesModel(recipeNames, OnDataChange);
+            OnChangeLock += onChangeAction;
+            //recipeNames.CellContentClick += DGVButton_Clicked;
             ShowRecipeNames();
         }
 
-        public void InitAdder(Button accept, Button reject)
+        private void InsertRecipe()
         {
-            _adder = new RecipeAddController(accept, reject,
-                new Tuple<Action, Action, Action>(
-                    AddFillerRow, RemoveFillerRow, InsertRecipe));
+
         }
 
-        public void InsertRecipe()
+        private void UpdateRecipe()
         {
 
+        }
+
+        private void DeleteRecipe()
+        {
+            
+        }
+
+        private void OnDataChange(DataGridViewRowCollection rows)
+        {
+            
         }
 
         public void ChangeMode()
@@ -55,12 +66,7 @@ namespace RecipeApp.Controllers
 
         private void AddFillerRow()
         {
-            var btn = new DataGridViewButtonCell
-            {
-                Value = "Добавить новый рецепт",
-                FlatStyle = FlatStyle.System
-            };
-            _model.AddRow(btn);
+            _model.AddRow();
         }
 
         public void DGVButton_Clicked(object sender, DataGridViewCellEventArgs e, Action<string> act)
@@ -68,11 +74,11 @@ namespace RecipeApp.Controllers
             if ((sender as DataGridView)?.Rows[e.RowIndex].Cells[e.ColumnIndex] is
                 DataGridViewButtonCell)
             {
-                string name = GetNewRecipeName();
+                string name = HelperForm.Invoke();
                 if (name != null)
                 {
                     _model.SetButtonRow(name);
-                    _adder.IsAdding = true;
+                    OnChangeLock?.Invoke();
                 }
                 else
                 {
@@ -86,7 +92,7 @@ namespace RecipeApp.Controllers
                 {
                     if (e.RowIndex == _model.Count - 1)
                     {
-                        string name = GetNewRecipeName(false);
+                        string name = HelperForm.Invoke(false);
                         if (name != null)
                         {
                             _model.SetButtonRow(name);
@@ -99,29 +105,31 @@ namespace RecipeApp.Controllers
             }
         }
 
+        private void ProcessButtonClick()
+        {
+            string name = HelperForm.Invoke();
+            if (name != null)
+            {
+                _model.SetButtonRow(name);
+                OnChangeLock?.Invoke();
+            }
+            else
+            {
+                RemoveFillerRow();
+                AddFillerRow();
+            }
+        }
+
+        private void ProcessCellClick()
+        {
+            
+        }
+
         public void ShowRecipeNames()
         {
             _model.ClearData();
             _model.LoadData();
         }
 
-        public string GetNewRecipeName(bool isAdding = true)
-        {
-            string name = "";
-            var op = isAdding ? HelperForm.Operation.Add : HelperForm.Operation.Rename;
-            using (var add = new HelperForm(op, text => name = text))
-            {
-                if (add.ShowDialog() == DialogResult.OK)
-                {
-                    return name;
-                }
-            }
-            return null;
-        }
-
-        public void EditRecipeName()
-        {
-
-        }
     }
 }
