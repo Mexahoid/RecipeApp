@@ -22,7 +22,12 @@ namespace DBLayer
             QueryRedactorInsertIngreds,
             QueryRedactorSelectPureIngreds,
             SelectAllKitchens,
-            UpdateOneKitchen
+            UpdateOneKitchen,
+
+
+
+            DeleteRecipeByName,
+            UpdateRecipeByName
         }
 
         private readonly string[] _queries;

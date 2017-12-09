@@ -47,11 +47,23 @@
     <Compile Include="Controllers\LinkController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\RecipeNamesController.cs" />
+    <Compile Include="Forms\ConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ConfirmationForm.Designer.cs">
+      <DependentUpon>ConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HelperForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\HelperForm.Designer.cs">
       <DependentUpon>HelperForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JunctionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JunctionForm.Designer.cs">
+      <DependentUpon>JunctionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
@@ -64,8 +76,14 @@
     <Compile Include="Models\RecipeNamesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\ConfirmationForm.resx">
+      <DependentUpon>ConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HelperForm.resx">
       <DependentUpon>HelperForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JunctionForm.resx">
+      <DependentUpon>JunctionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

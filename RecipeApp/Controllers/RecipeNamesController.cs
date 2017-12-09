@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DBLayer;
 using System.Windows.Forms;
+using RecipeApp.Forms;
 using RecipeApp.Models;
 
 namespace RecipeApp.Controllers
@@ -16,119 +17,139 @@ namespace RecipeApp.Controllers
 
         private readonly RecipeNamesModel _model;
         private event Action OnChangeLock;
+        private event Action<string> OnRecipeSelect;
+        private event Action<string> OnRecipeInsert;
         private List<Tuple<string, string>> _data;
+        /// <summary>
+        /// Количество строк изначальной дгв, когда не выбрали режим добавления.
+        /// </summary>
+        private readonly int _dgvUnchangedModeCount;
 
-        public RecipeNamesController(DataGridView recipeNames, Action onChangeAction)
+        public RecipeNamesController(DataGridView recipeNames,
+            Action onChangeAction,
+            Action<string> onRecipeSelect)
         {
-            _model = new RecipeNamesModel(recipeNames, OnDataChange);
+            _model = new RecipeNamesModel(recipeNames, DataChangeHandler, CellClickHandler);
             OnChangeLock += onChangeAction;
-            //recipeNames.CellContentClick += DGVButton_Clicked;
-            ShowRecipeNames();
+            OnRecipeSelect += onRecipeSelect;
+
+            _data = new List<Tuple<string, string>>();
+            _model.ReloadData();
+            _model.FillDataList(_data);
+
+            _data.Add(new Tuple<string, string>(null, null));  // Последний ряд под новый
         }
 
-        private void InsertRecipe()
+        public void ModeChangeHandler()
         {
-
+            _model.ChangeMode();
         }
 
-        private void UpdateRecipe()
+        private void InsertRecipe(string text)
         {
-
+            OnRecipeInsert?.Invoke(text);
         }
 
-        private void DeleteRecipe()
+        private void UpdateRecipe(int index)
         {
-            
+            Connector.GetTable(QueryFactory.Queries.DeleteRecipeByName,
+                new Tuple<string, string>("@New", _data[index].Item1),
+                new Tuple<string, string>("@Old", _data[index].Item2));
         }
 
-        private void OnDataChange(DataGridViewRowCollection rows)
+        private void DeleteRecipe(int index)
         {
-            
+            Connector.GetTable(QueryFactory.Queries.DeleteRecipeByName,
+                new Tuple<string, string>("@Name", _data[index].Item2));
         }
 
-        public void ChangeMode()
+        private void NewRow()
         {
-            _editing = !_editing;
-            if (_editing)
-            {
-                AddFillerRow();
-            }
-            else
-            {
-                RemoveFillerRow();
-            }
-        }
-
-        private void RemoveFillerRow()
-        {
-            _model.RemoveRow();
-        }
-
-        private void AddFillerRow()
-        {
+            _data = new List<Tuple<string, string>>();
+            _model.FillDataList(_data);
             _model.AddRow();
         }
 
-        public void DGVButton_Clicked(object sender, DataGridViewCellEventArgs e, Action<string> act)
+        private void CellClickHandler(int index, string text, MouseButtons mb)
         {
-            if ((sender as DataGridView)?.Rows[e.RowIndex].Cells[e.ColumnIndex] is
-                DataGridViewButtonCell)
+            switch (mb)
             {
-                string name = HelperForm.Invoke();
-                if (name != null)
-                {
-                    _model.SetButtonRow(name);
-                    OnChangeLock?.Invoke();
-                }
-                else
-                {
-                    RemoveFillerRow();
-                    AddFillerRow();
-                }
-            }
-            else
-            {
-                if (_adder.IsAdding)  //Последний row только добавлен
-                {
-                    if (e.RowIndex == _model.Count - 1)
+                case MouseButtons.Left:
+                    OnRecipeSelect?.Invoke(text);
+                    break;
+                case MouseButtons.Right:
+                    string answer = JunctionForm.Invoke(text);
+                    if (answer == null)
+                        _data[index] = new Tuple<string, string>(null, _data[index].Item2);
+                    else if (answer == Properties.Resources.AddNewRecipe)
+                        throw new Exception("Ты че, дурак? Зачем изменять название на системное?");
+                    else
                     {
-                        string name = HelperForm.Invoke(false);
-                        if (name != null)
-                        {
-                            _model.SetButtonRow(name);
-                        }
-
+                        if (CheckExistence(answer))
+                            throw new Exception("Такой рецепт уже есть.");
+                        _data[index] = new Tuple<string, string>(answer, _data[index].Item2);
                     }
-                }
-                else
-                    act((sender as DataGridView)?.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    break;
             }
+
         }
 
-        private void ProcessButtonClick()
+        private bool CheckExistence(string text)
         {
-            string name = HelperForm.Invoke();
-            if (name != null)
+            return _data.Any(tuple => tuple.Item1 == text);
+        }
+
+
+        private void DataChangeHandler(DataGridViewRowCollection rows)
+        {
+            if (rows.Count == _dgvUnchangedModeCount)
+                throw new Exception("Ошибка неверного режима.");
+            int lastRowIndex = rows.Count - 1;
+            for (int i = 0; i < lastRowIndex; i++)    // Все, кроме последнего
             {
-                _model.SetButtonRow(name);
-                OnChangeLock?.Invoke();
+                _data[i] = new Tuple<string, string>(rows[i].Cells[0].Value.ToString(),
+                    _data[i].Item2);
             }
-            else
-            {
-                RemoveFillerRow();
-                AddFillerRow();
-            }
+
+            _data[lastRowIndex] = new Tuple<string, string>(
+                rows[lastRowIndex].Cells[0].Value.ToString(), "");
         }
 
         private void ProcessCellClick()
         {
-            
+
         }
 
         public void ShowRecipeNames()
         {
-            _model.ClearData();
-            _model.LoadData();
+            _model.ReloadData();
+        }
+
+        public void HandleAccept()
+        {
+            for (int i = 0; i < _data.Count; i++)
+            {
+                if (_data[i].Item1 == null)
+                {
+                    DeleteRecipe(i);
+                    continue;
+                }
+                if (_data[i].Item1 != _data[i].Item2)
+                {
+                    UpdateRecipe(i);
+                    continue;
+                }
+                if(_data[i].Item1 != null && _data[i].Item2 == null)
+                    InsertRecipe(_data[i].Item1);
+            }
+
+            NewRow();
+        }
+
+        public void HandleReject()
+        {
+            _model.ReloadData();
+            NewRow();
         }
 
     }

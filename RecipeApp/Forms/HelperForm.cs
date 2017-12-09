@@ -12,38 +12,37 @@ namespace RecipeApp
 {
     public partial class HelperForm : Form
     {
-        public enum Operation
-        {
-            Add,
-            Rename
-        }
-
         private event Action<string> Del;
 
-        public HelperForm(Operation op, Action<string> act)
+        public HelperForm(bool isAdding, Action<string> act)
         {
             InitializeComponent();
-            CtrlBtnAdd.Text = op == Operation.Add ? "Добавить" : "Изменить";
+            CtrlBtnAdd.Text = isAdding ? "Добавить" : "Изменить";
             Del += act;
         }
 
         private void CtrlBtnAdd_Click(object sender, EventArgs e)
         {
             Del?.Invoke(CtrlTBName.Text);
-            this.Close();
+            Close();
         }
 
         private void CtrlBtnReject_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        public static string Invoke(bool isAdding = true)
+        private void SetText(string text)
+        {
+            CtrlTBName.Text = text;
+        }
+
+        public static string Invoke(bool isAdding = true, string inputText = "")
         {
             string name = "";
-            var op = isAdding ? Operation.Add : Operation.Rename;
-            using (var add = new HelperForm(op, text => name = text))
+            using (var add = new HelperForm(isAdding, text => name = text))
             {
+                add.SetText(inputText);
                 if (add.ShowDialog() == DialogResult.OK)
                 {
                     return name;
