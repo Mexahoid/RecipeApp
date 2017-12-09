@@ -95,5 +95,9 @@ namespace RecipeApp.Models
             
         }
 
+        public void Lock() => _dgv.Enabled = false;
+
+        public void Unlock() => _dgv.Enabled = true;
+
     }
 }

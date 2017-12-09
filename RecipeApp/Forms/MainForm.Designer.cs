@@ -50,6 +50,7 @@
             this.CBKitchen = new System.Windows.Forms.ComboBox();
             this.CtrlViewDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlTCMain = new System.Windows.Forms.TabControl();
+            this.CBType = new System.Windows.Forms.ComboBox();
             this.CtrlTPView.SuspendLayout();
             this.CtrlViewPanel.SuspendLayout();
             this.CtrlViewTCMisc.SuspendLayout();
@@ -131,6 +132,7 @@
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblLink);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
             this.CtrlViewPanel.Controls.Add(this.CBKitchen);
+            this.CtrlViewPanel.Controls.Add(this.CBType);
             this.CtrlViewPanel.Location = new System.Drawing.Point(269, 6);
             this.CtrlViewPanel.Name = "CtrlViewPanel";
             this.CtrlViewPanel.Size = new System.Drawing.Size(476, 494);
@@ -281,6 +283,7 @@
             // 
             this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBKitchen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBKitchen.FormattingEnabled = true;
             this.CBKitchen.Location = new System.Drawing.Point(64, 38);
             this.CBKitchen.Name = "CBKitchen";
@@ -304,7 +307,6 @@
             this.CtrlViewDGVNames.RowHeadersWidth = 18;
             this.CtrlViewDGVNames.Size = new System.Drawing.Size(260, 418);
             this.CtrlViewDGVNames.TabIndex = 1;
-            this.CtrlViewDGVNames.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlViewDGVNames_CellContentClick);
             // 
             // CtrlTCMain
             // 
@@ -315,6 +317,17 @@
             this.CtrlTCMain.SelectedIndex = 0;
             this.CtrlTCMain.Size = new System.Drawing.Size(756, 529);
             this.CtrlTCMain.TabIndex = 3;
+            // 
+            // CBType
+            // 
+            this.CBType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CBType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBType.FormattingEnabled = true;
+            this.CBType.Location = new System.Drawing.Point(334, 37);
+            this.CBType.Name = "CBType";
+            this.CBType.Size = new System.Drawing.Size(128, 21);
+            this.CBType.TabIndex = 10;
             // 
             // FormMain
             // 
@@ -366,6 +379,7 @@
         private System.Windows.Forms.ComboBox CBKitchen;
         private System.Windows.Forms.DataGridView CtrlViewDGVNames;
         private System.Windows.Forms.TabControl CtrlTCMain;
+        private System.Windows.Forms.ComboBox CBType;
     }
 }
 

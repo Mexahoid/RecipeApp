@@ -2,29 +2,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBLayer;
+using TBController = RecipeApp.Controllers.TextBoxController.TextBoxController;
 
 namespace RecipeApp.Controllers
 {
     class MainController
     {
-        private List<Control> _controls;
+        private readonly List<Control> _controls;
         private RecipeNamesController _rnc;
-        private KitchenController _ktc;
-        private LinkController _lc;
+        private MultBoxesController _ktc;
+        private MultBoxesController _tc;
+        private TBController _linkCtrl;
+        private TBController _textCtrl;
         private ButtonController _bc;
+        private event Action<string> OnError;
 
-        public MainController(IEnumerable controls)
+        public MainController(IEnumerable controls, Action<string> onError)
         {
             _controls = new List<Control>();
+            OnError += onError;
             InitControlsRecursively(controls);
             InitRecipeNamesController();
-            InitLinkController();
+            InitTbController();
             InitKitchenController();
             InitTypeController();
-            InitTextController();
             InitIngredsController();
             InitDeviceController();
         }
@@ -36,7 +42,6 @@ namespace RecipeApp.Controllers
             {
                 if((control as Control)?.Controls != null)
                     InitControlsRecursively((control as Control).Controls);
-                
                     _controls.Add(control as Control);
             }
         }
@@ -51,31 +56,47 @@ namespace RecipeApp.Controllers
             _bc = new ButtonController(new List<Control> { acc, rej, rbView, rbEdit },
                 new Tuple<Action, Action, Action>(OnAccept, OnReject, OnChangeMode));
 
-            _rnc = new RecipeNamesController(_controls.Find(ctrl => ctrl.Name == "CtrlViewDGVNames") as DataGridView);
+            _rnc = new RecipeNamesController(
+                _controls.Find(ctrl => ctrl.Name == "CtrlViewDGVNames") as DataGridView,
+                ChangeLocker, RecipeSelectHandler, RecipeInsertHandler, ErrorHandler);
         }
 
-        public void InitLinkController()
+        public void InitTbController()
         {
             TextBox tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBLink") as TextBox;
-            _lc = new LinkController(tb, OnChangeLock);
+            _linkCtrl = new TBController(tb, ChangeLocker, ErrorHandler);
+            tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBText") as TextBox;
+            _textCtrl = new TBController(tb, ChangeLocker, ErrorHandler);
         }
 
         public void InitKitchenController()
         {
             ComboBox cb = _controls.Find(ctrl => ctrl.Name == "CBKitchen") as ComboBox;
             TextBox tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBKitchen") as TextBox;
-            _ktc = new KitchenController(cb, tb);
+            QueryFactory.Queries[] queries =
+            {
+                QueryFactory.Queries.SelectKitchenByRecipeName,
+                QueryFactory.Queries.InsertKitchen,
+                QueryFactory.Queries.UpdateKitchen,
+                QueryFactory.Queries.SelectAllKitchens
+            };
+            _ktc = new MultBoxesController(cb, tb, queries);
         }
 
         public void InitTypeController()
         {
-            
+            ComboBox cb = _controls.Find(ctrl => ctrl.Name == "CBType") as ComboBox;
+            TextBox tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBType") as TextBox;
+            QueryFactory.Queries[] queries =
+            {
+                QueryFactory.Queries.SelectTypeByRecipeName,
+                QueryFactory.Queries.InsertType,
+                QueryFactory.Queries.UpdateType,
+                QueryFactory.Queries.SelectAllTypes
+            };
+            _tc = new MultBoxesController(cb, tb, queries);
         }
-
-        public void InitTextController()
-        {
-            
-        }
+        
 
         public void InitIngredsController()
         {
@@ -90,36 +111,57 @@ namespace RecipeApp.Controllers
 
         public void OnChangeMode()
         {
-            _rnc.ChangeMode();
+            _rnc.ModeChangeHandler();
             _ktc.ChangeLayout();
-            _lc.ChangeMode();
-        }
-
-        public void DGVClick(object sender, DataGridViewCellEventArgs e, Action<string> act)
-        {
-            _rnc.DGVButton_Clicked(sender, e, act);
+            _tc.ChangeLayout();
+            _linkCtrl.ChangeMode();
+            _textCtrl.ChangeMode();
         }
 
 
-        private void OnChangeLock()
+        private void ChangeLocker()
         {
             _bc.IsAdding = true;
+            _rnc.Lock();
         }
 
 
         private void OnAccept()
         {
-            
+            _rnc.Unlock();
         }
 
         private void OnReject()
         {
-
+            _rnc.Unlock();
+            _rnc.HandleReject();
         }
 
-        private void OnRecipeSelect()
+        private void TextRecipeSelectHandler(string text)
         {
             
+        }
+
+        private void LinkRecipeSelectHandler(string text)
+        {
+            
+        }
+
+        private void RecipeSelectHandler(string text)
+        {
+            _linkCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectLinkByRecipeName);
+            _textCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectTextByRecipeName);
+            _ktc.HandleRecipeSelection(text);
+        }
+
+        private void RecipeInsertHandler(string text)
+        {
+            
+        }
+
+        private void ErrorHandler(string text)
+        {
+            OnError?.Invoke(text);
         }
     }
 }

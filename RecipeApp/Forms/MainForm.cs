@@ -98,6 +98,7 @@ namespace RecipeApp
 
         }
         
+        
         private void FormMain_Load(object sender, EventArgs e)
         {
             _queries = new QueryFactory();
@@ -113,7 +114,7 @@ namespace RecipeApp
                 CBKitchen.Items.Add(dataRow.ItemArray[0]);
             }
             
-            _mc = new MainController(Controls);
+            _mc = new MainController(Controls, text => MessageBox.Show(text));
             //ShowIngredsPure();
             //FillListBoxes();
         }
@@ -161,19 +162,19 @@ namespace RecipeApp
 
         private void FillListBoxes()
         {
-            string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectKitchens);
+            //string query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectKitchens);
             //GetData(CtrlEditorInfoLBKitchens, query);
             //CtrlEditorInfoLBKitchens.ClearSelected();
-            DataTable dt = GetTable(query);
-            foreach (DataRow dtRow in dt.Rows)
-            {
-                CBKitchen.Items.Add(dtRow.ItemArray[0]);
-            }
-            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
-            query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectDevices);
+            //DataTable dt = GetTable(query);
+            //foreach (DataRow dtRow in dt.Rows)
+            //
+            //    CBKitchen.Items.Add(dtRow.ItemArray[0]);
+            //}
+            //CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
+            //query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectDevices);
             //GetData(CtrlEditorInfoLBDevices, query);
             //CtrlEditorInfoLBDevices.ClearSelected();
-            query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectTypes);
+            //query = _queries.GetQuery(QueryFactory.Queries.QueryRedactorSelectTypes);
             //GetData(CtrlEditorInfoLBTypes, query);
             //CtrlEditorInfoLBTypes.ClearSelected();
         }
@@ -235,29 +236,6 @@ namespace RecipeApp
         //{
         //    CtrlEditorBtnDeleteIngred.Enabled = true;
         //}
-
-        private void CBKitchen_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CBKitchen.SelectedIndex == CBKitchen.Items.Count - 1)
-            {
-                if (CBKitchen.Items[CBKitchen.SelectedIndex].Equals(Properties.Resources.AddNewKitchen))
-                {
-                    string name = "";
-                    using (var add = new HelperForm(HelperForm.Operation.Add, text => name = text))
-                    {
-                        if (add.ShowDialog() == DialogResult.OK)
-                        {
-                            CBKitchen.Items[CBKitchen.Items.Count - 1] = name;
-                            CBKitchen.Items.Add(Properties.Resources.AddNewKitchen);
-                        }
-                    }
-                }
-            }
-        }
-        private void CtrlViewDGVNames_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            _mc.DGVClick(sender, e, GetAllData);
-        }
 
         private void GetAllData(string name)
         {

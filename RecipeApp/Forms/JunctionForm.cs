@@ -19,6 +19,7 @@ namespace RecipeApp.Forms
             InitializeComponent();
             OnYes += act;
             _text = text;
+            CtrlLbl.Text = $"Выбрана запись: {_text}";
         }
 
         private void CtrlBtnEdit_Click(object sender, EventArgs e)
@@ -27,7 +28,7 @@ namespace RecipeApp.Forms
             bool flag = true;
             while (flag)
             {
-                text = HelperForm.Invoke(false, _text);
+                text = RenameForm.Invoke(false, _text);
                 if (text != "")
                 {
                     flag = false;

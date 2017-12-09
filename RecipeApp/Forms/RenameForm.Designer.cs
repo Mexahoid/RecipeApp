@@ -1,6 +1,6 @@
 ﻿namespace RecipeApp
 {
-    partial class HelperForm
+    partial class RenameForm
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.Controls.Add(this.CtrlBtnReject);
             this.Controls.Add(this.CtrlBtnAdd);
             this.Controls.Add(this.CtrlTBName);
-            this.Name = "HelperForm";
+            this.Name = "RenameForm";
             this.Text = "Adder";
             this.ResumeLayout(false);
             this.PerformLayout();

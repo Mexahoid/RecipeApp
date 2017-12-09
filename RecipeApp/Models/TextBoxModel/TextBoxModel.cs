@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RecipeApp.Models
+namespace RecipeApp.Models.TextBoxModel
 {
     class TextBoxModel
     {
@@ -13,7 +13,8 @@ namespace RecipeApp.Models
         private bool _isLocked;
         private event Action OnChange;
 
-        public TextBoxModel(TextBox textBox, Action onChangeAction)
+        public TextBoxModel(TextBox textBox,
+            Action onChangeAction)
         {
             _tb = textBox;
             _tb.TextChanged += TextChanged;

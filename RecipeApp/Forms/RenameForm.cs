@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace RecipeApp
 {
-    public partial class HelperForm : Form
+    public partial class RenameForm : Form
     {
         private event Action<string> Del;
 
-        public HelperForm(bool isAdding, Action<string> act)
+        public RenameForm(bool isAdding, Action<string> act)
         {
             InitializeComponent();
             CtrlBtnAdd.Text = isAdding ? "Добавить" : "Изменить";
@@ -40,7 +40,7 @@ namespace RecipeApp
         public static string Invoke(bool isAdding = true, string inputText = "")
         {
             string name = "";
-            using (var add = new HelperForm(isAdding, text => name = text))
+            using (var add = new RenameForm(isAdding, text => name = text))
             {
                 add.SetText(inputText);
                 if (add.ShowDialog() == DialogResult.OK)
