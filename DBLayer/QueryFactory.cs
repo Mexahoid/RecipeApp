@@ -8,7 +8,7 @@ namespace DBLayer
         {
             QuerySelectRecipeNames,
             QueryViewerSelectIngreds,
-            QueryViewerSelectDevices,
+            SelectDevicesByRecipeName,
             QueryViewerSelectMiscData,
 
             SelectKitchenByRecipeName,
@@ -38,7 +38,9 @@ namespace DBLayer
             SelectTypeByRecipeName,
             SelectAllTypes,
             InsertType,
-            UpdateType
+            UpdateType,
+
+            SelectAllDevicesNames
         }
 
         private readonly string[] _queries;
@@ -109,6 +111,8 @@ namespace DBLayer
                 "INSERT INTO Type VALUES (@Name)",
 
                 "UPDATE Type SET Name = @New WHERE Name = @Old",
+
+                "SELECT Name FROM Device"
             };
         }
 

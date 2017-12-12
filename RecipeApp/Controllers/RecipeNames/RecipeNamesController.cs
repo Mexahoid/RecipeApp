@@ -10,14 +10,12 @@ namespace RecipeApp.Controllers.RecipeNames
 {
     class RecipeNamesController
     {
-        private bool _editing;
-
         private readonly RecipeNamesModel _model;
         private event Action OnChangeLock;
         private event Action<string> OnRecipeSelect;
         private event Action<string> OnRecipeInsert;
         private event Action<string> OnError;
-        private List<Tuple<string, string>> _data;
+        private readonly List<Tuple<string, string>> _data;
 
         public RecipeNamesController(DataGridView recipeNames,
             Action onChangeAction,

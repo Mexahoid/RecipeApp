@@ -15,9 +15,13 @@ namespace RecipeApp.Controllers.TextBoxes
     {
         private readonly TextBoxModel _lm;
         private event Action<string> OnError;
-
-        public TextBoxController(TextBox tb, Action locker, Action<string> onError)
+        private QueryFactory.Queries _selectQuery;
+        public TextBoxController(TextBox tb, 
+            Action locker, 
+            Action<string> onError,
+            QueryFactory.Queries query)
         {
+            _selectQuery = query;
             OnError += onError;
             _lm = new TextBoxModel(tb, locker);
         }
@@ -38,15 +42,15 @@ namespace RecipeApp.Controllers.TextBoxes
         }
         
 
-        public void HandleRecipeSelection(string text, QueryFactory.Queries query)
+        public void HandleRecipeSelection(string text)
         {
-            DataTable dt = Connector.GetTable(query,
+            DataTable dt = Connector.GetTable(_selectQuery,
                 new Tuple<string, string>("@Name", text));
             try
             {
                 SetText(dt.Rows[0].ItemArray[0].ToString());
             }
-            catch (Exception e)
+            catch
             {
                 SetText("");
                 //OnError?.Invoke(e.Message);

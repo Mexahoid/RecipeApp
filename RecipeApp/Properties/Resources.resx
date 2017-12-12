@@ -124,6 +124,6 @@
     <value>&lt;Новый рецепт...&gt;</value>
   </data>
   <data name="AddNewType" xml:space="preserve">
-    <value>&lt;Новый...&gt;</value>
+    <value>&lt;Новый тип...&gt;</value>
   </data>
 </root>

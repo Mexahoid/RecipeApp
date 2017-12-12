@@ -32,7 +32,7 @@ namespace RecipeApp.Models
             OnCellClick += clicker;
 
             _dgv.CellMouseClick += DGV_Cell_Mouse_Click;
-
+            _dgv.ClearSelection();
         }
 
 

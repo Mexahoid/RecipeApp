@@ -79,7 +79,7 @@ namespace RecipeApp.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на &lt;Новый...&gt;.
+        ///   Ищет локализованную строку, похожую на &lt;Новый тип...&gt;.
         /// </summary>
         internal static string AddNewType {
             get {

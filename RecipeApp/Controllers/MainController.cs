@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
+using RecipeApp.Controllers.DevicesDGV;
 using RecipeApp.Controllers.MultBoxes;
 using RecipeApp.Controllers.RecipeNames;
 using RecipeApp.Controllers.TextBoxes;
@@ -21,6 +22,8 @@ namespace RecipeApp.Controllers
         private MultBoxesController _tc;
         private TextBoxController _linkCtrl;
         private TextBoxController _textCtrl;
+        private DevicesDGVController _ingrCtrl;
+
         private ButtonController _bc;
         private event Action<string> OnError;
 
@@ -66,9 +69,9 @@ namespace RecipeApp.Controllers
         public void InitTbController()
         {
             TextBox tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBLink") as TextBox;
-            _linkCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler);
+            _linkCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler, QueryFactory.Queries.SelectLinkByRecipeName);
             tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBText") as TextBox;
-            _textCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler);
+            _textCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler, QueryFactory.Queries.SelectTextByRecipeName);
         }
 
         public void InitKitchenController()
@@ -107,7 +110,8 @@ namespace RecipeApp.Controllers
 
         public void InitDeviceController()
         {
-            
+            DataGridView devices = _controls.Find(ctrl => ctrl.Name == "CtrlViewDGVDevices") as DataGridView;
+            _ingrCtrl = new DevicesDGVController(devices);
         }
         
 
@@ -118,6 +122,7 @@ namespace RecipeApp.Controllers
             _tc.ChangeLayout();
             _linkCtrl.ChangeMode();
             _textCtrl.ChangeMode();
+            _ingrCtrl.ChangeMode();
         }
 
 
@@ -151,10 +156,11 @@ namespace RecipeApp.Controllers
 
         private void RecipeSelectHandler(string text)
         {
-            _linkCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectLinkByRecipeName);
-            _textCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectTextByRecipeName);
+            _linkCtrl.HandleRecipeSelection(text);
+            _textCtrl.HandleRecipeSelection(text);
             _ktc.HandleRecipeSelection(text);
             _tc.HandleRecipeSelection(text);
+            _ingrCtrl.HandleRecipeSelection(text);
         }
 
         private void RecipeInsertHandler(string text)

@@ -1,4 +1,4 @@
-﻿namespace RecipeApp
+﻿namespace RecipeApp.Forms
 {
     partial class FormMain
     {

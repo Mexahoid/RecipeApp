@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ButtonController.cs" />
+    <Compile Include="Controllers\DevicesDGV\DevicesDGVController.cs" />
     <Compile Include="Controllers\MultBoxes\MultBoxesController.cs" />
     <Compile Include="Controllers\TextBoxes\TextBoxController.cs" />
     <Compile Include="Controllers\MainController.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DevicesDGV\DevicesDGVModel.cs" />
     <Compile Include="Models\MultBoxes\MultBoxesModel.cs" />
     <Compile Include="Models\TextBoxes\TextBoxModel.cs" />
     <Compile Include="Models\RecipeNames\RecipeNamesModel.cs" />
