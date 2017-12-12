@@ -43,10 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ButtonController.cs" />
-    <Compile Include="Controllers\MultBoxesController.cs" />
-    <Compile Include="Controllers\TextBoxController\TextBoxController.cs" />
+    <Compile Include="Controllers\MultBoxes\MultBoxesController.cs" />
+    <Compile Include="Controllers\TextBoxes\TextBoxController.cs" />
     <Compile Include="Controllers\MainController.cs" />
-    <Compile Include="Controllers\RecipeNamesController\RecipeNamesController.cs" />
+    <Compile Include="Controllers\RecipeNames\RecipeNamesController.cs" />
     <Compile Include="Forms\ConfirmationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,9 +71,9 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\MultBoxesModel\MultBoxesModel.cs" />
-    <Compile Include="Models\TextBoxModel\TextBoxModel.cs" />
-    <Compile Include="Models\RecipeNamesModel\RecipeNamesModel.cs" />
+    <Compile Include="Models\MultBoxes\MultBoxesModel.cs" />
+    <Compile Include="Models\TextBoxes\TextBoxModel.cs" />
+    <Compile Include="Models\RecipeNames\RecipeNamesModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\ConfirmationForm.resx">
@@ -117,8 +117,6 @@
       <Name>DBLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\MultBoxesController\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

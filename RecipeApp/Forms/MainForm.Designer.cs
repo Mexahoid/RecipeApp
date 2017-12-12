@@ -48,9 +48,9 @@
             this.CtrlViewLblLink = new System.Windows.Forms.Label();
             this.CtrlViewTBKitchen = new System.Windows.Forms.TextBox();
             this.CBKitchen = new System.Windows.Forms.ComboBox();
+            this.CBType = new System.Windows.Forms.ComboBox();
             this.CtrlViewDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlTCMain = new System.Windows.Forms.TabControl();
-            this.CBType = new System.Windows.Forms.ComboBox();
             this.CtrlTPView.SuspendLayout();
             this.CtrlViewPanel.SuspendLayout();
             this.CtrlViewTCMisc.SuspendLayout();
@@ -124,7 +124,6 @@
             // 
             // CtrlViewPanel
             // 
-            this.CtrlViewPanel.Controls.Add(this.CtrlViewTBType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblType);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTCMisc);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblKitchen);
@@ -132,6 +131,7 @@
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblLink);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
             this.CtrlViewPanel.Controls.Add(this.CBKitchen);
+            this.CtrlViewPanel.Controls.Add(this.CtrlViewTBType);
             this.CtrlViewPanel.Controls.Add(this.CBType);
             this.CtrlViewPanel.Location = new System.Drawing.Point(269, 6);
             this.CtrlViewPanel.Name = "CtrlViewPanel";
@@ -141,9 +141,10 @@
             // CtrlViewTBType
             // 
             this.CtrlViewTBType.Location = new System.Drawing.Point(334, 38);
+            this.CtrlViewTBType.Multiline = true;
             this.CtrlViewTBType.Name = "CtrlViewTBType";
             this.CtrlViewTBType.ReadOnly = true;
-            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 20);
+            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 21);
             this.CtrlViewTBType.TabIndex = 8;
             // 
             // CtrlViewLblType
@@ -290,6 +291,17 @@
             this.CBKitchen.Size = new System.Drawing.Size(121, 21);
             this.CBKitchen.TabIndex = 9;
             // 
+            // CBType
+            // 
+            this.CBType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CBType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBType.FormattingEnabled = true;
+            this.CBType.Location = new System.Drawing.Point(334, 38);
+            this.CBType.Name = "CBType";
+            this.CBType.Size = new System.Drawing.Size(128, 21);
+            this.CBType.TabIndex = 10;
+            // 
             // CtrlViewDGVNames
             // 
             this.CtrlViewDGVNames.AllowUserToAddRows = false;
@@ -317,17 +329,6 @@
             this.CtrlTCMain.SelectedIndex = 0;
             this.CtrlTCMain.Size = new System.Drawing.Size(756, 529);
             this.CtrlTCMain.TabIndex = 3;
-            // 
-            // CBType
-            // 
-            this.CBType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CBType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CBType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBType.FormattingEnabled = true;
-            this.CBType.Location = new System.Drawing.Point(334, 37);
-            this.CBType.Name = "CBType";
-            this.CBType.Size = new System.Drawing.Size(128, 21);
-            this.CBType.TabIndex = 10;
             // 
             // FormMain
             // 

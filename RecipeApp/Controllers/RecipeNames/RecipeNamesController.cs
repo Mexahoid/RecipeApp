@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DBLayer;
 using System.Windows.Forms;
+using DBLayer;
 using RecipeApp.Forms;
 using RecipeApp.Models;
 
-namespace RecipeApp.Controllers
+namespace RecipeApp.Controllers.RecipeNames
 {
     class RecipeNamesController
     {

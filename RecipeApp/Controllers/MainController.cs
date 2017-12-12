@@ -7,7 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
-using TBController = RecipeApp.Controllers.TextBoxController.TextBoxController;
+using RecipeApp.Controllers.MultBoxes;
+using RecipeApp.Controllers.RecipeNames;
+using RecipeApp.Controllers.TextBoxes;
 
 namespace RecipeApp.Controllers
 {
@@ -17,8 +19,8 @@ namespace RecipeApp.Controllers
         private RecipeNamesController _rnc;
         private MultBoxesController _ktc;
         private MultBoxesController _tc;
-        private TBController _linkCtrl;
-        private TBController _textCtrl;
+        private TextBoxController _linkCtrl;
+        private TextBoxController _textCtrl;
         private ButtonController _bc;
         private event Action<string> OnError;
 
@@ -64,9 +66,9 @@ namespace RecipeApp.Controllers
         public void InitTbController()
         {
             TextBox tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBLink") as TextBox;
-            _linkCtrl = new TBController(tb, ChangeLocker, ErrorHandler);
+            _linkCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler);
             tb = _controls.Find(ctrl => ctrl.Name == "CtrlViewTBText") as TextBox;
-            _textCtrl = new TBController(tb, ChangeLocker, ErrorHandler);
+            _textCtrl = new TextBoxController(tb, ChangeLocker, ErrorHandler);
         }
 
         public void InitKitchenController()
@@ -152,6 +154,7 @@ namespace RecipeApp.Controllers
             _linkCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectLinkByRecipeName);
             _textCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectTextByRecipeName);
             _ktc.HandleRecipeSelection(text);
+            _tc.HandleRecipeSelection(text);
         }
 
         private void RecipeInsertHandler(string text)

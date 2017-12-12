@@ -99,7 +99,10 @@ namespace DBLayer
 
                 "SELECT Description FROM Recipe WHERE Name = @Name",
 
-                "SELECT Name FROM Kitchen WHERE Id = (SELECT IDKitchen FROM Recipe WHERE Name = @Name)",
+
+
+
+                "SELECT Name FROM Type WHERE Id = (SELECT IDType FROM Recipe WHERE Name = @Name)",
 
                 "SELECT Name FROM Type",
 

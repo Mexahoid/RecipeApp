@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
-using RecipeApp.Models.TextBoxModel;
+using RecipeApp.Models.TextBoxes;
 
-namespace RecipeApp.Controllers.TextBoxController
+namespace RecipeApp.Controllers.TextBoxes
 {
     class TextBoxController
     {

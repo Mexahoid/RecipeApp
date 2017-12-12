@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
 
-namespace RecipeApp.Models
+namespace RecipeApp.Models.MultBoxesModel
 {
     class MultBoxesModel
     {
@@ -61,9 +58,7 @@ namespace RecipeApp.Models
         public void SetName(string kitchen)
         {
             _kitTb.Text = kitchen;
-            if (kitchen == "")
-                return;
-            _kitCb.Text = kitchen;
+            _kitCb.Text = kitchen;// == "" ? Properties.Resources.AddNewKitchen : kitchen;
             _kitCb.SelectedText = kitchen;
         }
 

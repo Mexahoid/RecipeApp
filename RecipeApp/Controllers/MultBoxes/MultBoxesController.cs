@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
-using RecipeApp.Models;
+using RecipeApp.Models.MultBoxesModel;
 
-namespace RecipeApp.Controllers
+namespace RecipeApp.Controllers.MultBoxes
 {
     class MultBoxesController
     {
@@ -110,7 +107,7 @@ namespace RecipeApp.Controllers
             {
                 _mdl.SetName(dt.Rows[0].ItemArray[0].ToString());
             }
-            catch (Exception e)
+            catch
             {
                 _mdl.SetName("");
             }
