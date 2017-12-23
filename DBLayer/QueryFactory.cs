@@ -42,7 +42,21 @@ namespace DBLayer
 
             SelectAllDevicesNames,
 
-            SelectAllIngredNames
+            SelectAllIngredNames,
+
+            UpdateDevice,
+            InsertDevice,
+
+            UpdateIngredByName,
+            InsertIngred,
+
+            SetRecipeKitchenLink,
+            SetRecipeTypeLink,
+
+            InsertRecipe,
+            DeleteRecipe,
+            
+            UpdateRecipePrimaryData
         }
 
         private readonly string[] _queries;
@@ -116,7 +130,30 @@ namespace DBLayer
 
                 "SELECT Name FROM Device",
 
-                "SELECT Name FROM Ingredient"
+                "SELECT Name FROM Ingredient",
+
+                "UPDATE Device SET Name = @New WHERE Name = @Old",
+
+                "INSERT INTO Device VALUES (@Name)",
+
+                "UPDATE Ingredient SET Name = @Name, Units = @Units WHERE Name = @Old",
+
+                "INSERT INTO Ingredient VALUES (@Name, @Units)",
+
+                "UPDATE Recipe SET IDKitchen = (SELECT ID FROM Kitchen WHERE Name = @Name)",
+
+                "UPDATE Recipe SET IDType = (SELECT ID FROM Type WHERE Name = @Name)",
+
+                "INSERT INTO Recipe (Name, Description, Link, IDType, IDKitchen) VALUES " +
+                "(@Name, @Desc, @Link, " +
+                "(SELECT ID FROM Type T WHERE T.Name = @Type), " +
+                "(SELECT ID FROM Kitchen K WHERE K.Name = @Kitch))",
+
+                "DELETE FROM Recipe WHERE Name = @Name",
+
+                "UPDATE Recipe SET Name = @Name, Description = @Desc, Link = @Link, " +
+                "IDType = (SELECT ID FROM Type T WHERE T.Name = @Type), " +
+                "IDKitchen = (SELECT ID FROM Kitchen K WHERE K.Name = @Kitch) WHERE Name = @Old"
             };
         }
 

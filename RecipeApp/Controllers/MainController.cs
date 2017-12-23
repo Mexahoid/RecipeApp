@@ -25,6 +25,7 @@ namespace RecipeApp.Controllers
         private TextBoxController _textCtrl;
         private DevicesDGVController _devCtrl;
         private IngredsDGVController _ingrCtrl;
+        private PersistenceController _persistor;
 
         private ButtonController _bc;
         private event Action<string> OnError;
@@ -32,6 +33,7 @@ namespace RecipeApp.Controllers
         public MainController(IEnumerable controls, Action<string> onError)
         {
             _controls = new List<Control>();
+            _persistor = new PersistenceController();
             OnError += onError;
             InitControlsRecursively(controls);
             InitRecipeNamesController();
@@ -139,6 +141,19 @@ namespace RecipeApp.Controllers
 
         private void OnAccept()
         {
+            _persistor.DoubleListPersister(_devCtrl.GetDevicesNames(), PersistenceController.DoubleLists.Device);
+            _persistor.DoubleListPersister(_ktc.GetMultiboxData(), PersistenceController.DoubleLists.Kitchen);
+            _persistor.DoubleListPersister(_tc.GetMultiboxData(), PersistenceController.DoubleLists.Type);
+            _persistor.RecipeKitchen = _ktc.GetValue();
+            _persistor.RecipeType = _tc.GetValue();
+            _persistor.RecipeText = _textCtrl.GetText();
+            _persistor.RecipeLink = _linkCtrl.GetText();
+            _persistor.RecipeName = _rnc.GetValue();
+            if(_persistor.RecipeName.Item1 != _persistor.RecipeName.Item2)
+                _persistor.PersistRecipeUpdate();
+            else
+                _persistor.PersistRecipeInsert();
+            
             _rnc.Unlock();
         }
 
@@ -161,6 +176,7 @@ namespace RecipeApp.Controllers
 
         private void RecipeSelectHandler(string text)
         {
+            _persistor.RecipeName = Tuple.Create(text, text);
             _linkCtrl.HandleRecipeSelection(text);
             _textCtrl.HandleRecipeSelection(text);
             _ktc.HandleRecipeSelection(text);
@@ -169,9 +185,9 @@ namespace RecipeApp.Controllers
             _ingrCtrl.HandleRecipeSelection(text);
         }
 
-        private void RecipeInsertHandler(string text)
+        private void RecipeInsertHandler()
         {
-            
+            ChangeLocker();
         }
 
         private void ErrorHandler(string text)

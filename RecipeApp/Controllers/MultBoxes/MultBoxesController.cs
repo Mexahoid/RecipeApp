@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 using DBLayer;
 using RecipeApp.Models.MultBoxes;
@@ -137,6 +138,21 @@ namespace RecipeApp.Controllers.MultBoxes
                 string ans = RenameForm.Invoke(false, text);
                 _mdl.ChangeItem(index, ans);
             }
+        }
+
+        public List<Tuple<string, string>> GetMultiboxData()
+        {
+            List<Tuple<string, string>> dta = new List<Tuple<string, string>>();
+            for (int i = 0; i < _data.Count - 1; i++)
+            {
+                dta.Add(_data[i]);
+            }
+            return dta;
+        }
+
+        public string GetValue()
+        {
+            return _mdl.GetData();
         }
     }
 }

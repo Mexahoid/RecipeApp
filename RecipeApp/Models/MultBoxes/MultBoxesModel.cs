@@ -90,5 +90,10 @@ namespace RecipeApp.Models.MultBoxes
             string text = _combo.SelectedIndex < 0 ? "" : _combo.Items[_combo.SelectedIndex].ToString();
             OnKeyPress?.Invoke(_combo.SelectedIndex, text, e.KeyData);
         }
+
+        public string GetData()
+        {
+            return _combo.Text;
+        }
     }
 }

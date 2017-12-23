@@ -18,9 +18,6 @@ namespace RecipeApp.Models.RecipeNames
         private event Action<List<Tuple<string, string>>> OnDataChange;
         private event Action<int, string, MouseButtons> OnCellClick;
         private event Action OnChangeLock;
-        private event Action<string> OnAdd;
-        private event Action<string> OnDelete;
-        private event Action<string, string> OnUpdate;
 
         private List<Tuple<string, string>> _data;
 
@@ -118,10 +115,6 @@ namespace RecipeApp.Models.RecipeNames
 
         public void ChangeMode()
         {
-            //if(_editingMode)
-            //    RemoveRow(_dgv.RowCount - 1);
-            //else
-            //    AddRow();
             OnChangeLock?.Invoke();
             _editingMode = !_editingMode;
         }

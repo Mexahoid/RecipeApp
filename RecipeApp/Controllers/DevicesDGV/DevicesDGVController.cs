@@ -7,10 +7,9 @@ namespace RecipeApp.Controllers.DevicesDGV
 {
     class DevicesDGVController
     {
-        private DevicesDGVModel _mdl;
+        private readonly DevicesDGVModel _mdl;
         private List<Tuple<string, string>> _deviceNames;
         private List<Tuple<string, string>> _recipeDevicesValues;
-        private bool _inited;
         private string _currRecipe;
 
         public DevicesDGVController(DataGridView dgv, Action onLock)
@@ -40,5 +39,14 @@ namespace RecipeApp.Controllers.DevicesDGV
             _mdl.LoadData(_currRecipe);
         }
 
+        public List<Tuple<string, string>> GetDevicesNames()
+        {
+            return _deviceNames;
+        }
+
+        public List<Tuple<string, string>> GetDevicesForRecipe()
+        {
+            return _recipeDevicesValues;
+        } 
     }
 }

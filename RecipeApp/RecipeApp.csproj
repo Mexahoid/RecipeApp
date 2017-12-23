@@ -46,6 +46,7 @@
     <Compile Include="Controllers\DevicesDGV\DevicesDGVController.cs" />
     <Compile Include="Controllers\IngredsDGV\IngredsDGVController.cs" />
     <Compile Include="Controllers\MultBoxes\MultBoxesController.cs" />
+    <Compile Include="Controllers\PersistenceController.cs" />
     <Compile Include="Controllers\TextBoxes\TextBoxController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\RecipeNames\RecipeNamesController.cs" />
