@@ -15,7 +15,7 @@ namespace RecipeApp.Controllers.RecipeNames
         private event Action<string> OnRecipeSelect;
         private event Action<string> OnRecipeInsert;
         private event Action<string> OnError;
-        private readonly List<Tuple<string, string>> _data;
+        private List<Tuple<string, string>> _data;
         private string _lastName;
         private bool _isEditing;
 
@@ -139,17 +139,9 @@ namespace RecipeApp.Controllers.RecipeNames
             }
         }
 
-        private void DataChangeHandler(DataGridViewRowCollection rows)
+        private void DataChangeHandler(List<Tuple<string, string>> rows)
         {
-            int lastRowIndex = rows.Count - 1;
-            for (int i = 0; i < lastRowIndex; i++)    // Все, кроме последнего
-            {
-                _data[i] = new Tuple<string, string>(rows[i].Cells[0].Value.ToString(),
-                    _data[i].Item2);
-            }
-
-            _data[lastRowIndex] = new Tuple<string, string>(
-                rows[lastRowIndex].Cells[0].Value.ToString(), null);
+            _data = rows;
         }
 
         public void ShowRecipeNames()
