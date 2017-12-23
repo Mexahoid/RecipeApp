@@ -129,10 +129,10 @@
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblKitchen);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBLink);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewLblLink);
-            this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
-            this.CtrlViewPanel.Controls.Add(this.CBKitchen);
             this.CtrlViewPanel.Controls.Add(this.CtrlViewTBType);
             this.CtrlViewPanel.Controls.Add(this.CBType);
+            this.CtrlViewPanel.Controls.Add(this.CtrlViewTBKitchen);
+            this.CtrlViewPanel.Controls.Add(this.CBKitchen);
             this.CtrlViewPanel.Location = new System.Drawing.Point(269, 6);
             this.CtrlViewPanel.Name = "CtrlViewPanel";
             this.CtrlViewPanel.Size = new System.Drawing.Size(476, 494);

@@ -8,31 +8,20 @@ namespace RecipeApp.Controllers.DevicesDGV
     class DevicesDGVController
     {
         private DevicesDGVModel _mdl;
-        private List<string> _data;
-        private List<string> _devicesCollection;
-        private List<string> _oldData;
+        private List<Tuple<string, string>> _deviceNames;
+        private List<Tuple<string, string>> _recipeDevicesValues;
         private bool _inited;
         private string _currRecipe;
 
         public DevicesDGVController(DataGridView dgv, Action onLock)
         {
-            _devicesCollection = new List<string>();
-            _mdl = new DevicesDGVModel(dgv, DataChangeHandler, ReloadHandler, onLock, _devicesCollection);
-            _data = new List<string>();
-            _oldData = new List<string>();
+            _mdl = new DevicesDGVModel(dgv, DataChangeHandler, ReloadHandler, onLock);
         }
 
-        private void DataChangeHandler(DataGridViewRowCollection rc)
+        private void DataChangeHandler(List<Tuple<string, string>>[] shit)
         {
-            _data.Clear();
-            foreach (DataGridViewRow row in rc)
-            {
-                if(!_inited)
-                    _oldData.Add(row.Cells[0].Value.ToString());
-                if(row.Cells[0].Value != null)
-                    _data.Add(row.Cells[0].Value.ToString());
-            }
-            _inited = true;
+            _deviceNames = shit[0];
+            _recipeDevicesValues = shit[1];
         }
 
         public void ChangeMode()

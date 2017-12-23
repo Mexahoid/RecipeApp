@@ -102,7 +102,7 @@ namespace RecipeApp.Models.RecipeNames
             {
                 _dgv.Rows.Add(dataTableRow.ItemArray[0]);
             }
-            _dgv.ClearSelection();
+            //_dgv.ClearSelection();
         }
 
         public void SelectNamedCell(string name)

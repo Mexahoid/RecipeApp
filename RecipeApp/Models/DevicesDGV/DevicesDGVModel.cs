@@ -12,19 +12,19 @@ namespace RecipeApp.Models.DevicesDGV
         private readonly DataGridView _devices;
         private DataGridViewCellEventArgs _mouseLocation;
 
-        private event Action<DataGridViewRowCollection> OnDataChange;
+        private event Action<List<Tuple<string, string>>[]> OnDataChange;
         private event Action OnReload;
         private event Action OnLock;
+        private event Action OnChangeLock;
         private List<Tuple<string, string>> _deviceNames;
         private readonly List<Tuple<string, string>> _recipeDevicesValues;
 
         private bool _isEditing;
 
         public DevicesDGVModel(DataGridView dgv,
-            Action<DataGridViewRowCollection> onDataChange,
+            Action<List<Tuple<string, string>>[]> onDataChange,
             Action onReload,
-            Action onLock,
-            List<string> deviceCollection)
+            Action onLock)
         {
             _devices = dgv;
             InitCoMeSt();
@@ -64,7 +64,8 @@ namespace RecipeApp.Models.DevicesDGV
                 Text = "Меню",
                 Items = { editItem, deleteItem, addItem }
             };
-
+            OnChangeLock += () => cms.Enabled = !cms.Enabled;
+            cms.Enabled = false;
             editItem.Click += EditHandler;
             deleteItem.Click += DeleteHandler;
             addItem.Click += AddHandler;
@@ -80,6 +81,7 @@ namespace RecipeApp.Models.DevicesDGV
 
             _devices.Rows.Add(newName);
             _recipeDevicesValues.Add(Tuple.Create(newName, ""));
+            OnDataChange?.Invoke(new[] { _deviceNames, _recipeDevicesValues });
             OnLock?.Invoke();
         }
 
@@ -100,6 +102,7 @@ namespace RecipeApp.Models.DevicesDGV
                     Tuple.Create("", _recipeDevicesValues[i].Item2);
                 break;
             }
+            OnDataChange?.Invoke(new[] { _deviceNames, _recipeDevicesValues });
             OnLock?.Invoke();
         }
 
@@ -121,6 +124,7 @@ namespace RecipeApp.Models.DevicesDGV
                     Tuple.Create(newName, _recipeDevicesValues[i].Item2);
                 break;
             }
+            OnDataChange?.Invoke(new[] { _deviceNames, _recipeDevicesValues });
             OnLock?.Invoke();
         }
 
@@ -147,14 +151,14 @@ namespace RecipeApp.Models.DevicesDGV
             _devices.Rows.Clear();
             _devices.Columns.Clear();
             _devices.ColumnCount = 1;
-
+            _recipeDevicesValues.Clear();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 string text = dt.Rows[i].ItemArray[0].ToString();
                 _devices.Rows.Add(text);
                 _recipeDevicesValues.Add(Tuple.Create(text, text));
             }
-            OnDataChange?.Invoke(_devices.Rows);
+            OnDataChange?.Invoke(new[] {_deviceNames, _recipeDevicesValues});
         }
 
         public void ChangeMode()
@@ -163,6 +167,7 @@ namespace RecipeApp.Models.DevicesDGV
             {
                 ChangeToNormal();
             }
+            OnChangeLock?.Invoke();
             _isEditing = !_isEditing;
             _devices.ReadOnly = !_devices.ReadOnly;
         }
