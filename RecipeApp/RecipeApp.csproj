@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ButtonController.cs" />
     <Compile Include="Controllers\DevicesDGV\DevicesDGVController.cs" />
+    <Compile Include="Controllers\IngredsDGV\IngredsDGVController.cs" />
     <Compile Include="Controllers\MultBoxes\MultBoxesController.cs" />
     <Compile Include="Controllers\TextBoxes\TextBoxController.cs" />
     <Compile Include="Controllers\MainController.cs" />
@@ -59,6 +60,12 @@
     </Compile>
     <Compile Include="Forms\DevicesForm.Designer.cs">
       <DependentUpon>DevicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\IngredsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IngredsForm.Designer.cs">
+      <DependentUpon>IngredsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RenameForm.cs">
       <SubType>Form</SubType>
@@ -79,6 +86,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DevicesDGV\DevicesDGVModel.cs" />
+    <Compile Include="Models\IngredsDGV\IngredsDGVModel.cs" />
     <Compile Include="Models\MultBoxes\MultBoxesModel.cs" />
     <Compile Include="Models\TextBoxes\TextBoxModel.cs" />
     <Compile Include="Models\RecipeNames\RecipeNamesModel.cs" />
@@ -89,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DevicesForm.resx">
       <DependentUpon>DevicesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IngredsForm.resx">
+      <DependentUpon>IngredsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RenameForm.resx">
       <DependentUpon>RenameForm.cs</DependentUpon>

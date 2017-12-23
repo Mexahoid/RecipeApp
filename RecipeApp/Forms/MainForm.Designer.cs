@@ -45,10 +45,10 @@
             this.CtrlViewLblKitchen = new System.Windows.Forms.Label();
             this.CtrlViewTBLink = new System.Windows.Forms.TextBox();
             this.CtrlViewLblLink = new System.Windows.Forms.Label();
-            this.CtrlViewTBKitchen = new System.Windows.Forms.TextBox();
-            this.CBKitchen = new System.Windows.Forms.ComboBox();
             this.CtrlViewTBType = new System.Windows.Forms.TextBox();
             this.CBType = new System.Windows.Forms.ComboBox();
+            this.CtrlViewTBKitchen = new System.Windows.Forms.TextBox();
+            this.CBKitchen = new System.Windows.Forms.ComboBox();
             this.CtrlViewDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlTCMain = new System.Windows.Forms.TabControl();
             this.CtrlTPView.SuspendLayout();
@@ -202,6 +202,7 @@
             this.CtrlViewDGVIngreds.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CtrlViewDGVIngreds.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.CtrlViewDGVIngreds.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlViewDGVIngreds.ColumnHeadersVisible = false;
             this.CtrlViewDGVIngreds.Location = new System.Drawing.Point(0, 0);
             this.CtrlViewDGVIngreds.Name = "CtrlViewDGVIngreds";
             this.CtrlViewDGVIngreds.ReadOnly = true;
@@ -262,26 +263,6 @@
             this.CtrlViewLblLink.TabIndex = 1;
             this.CtrlViewLblLink.Text = "Ссылка: ";
             // 
-            // CtrlViewTBKitchen
-            // 
-            this.CtrlViewTBKitchen.Location = new System.Drawing.Point(64, 38);
-            this.CtrlViewTBKitchen.Multiline = true;
-            this.CtrlViewTBKitchen.Name = "CtrlViewTBKitchen";
-            this.CtrlViewTBKitchen.ReadOnly = true;
-            this.CtrlViewTBKitchen.Size = new System.Drawing.Size(121, 21);
-            this.CtrlViewTBKitchen.TabIndex = 6;
-            // 
-            // CBKitchen
-            // 
-            this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.CBKitchen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBKitchen.FormattingEnabled = true;
-            this.CBKitchen.Location = new System.Drawing.Point(64, 38);
-            this.CBKitchen.Name = "CBKitchen";
-            this.CBKitchen.Size = new System.Drawing.Size(121, 21);
-            this.CBKitchen.TabIndex = 9;
-            // 
             // CtrlViewTBType
             // 
             this.CtrlViewTBType.Location = new System.Drawing.Point(334, 38);
@@ -301,6 +282,26 @@
             this.CBType.Name = "CBType";
             this.CBType.Size = new System.Drawing.Size(128, 21);
             this.CBType.TabIndex = 10;
+            // 
+            // CtrlViewTBKitchen
+            // 
+            this.CtrlViewTBKitchen.Location = new System.Drawing.Point(64, 38);
+            this.CtrlViewTBKitchen.Multiline = true;
+            this.CtrlViewTBKitchen.Name = "CtrlViewTBKitchen";
+            this.CtrlViewTBKitchen.ReadOnly = true;
+            this.CtrlViewTBKitchen.Size = new System.Drawing.Size(121, 21);
+            this.CtrlViewTBKitchen.TabIndex = 6;
+            // 
+            // CBKitchen
+            // 
+            this.CBKitchen.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.CBKitchen.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.CBKitchen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBKitchen.FormattingEnabled = true;
+            this.CBKitchen.Location = new System.Drawing.Point(64, 38);
+            this.CBKitchen.Name = "CBKitchen";
+            this.CBKitchen.Size = new System.Drawing.Size(121, 21);
+            this.CBKitchen.TabIndex = 9;
             // 
             // CtrlViewDGVNames
             // 

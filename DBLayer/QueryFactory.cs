@@ -7,7 +7,7 @@ namespace DBLayer
         public enum Queries
         {
             QuerySelectRecipeNames,
-            QueryViewerSelectIngreds,
+            SelectIngredsByRecipeName,
             SelectDevicesByRecipeName,
             QueryViewerSelectMiscData,
 
@@ -40,7 +40,9 @@ namespace DBLayer
             InsertType,
             UpdateType,
 
-            SelectAllDevicesNames
+            SelectAllDevicesNames,
+
+            SelectAllIngredNames
         }
 
         private readonly string[] _queries;
@@ -112,7 +114,9 @@ namespace DBLayer
 
                 "UPDATE Type SET Name = @New WHERE Name = @Old",
 
-                "SELECT Name FROM Device"
+                "SELECT Name FROM Device",
+
+                "SELECT Name FROM Ingreds"
             };
         }
 

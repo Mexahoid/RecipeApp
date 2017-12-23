@@ -70,6 +70,15 @@ namespace RecipeApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Новый ингредиент...&gt;.
+        /// </summary>
+        internal static string AddNewIngred {
+            get {
+                return ResourceManager.GetString("AddNewIngred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;Новая...&gt;.
         /// </summary>
         internal static string AddNewKitchen {

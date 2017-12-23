@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewDevice" xml:space="preserve">
-    <value>&lt;Новое устройство..&gt;</value>
-  </data>
-  <data name="AddNewIngred" xml:space="preserve">
-    <value>&lt;Новый ингредиент...&gt;</value>
-  </data>
-  <data name="AddNewKitchen" xml:space="preserve">
-    <value>&lt;Новая...&gt;</value>
-  </data>
-  <data name="AddNewRecipe" xml:space="preserve">
-    <value>&lt;Новый рецепт...&gt;</value>
-  </data>
-  <data name="AddNewType" xml:space="preserve">
-    <value>&lt;Новый тип...&gt;</value>
-  </data>
 </root>

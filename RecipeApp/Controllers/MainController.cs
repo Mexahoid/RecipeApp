@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
 using RecipeApp.Controllers.DevicesDGV;
+using RecipeApp.Controllers.IngredsDGV;
 using RecipeApp.Controllers.MultBoxes;
 using RecipeApp.Controllers.RecipeNames;
 using RecipeApp.Controllers.TextBoxes;
@@ -22,7 +23,8 @@ namespace RecipeApp.Controllers
         private MultBoxesController _tc;
         private TextBoxController _linkCtrl;
         private TextBoxController _textCtrl;
-        private DevicesDGVController _ingrCtrl;
+        private DevicesDGVController _devCtrl;
+        private IngredsDGVController _ingrCtrl;
 
         private ButtonController _bc;
         private event Action<string> OnError;
@@ -105,13 +107,14 @@ namespace RecipeApp.Controllers
 
         public void InitIngredsController()
         {
-            
+            DataGridView ingreds = _controls.Find(ctrl => ctrl.Name == "CtrlViewDGVIngreds") as DataGridView;
+            _ingrCtrl = new IngredsDGVController(ingreds, ChangeLocker);
         }
 
         public void InitDeviceController()
         {
             DataGridView devices = _controls.Find(ctrl => ctrl.Name == "CtrlViewDGVDevices") as DataGridView;
-            _ingrCtrl = new DevicesDGVController(devices, ChangeLocker);
+            _devCtrl = new DevicesDGVController(devices, ChangeLocker);
         }
         
 
@@ -122,6 +125,7 @@ namespace RecipeApp.Controllers
             _tc.ChangeLayout();
             _linkCtrl.ChangeMode();
             _textCtrl.ChangeMode();
+            _devCtrl.ChangeMode();
             _ingrCtrl.ChangeMode();
         }
 
@@ -161,6 +165,7 @@ namespace RecipeApp.Controllers
             _textCtrl.HandleRecipeSelection(text);
             _ktc.HandleRecipeSelection(text);
             _tc.HandleRecipeSelection(text);
+            _devCtrl.HandleRecipeSelection(text);
             _ingrCtrl.HandleRecipeSelection(text);
         }
 
