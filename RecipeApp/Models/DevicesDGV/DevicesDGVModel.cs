@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
 
@@ -15,6 +12,9 @@ namespace RecipeApp.Models.DevicesDGV
         private event Action<DataGridViewRowCollection> OnDataChange;
         private event Action OnReload;
         private readonly List<string> _devicesCollection;
+        private readonly List<Tuple<string, string>> _deviceNames;
+        private readonly List<Tuple<string, string>> _recipeDevicesValues;
+
         private bool _isEditing;
 
         public DevicesDGVModel(DataGridView dgv, 
@@ -22,7 +22,10 @@ namespace RecipeApp.Models.DevicesDGV
             Action onReload)
         {
             _devices = dgv;
+            _devices.EditingControlShowing += DGV_EditingControlShowing;
             _devicesCollection = new List<string>();
+            _deviceNames = new List<Tuple<string, string>>();
+            _recipeDevicesValues = new List<Tuple<string, string>>();
             OnDataChange += onDataChange;
             OnReload += onReload;
             DataTable dt = Connector.GetTable(
@@ -30,12 +33,63 @@ namespace RecipeApp.Models.DevicesDGV
         
             foreach (DataRow dataRow in dt.Rows)
             {
+                _deviceNames.Add(Tuple.Create(
+                    dataRow.ItemArray[0].ToString(),
+                    dataRow.ItemArray[0].ToString()));
+
                 _devicesCollection.Add(dataRow.ItemArray[0].ToString());
             }
+            _devicesCollection.Add(Properties.Resources.AddNewDevice);
+        }
+
+        private void AddNewDeviceToRecipe(string name)
+        {
+            _deviceNames.Add(Tuple.Create(name, ""));
+            _devicesCollection.Add(name);
+        }
+
+        private void DeleteDeviceFromRecipe(int pos)
+        {
+            if (_isEditing)
+            {
+                
+            }
+        }
+
+        private void EditRecipeFromRecipe(int pos, string newName)
+        {
+            if (_isEditing)
+            {
+
+            }
+        }
+
+        private void AddNewDeviceToDevices()
+        {   // Исходим из того, что добавление отражается в _deviceNames
+            string name = RenameForm.Invoke();
+            if (name == "")
+                return;
+
+            _deviceNames.Add(Tuple.Create(name, ""));
+            _devicesCollection[_devicesCollection.Count - 1] = name;  // Заменили последний
+            _devicesCollection.Add(Properties.Resources.AddNewDevice);
+        }
+
+        private void EditDeviceInDevices(int pos)
+        {
+            string oldName = _devicesCollection[pos];
+            string newName = RenameForm.Invoke(false, oldName);
+            if (newName == "")
+                return;
+
+            _devicesCollection[pos] = newName;
+            _deviceNames[pos] = Tuple.Create(newName, _deviceNames[pos].Item2);
         }
 
         public void LoadData(string name)
         {
+            if (name == null)
+                return;
             DataTable dt = Connector.GetTable(
                 QueryFactory.Queries.SelectDevicesByRecipeName,
                 Tuple.Create("@Name", name));
@@ -43,11 +97,13 @@ namespace RecipeApp.Models.DevicesDGV
             _devices.Columns.Clear();
             _devices.ColumnCount = 1;
 
-            foreach (DataRow dataRow in dt.Rows)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                _devices.Rows.Add(dataRow.ItemArray[0].ToString());
+                _devices.Rows.Add(dt.Rows[i].ItemArray[0].ToString());
             }
             OnDataChange?.Invoke(_devices.Rows);
+            if(_isEditing)
+                ChangeToComboBoxes();
         }
 
         public void ChangeMode()
@@ -80,14 +136,41 @@ namespace RecipeApp.Models.DevicesDGV
             {
                 _devices.Rows.Add();
                 ((DataGridViewComboBoxCell) _devices.Rows[_devices.RowCount - 1].Cells[0]).DataSource = _devicesCollection;
-                ((DataGridViewComboBoxCell)_devices.Rows[_devices.RowCount - 1].Cells[0]).Value = name;
-                
+                ((DataGridViewComboBoxCell) _devices.Rows[_devices.RowCount - 1].Cells[0]).Value = name;
             }
+            _devices.Rows.Add();
+            ((DataGridViewComboBoxCell)_devices.Rows[_devices.RowCount - 1].Cells[0]).DataSource = _devicesCollection;
         }
 
         private void ChangeToNormal()
         {
             OnReload?.Invoke();
+        }
+
+        void DGV_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            if (e.Control is DataGridViewComboBoxEditingControl cb)
+            {
+                //cb.DropDownStyle = ComboBoxStyle.Simple;
+                cb.KeyDown += (cbb, k) =>
+                {
+                    if (k.KeyData == Keys.E)
+                    {
+                        EditDevice((cbb as DataGridViewComboBoxEditingControl).SelectedIndex);
+                    }
+                };
+            }
+        }
+
+        private void EditDevice(int pos)
+        {
+            pos = pos + 1;
+
+        }
+
+        private void DeleteDevice(int pos)
+        {
+            
         }
     }
 }

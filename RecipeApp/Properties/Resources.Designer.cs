@@ -61,6 +61,15 @@ namespace RecipeApp.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;Новое устройство..&gt;.
+        /// </summary>
+        internal static string AddNewDevice {
+            get {
+                return ResourceManager.GetString("AddNewDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;Новая...&gt;.
         /// </summary>
         internal static string AddNewKitchen {

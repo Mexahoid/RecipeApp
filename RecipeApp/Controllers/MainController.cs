@@ -142,6 +142,7 @@ namespace RecipeApp.Controllers
         {
             _rnc.Unlock();
             _rnc.HandleReject();
+            _rnc.SelectCellWithName();
         }
 
         private void TextRecipeSelectHandler(string text)

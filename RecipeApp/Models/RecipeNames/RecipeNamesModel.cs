@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DBLayer;
 
-namespace RecipeApp.Models
+namespace RecipeApp.Models.RecipeNames
 {
     class RecipeNamesModel
     {
@@ -17,9 +14,6 @@ namespace RecipeApp.Models
 
         private event Action<DataGridViewRowCollection> OnDataChange;
         private event Action<int, string, MouseButtons> OnCellClick;
-
-
-    
 
         public RecipeNamesModel(DataGridView recipeNamesDgv, 
             Action<DataGridViewRowCollection> action, 
@@ -32,7 +26,8 @@ namespace RecipeApp.Models
             OnCellClick += clicker;
 
             _dgv.CellMouseClick += DGV_Cell_Mouse_Click;
-            _dgv.ClearSelection();
+            _dgv.CurrentCell = null;
+            
         }
 
 
@@ -83,6 +78,24 @@ namespace RecipeApp.Models
             foreach (DataRow dataTableRow in dataTable.Rows)
             {
                 _dgv.Rows.Add(dataTableRow.ItemArray[0]);
+            }
+            _dgv.ClearSelection();
+        }
+
+        public void SelectNamedCell(string name)
+        {
+            if (name == "")
+                return;
+            for (int i = 0; i < _dgv.Rows.Count; i++)
+            {
+                if (_dgv.Rows[i].Cells[0].Value.ToString().ToLower() == name.ToLower())
+                {
+                    DGV_Cell_Mouse_Click(_dgv, 
+                        new DataGridViewCellMouseEventArgs(0, i, 0, 0,
+                            new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0)));
+                    _dgv.CurrentCell = _dgv.Rows[i].Cells[0];
+                    break;
+                }
             }
         }
 

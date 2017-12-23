@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DBLayer;
 using RecipeApp.Forms;
-using RecipeApp.Models;
+using RecipeApp.Models.RecipeNames;
 
 namespace RecipeApp.Controllers.RecipeNames
 {
@@ -16,6 +16,8 @@ namespace RecipeApp.Controllers.RecipeNames
         private event Action<string> OnRecipeInsert;
         private event Action<string> OnError;
         private readonly List<Tuple<string, string>> _data;
+        private string _lastName;
+        private bool _isEditing;
 
         public RecipeNamesController(DataGridView recipeNames,
             Action onChangeAction,
@@ -36,6 +38,11 @@ namespace RecipeApp.Controllers.RecipeNames
             _data.Add(new Tuple<string, string>(null, null));  // Последний ряд под новый
         }
 
+        public void SelectCellWithName()
+        {
+            _model.SelectNamedCell(_lastName);
+        }
+        
         public void Lock() => _model.Lock();
 
         public void Unlock() => _model.Unlock();
@@ -43,6 +50,7 @@ namespace RecipeApp.Controllers.RecipeNames
         public void ModeChangeHandler()
         {
             _model.ChangeMode();
+            _isEditing = !_isEditing;
         }
 
         private void InsertRecipe(string text)
@@ -69,14 +77,14 @@ namespace RecipeApp.Controllers.RecipeNames
         private void ReloadData()
         {
             _model.ReloadData();
-            _data.Clear();
             _model.FillDataList(_data);
+            _data.Add(new Tuple<string, string>(null, null));  // Последний ряд под новый
         }
 
         private void NewRow()
         {
-            _data.Clear();
             _model.FillDataList(_data);
+            _data.Add(new Tuple<string, string>(null, null));  // Последний ряд под новый
             _model.AddRow();
         }
 
@@ -86,14 +94,18 @@ namespace RecipeApp.Controllers.RecipeNames
             switch (mb)
             {
                 case MouseButtons.Left:
+                    _lastName = text;
                     if (text == Properties.Resources.AddNewRecipe)
                     {
                         ans = RenameForm.Invoke();
                         AlterAddeableRow(ans);
+                        OnChangeLock?.Invoke();
                     }
                     OnRecipeSelect?.Invoke(text);
                     break;
                 case MouseButtons.Right:
+                    if (!_isEditing)
+                        break;
                     ans = JunctionForm.Invoke(text);
                     if (ans == null)
                         _data[index] = new Tuple<string, string>(null, _data[index].Item2);
@@ -104,7 +116,9 @@ namespace RecipeApp.Controllers.RecipeNames
                         if (CheckExistence(ans))
                             OnError?.Invoke("Такой рецепт уже есть.");
                         _model.SetRow(index, ans);
+                        _lastName = _data[index].Item2;   // Запомнили старое имя
                         _data[index] = new Tuple<string, string>(ans, _data[index].Item2);
+                        OnChangeLock?.Invoke();
                     }
                     break;
             }
