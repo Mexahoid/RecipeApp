@@ -150,10 +150,12 @@ namespace RecipeApp.Models.RecipeNames
         {
             _dgv.Rows.Clear();
             _dgv.ColumnCount = 1;
+            _data = new List<Tuple<string, string>>();
             DataTable dataTable = Connector.GetTable(QueryFactory.Queries.QuerySelectRecipeNames);
             foreach (DataRow dataTableRow in dataTable.Rows)
             {
                 _dgv.Rows.Add(dataTableRow.ItemArray[0]);
+                _data.Add(Tuple.Create(dataTableRow.ItemArray[0].ToString(), dataTableRow.ItemArray[0].ToString()));
             }
             //_dgv.ClearSelection();
         }

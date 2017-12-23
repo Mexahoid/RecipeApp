@@ -30,12 +30,8 @@ namespace RecipeApp.Controllers.RecipeNames
             OnRecipeSelect += onRecipeSelect;
             OnRecipeInsert += onRecipeInsert;
             OnError += onError;
-
-            _data = new List<Tuple<string, string>>();
+            
             _model.ReloadData();
-            _model.FillDataList(_data);
-
-            _data.Add(new Tuple<string, string>(null, null));  // Последний ряд под новый
         }
 
         public void SelectCellWithName()
