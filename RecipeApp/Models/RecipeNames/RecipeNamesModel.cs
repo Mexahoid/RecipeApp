@@ -10,10 +10,12 @@ namespace RecipeApp.Models.RecipeNames
     class RecipeNamesModel
     {
         private readonly DataGridView _dgv;
+        private readonly ContextMenuStrip _cms;
         private bool _editingMode;
 
         private event Action<DataGridViewRowCollection> OnDataChange;
         private event Action<int, string, MouseButtons> OnCellClick;
+        private DataGridViewCellEventArgs mouseLocation;
 
         public RecipeNamesModel(DataGridView recipeNamesDgv, 
             Action<DataGridViewRowCollection> action, 
@@ -26,10 +28,31 @@ namespace RecipeApp.Models.RecipeNames
             OnCellClick += clicker;
 
             _dgv.CellMouseClick += DGV_Cell_Mouse_Click;
+            _dgv.CellMouseEnter += (sender, location) => mouseLocation = location;
             _dgv.CurrentCell = null;
-            
+
+            ToolStripMenuItem editItem = new ToolStripMenuItem("Изменить");
+            ToolStripMenuItem deleteItem = new ToolStripMenuItem("Удалить");
+            // добавляем элементы в меню
+            _cms = new ContextMenuStrip
+            {
+                Text = "Меню",
+                Items = { editItem, deleteItem }
+            };
+            _dgv.ContextMenuStrip = _cms;
+            editItem.Click += EditClickHandler;
+            deleteItem.Click += DeleteClickHandler;
+        }
+        
+        private void EditClickHandler(object sender, EventArgs e)
+        {
+            MessageBox.Show(_dgv.Rows[mouseLocation.RowIndex].Cells[0].Value.ToString());
         }
 
+        private void DeleteClickHandler(object sender, EventArgs e)
+        {
+
+        }
 
         public void FillDataList(List<Tuple<string, string>> data)
         {

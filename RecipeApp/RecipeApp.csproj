@@ -54,6 +54,12 @@
     <Compile Include="Forms\ConfirmationForm.Designer.cs">
       <DependentUpon>ConfirmationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DevicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DevicesForm.Designer.cs">
+      <DependentUpon>DevicesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RenameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\ConfirmationForm.resx">
       <DependentUpon>ConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DevicesForm.resx">
+      <DependentUpon>DevicesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RenameForm.resx">
       <DependentUpon>RenameForm.cs</DependentUpon>

@@ -111,7 +111,7 @@ namespace RecipeApp.Controllers
         public void InitDeviceController()
         {
             DataGridView devices = _controls.Find(ctrl => ctrl.Name == "CtrlViewDGVDevices") as DataGridView;
-            _ingrCtrl = new DevicesDGVController(devices);
+            _ingrCtrl = new DevicesDGVController(devices, ChangeLocker);
         }
         
 

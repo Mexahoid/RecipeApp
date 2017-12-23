@@ -34,7 +34,6 @@
             this.CtrlRBEdit = new System.Windows.Forms.RadioButton();
             this.CtrlRBSelect = new System.Windows.Forms.RadioButton();
             this.CtrlViewPanel = new System.Windows.Forms.Panel();
-            this.CtrlViewTBType = new System.Windows.Forms.TextBox();
             this.CtrlViewLblType = new System.Windows.Forms.Label();
             this.CtrlViewTCMisc = new System.Windows.Forms.TabControl();
             this.CtrlViewTPText = new System.Windows.Forms.TabPage();
@@ -48,6 +47,7 @@
             this.CtrlViewLblLink = new System.Windows.Forms.Label();
             this.CtrlViewTBKitchen = new System.Windows.Forms.TextBox();
             this.CBKitchen = new System.Windows.Forms.ComboBox();
+            this.CtrlViewTBType = new System.Windows.Forms.TextBox();
             this.CBType = new System.Windows.Forms.ComboBox();
             this.CtrlViewDGVNames = new System.Windows.Forms.DataGridView();
             this.CtrlTCMain = new System.Windows.Forms.TabControl();
@@ -137,15 +137,6 @@
             this.CtrlViewPanel.Name = "CtrlViewPanel";
             this.CtrlViewPanel.Size = new System.Drawing.Size(476, 494);
             this.CtrlViewPanel.TabIndex = 2;
-            // 
-            // CtrlViewTBType
-            // 
-            this.CtrlViewTBType.Location = new System.Drawing.Point(334, 38);
-            this.CtrlViewTBType.Multiline = true;
-            this.CtrlViewTBType.Name = "CtrlViewTBType";
-            this.CtrlViewTBType.ReadOnly = true;
-            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 21);
-            this.CtrlViewTBType.TabIndex = 8;
             // 
             // CtrlViewLblType
             // 
@@ -290,6 +281,15 @@
             this.CBKitchen.Name = "CBKitchen";
             this.CBKitchen.Size = new System.Drawing.Size(121, 21);
             this.CBKitchen.TabIndex = 9;
+            // 
+            // CtrlViewTBType
+            // 
+            this.CtrlViewTBType.Location = new System.Drawing.Point(334, 38);
+            this.CtrlViewTBType.Multiline = true;
+            this.CtrlViewTBType.Name = "CtrlViewTBType";
+            this.CtrlViewTBType.ReadOnly = true;
+            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 21);
+            this.CtrlViewTBType.TabIndex = 8;
             // 
             // CBType
             // 
