@@ -66,33 +66,6 @@ namespace RecipeApp.Models.DevicesDGV
 
         private void ChangeToComboBoxes()
         {
-            //DataGridViewComboBoxColumn cc = new DataGridViewComboBoxColumn();
-            //cc.DataSource = _devicesCollection;
-
-            //foreach (DataGridViewRow row in _devices.Rows)
-            //{
-            //    DataGridViewComboBoxCell cell = new DataGridViewComboBoxCell
-            //    {
-            //        Value = row.Cells[0].Value,
-            //        DataSource = _devicesCollection
-            //    };
-            //    cc.Items.Add(cell);
-            //    //row.Cells[0] = cell;
-            //}
-            //foreach (DataGridViewRow row in _devices.Rows)
-            //{
-                //string prev = row.Cells[0].Value.ToString();
-                //cc.Items.Add(prev);
-                //row.Cells[0] = new DataGridViewComboBoxCell
-                //{
-                //    ValueMember = prev
-                //};
-
-                //((DataGridViewComboBoxCell) row.Cells[0]).Items.AddRange(_devicesCollection);
-            //}
-
-
-
             DataGridViewComboBoxColumn cc = new DataGridViewComboBoxColumn
             { Name = "Устройства"};
             List<string> items = new List<string>();
@@ -110,23 +83,11 @@ namespace RecipeApp.Models.DevicesDGV
                 ((DataGridViewComboBoxCell)_devices.Rows[_devices.RowCount - 1].Cells[0]).Value = name;
                 
             }
-
-            //_devices.Columns.RemoveAt(0);
-
-
-
         }
 
         private void ChangeToNormal()
         {
             OnReload?.Invoke();
-            //DataGridViewTextBoxColumn tc = new DataGridViewTextBoxColumn();
-            //_devices.Columns.Add(tc);
-            //foreach (DataGridViewRow row in _devices.Rows)
-            //{
-            //    row.Cells[1].Value = row.Cells[0].Value;
-            //}
-            //_devices.Columns.RemoveAt(0);
         }
     }
 }
