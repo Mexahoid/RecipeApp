@@ -39,7 +39,7 @@ namespace RecipeApp.Forms
 
         private void CtrlButOK_Click(object sender, EventArgs e)
         {
-            Action?.Invoke(_data, CtrlLblTxtNew.Text);
+            Action?.Invoke(_data, CtrlLblNew.Text);
             Close();
         }
 
@@ -75,11 +75,16 @@ namespace RecipeApp.Forms
                 CtrlDGV.Rows[e.RowIndex].Cells[0].Value = newName;
                 _data.Add(Tuple.Create(newName, ""));
                 CtrlDGV.Rows.Add(Properties.Resources.AddNewDevice);
+                CtrlLblNew.Text = newName;
             }
-            else
-            {
-                CtrlLblNew.Text = CtrlDGV.Rows[e.RowIndex].Cells[0].Value.ToString();
-            }
+        }
+
+        private void CtrlDGV_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == CtrlDGV.RowCount - 1)
+                return;
+            CtrlLblNew.Text = CtrlDGV.Rows[e.RowIndex].Cells[0].Value.ToString();
+            _data[e.RowIndex] = Tuple.Create(CtrlLblNew.Text, _data[e.RowIndex].Item2);
         }
     }
 }

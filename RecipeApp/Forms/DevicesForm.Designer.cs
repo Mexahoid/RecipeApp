@@ -51,6 +51,7 @@
             this.CtrlDGV.RowHeadersVisible = false;
             this.CtrlDGV.Size = new System.Drawing.Size(210, 428);
             this.CtrlDGV.TabIndex = 0;
+            this.CtrlDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlDGV_CellClick);
             this.CtrlDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlDGV_CellContentClick);
             // 
             // CtrlLblTxtOld

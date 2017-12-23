@@ -10,16 +10,13 @@ namespace RecipeApp.Models.DevicesDGV
     class DevicesDGVModel
     {
         private readonly DataGridView _devices;
-        private readonly ContextMenuStrip _cms;
         private DataGridViewCellEventArgs _mouseLocation;
 
         private event Action<DataGridViewRowCollection> OnDataChange;
         private event Action OnReload;
         private event Action OnLock;
-        private readonly List<string> _devicesCollection;
-        private readonly List<Tuple<string, string>> _deviceNames;
+        private List<Tuple<string, string>> _deviceNames;
         private readonly List<Tuple<string, string>> _recipeDevicesValues;
-        private int _rowIndex;
 
         private bool _isEditing;
 
@@ -30,13 +27,39 @@ namespace RecipeApp.Models.DevicesDGV
             List<string> deviceCollection)
         {
             _devices = dgv;
+            InitCoMeSt();
+            OnLock += onLock;
+
+            _deviceNames = new List<Tuple<string, string>>();
+            _recipeDevicesValues = new List<Tuple<string, string>>();
+            OnDataChange += onDataChange;
+            OnReload += onReload;
+
+            InitAllDeviceNames();
+        }
+
+        private void InitAllDeviceNames()
+        {
+            DataTable dt = Connector.GetTable(
+                QueryFactory.Queries.SelectAllDevicesNames);
+
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                _deviceNames.Add(Tuple.Create(
+                    dataRow.ItemArray[0].ToString(),
+                    dataRow.ItemArray[0].ToString()));
+            }
+        }
+
+        private void InitCoMeSt()
+        {
             _devices.CellMouseEnter += (sender, location) => _mouseLocation = location;
 
             ToolStripMenuItem editItem = new ToolStripMenuItem("Изменить");
             ToolStripMenuItem deleteItem = new ToolStripMenuItem("Удалить");
             ToolStripMenuItem addItem = new ToolStripMenuItem("Добавить");
             // добавляем элементы в меню
-            _cms = new ContextMenuStrip
+            ContextMenuStrip cms = new ContextMenuStrip
             {
                 Text = "Меню",
                 Items = { editItem, deleteItem, addItem }
@@ -46,121 +69,72 @@ namespace RecipeApp.Models.DevicesDGV
             deleteItem.Click += DeleteHandler;
             addItem.Click += AddHandler;
 
+            _devices.ContextMenuStrip = cms;
 
-
-            OnLock += onLock;
-            _devices.EditingControlShowing += DGV_EditingControlShowing;
-            _devices.CellMouseClick += DGV_MouseClick;
-            _devicesCollection = deviceCollection;
-            _deviceNames = new List<Tuple<string, string>>();
-            _recipeDevicesValues = new List<Tuple<string, string>>();
-            OnDataChange += onDataChange;
-            OnReload += onReload;
-            DataTable dt = Connector.GetTable(
-                QueryFactory.Queries.SelectAllDevicesNames);
-        
-            foreach (DataRow dataRow in dt.Rows)
-            {
-                _deviceNames.Add(Tuple.Create(
-                    dataRow.ItemArray[0].ToString(),
-                    dataRow.ItemArray[0].ToString()));
-
-                _devicesCollection.Add(dataRow.ItemArray[0].ToString());
-            }
         }
+
 
         private void AddHandler(object sender, EventArgs e)
         {
-            var answer = DevicesForm.Invoke(_deviceNames, "Отсутствует");
-            _deviceNames.Clear();
-            foreach (var tuple in answer.Item1)
-            {
-                _deviceNames.Add(tuple);
-            }
+            string newName = InvokeDeviceEditor("Отсутствует");
 
+            _devices.Rows.Add(newName);
+            _recipeDevicesValues.Add(Tuple.Create(newName, ""));
+            OnLock?.Invoke();
         }
 
         private void DeleteHandler(object sender, EventArgs e)
         {
+            if (_mouseLocation.RowIndex < 0 || _mouseLocation.RowIndex > _devices.Rows.Count - 1)
+                return;
+            string name = _devices.Rows[_mouseLocation.RowIndex].Cells[0].Value.ToString();
+            if (ConfirmationForm.Invoke(name) != DialogResult.OK)
+                return;
 
+            _devices.Rows.RemoveAt(_mouseLocation.RowIndex);
+            for (int i = 0; i < _recipeDevicesValues.Count; i++)
+            {
+                if (_recipeDevicesValues[i].Item1 != name)
+                    continue;
+                _recipeDevicesValues[i] =
+                    Tuple.Create("", _recipeDevicesValues[i].Item2);
+                break;
+            }
+            OnLock?.Invoke();
         }
 
         private void EditHandler(object sender, EventArgs e)
         {
-
-        }
-
-
-
-
-
-
-
-        private void DGV_MouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            _rowIndex = e.RowIndex;
-            if (e.Button == MouseButtons.Right && _isEditing)
-            {
-                DeleteDeviceFromRecipe(e.RowIndex);
-            }
-            if (e.Button == MouseButtons.Left && _isEditing)
-            {
-                if (_devices.Rows[_rowIndex].Cells[0].Value == null)
-                {
-                    ((DataGridViewComboBoxCell) _devices.Rows[_rowIndex].Cells[0]).Value =
-                        Properties.Resources.AddNewDevice;
-                    _devices.Rows.Add();
-                    ((DataGridViewComboBoxCell) _devices.Rows[_rowIndex + 1].Cells[0]).DataSource = _devicesCollection;
-                }
-            }
-        }
-
-        private void AddNewDeviceToRecipe(string name)
-        {
-            _recipeDevicesValues.Add(Tuple.Create(name, ""));
-            ((DataGridViewComboBoxCell)_devices.Rows[_rowIndex].Cells[0]).Value =
-                name;
-        }
-
-        private void DeleteDeviceFromRecipe(int pos)
-        {
-            if (_isEditing)
-            {
-                _recipeDevicesValues[pos] = Tuple.Create("", _recipeDevicesValues[pos].Item2);
-                _devices.Rows.RemoveAt(pos);
-                OnDataChange?.Invoke(_devices.Rows);
-                OnLock?.Invoke();
-            }
-        }
-
-        private void EditDeviceFromRecipe(int pos, string newName)
-        {
-            if (_isEditing)
-            {
-
-            }
-        }
-
-        private void AddNewDeviceToDevices()
-        {   // Исходим из того, что добавление отражается в _deviceNames
-            string name = RenameForm.Invoke();
-            if (name == "")
+            if (_mouseLocation.RowIndex < 0 || _mouseLocation.RowIndex > _devices.Rows.Count - 1)
                 return;
-
-            _deviceNames.Add(Tuple.Create(name, ""));
-            _devicesCollection[_devicesCollection.Count - 1] = name;  // Заменили последний
-            _devicesCollection.Add(Properties.Resources.AddNewDevice);
+            string oldName = _devices.Rows[_mouseLocation.RowIndex].Cells[0].Value.ToString();
+            string newName = InvokeDeviceEditor(oldName);
+            if (string.IsNullOrEmpty(newName))
+                return;
+            _devices.Rows[_mouseLocation.RowIndex].Cells[0].Value =
+                newName;
+            for (int i = 0; i < _recipeDevicesValues.Count; i++)
+            {
+                if (_recipeDevicesValues[i].Item1 != oldName)
+                    continue;
+                _recipeDevicesValues[i] =
+                    Tuple.Create(newName, _recipeDevicesValues[i].Item2);
+                break;
+            }
+            OnLock?.Invoke();
         }
 
-        private void EditDeviceInDevices(int pos)
+        private string InvokeDeviceEditor(string name)
         {
-            string oldName = _devicesCollection[pos];
-            string newName = RenameForm.Invoke(false, oldName);
-            if (newName == "")
-                return;
-
-            _devicesCollection[pos] = newName;
-            _deviceNames[pos] = Tuple.Create(newName, _deviceNames[pos].Item2);
+            var answer = DevicesForm.Invoke(_deviceNames, name);
+            if (answer == null)
+                return null;
+            _deviceNames = new List<Tuple<string, string>>();
+            foreach (var tuple in answer.Item1)
+            {
+                _deviceNames.Add(tuple);
+            }
+            return answer.Item2;
         }
 
         public void LoadData(string name)
@@ -181,8 +155,6 @@ namespace RecipeApp.Models.DevicesDGV
                 _recipeDevicesValues.Add(Tuple.Create(text, text));
             }
             OnDataChange?.Invoke(_devices.Rows);
-            if(_isEditing)
-                ChangeToComboBoxes();
         }
 
         public void ChangeMode()
@@ -191,89 +163,14 @@ namespace RecipeApp.Models.DevicesDGV
             {
                 ChangeToNormal();
             }
-            else
-            {
-                ChangeToComboBoxes(); 
-            }
             _isEditing = !_isEditing;
             _devices.ReadOnly = !_devices.ReadOnly;
         }
-
-        private void ChangeToComboBoxes()
-        {
-            DataGridViewComboBoxColumn cc = new DataGridViewComboBoxColumn
-            { Name = "Устройства"};
-            List<string> items = new List<string>();
-            foreach (DataGridViewRow row in _devices.Rows)
-            {
-                if(row.Cells[0].Value != null)// && 
-                    //row.Cells[0].Value.ToString() != Properties.Resources.AddNewDevice)
-                    items.Add(row.Cells[0].Value.ToString());
-            }
-            _devices.Columns.Clear();
-            _devices.Columns.Add(cc);
-
-            foreach (string name in items)
-            {
-                _devices.Rows.Add();
-                ((DataGridViewComboBoxCell) _devices.Rows[_devices.RowCount - 1].Cells[0]).DataSource = _devicesCollection;
-                ((DataGridViewComboBoxCell) _devices.Rows[_devices.RowCount - 1].Cells[0]).Value = name;
-            }
-            _devices.Rows.Add();
-            ((DataGridViewComboBoxCell)_devices.Rows[_devices.RowCount - 1].Cells[0]).DataSource = _devicesCollection;
-        }
+        
 
         private void ChangeToNormal()
         {
             OnReload?.Invoke();
-        }
-
-        void DGV_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (e.Control is DataGridViewComboBoxEditingControl cb)
-            {
-                void Act(object cbb, KeyEventArgs k)
-                {
-                    if (k.KeyData == Keys.E)
-                    {
-                        EditDeviceInDevices((cbb as DataGridViewComboBoxEditingControl).SelectedIndex);
-                    }
-                }
-
-                void Eh(object cbb, EventArgs ev)
-                {
-                    HandleDeviceSelection((cbb as DataGridViewComboBoxEditingControl).SelectedIndex);
-                }
-
-                cb.KeyDown -= Act;
-                cb.SelectedIndexChanged -= Eh;
-                cb.KeyDown += Act;
-                cb.SelectedIndexChanged += Eh;
-            }
-        }
-
-        private void HandleDeviceSelection(int pos)
-        {
-            if (pos == _devicesCollection.Count - 1)
-            {
-                AddNewDeviceToDevices();
-                ChangeToComboBoxes();
-                ((DataGridViewComboBoxCell) _devices.Rows[_rowIndex].Cells[0]).Value =
-                    _devicesCollection[_devicesCollection.Count - 2];
-            }
-            else
-            {
-                if (((DataGridViewComboBoxCell) _devices.Rows[_rowIndex].Cells[0]).Value.ToString() ==
-                    Properties.Resources.AddNewDevice)
-                {
-                    if (_rowIndex == _recipeDevicesValues.Count && pos > -1)
-                    {
-                        AddNewDeviceToRecipe(_devicesCollection[pos]);
-                    }
-                }
-            }
-            OnDataChange?.Invoke(_devices.Rows);
-            OnLock?.Invoke();
         }
     }
 }
