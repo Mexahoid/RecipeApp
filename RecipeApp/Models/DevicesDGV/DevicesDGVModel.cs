@@ -71,7 +71,7 @@ namespace RecipeApp.Models.DevicesDGV
             addItem.Click += AddHandler;
 
             _devices.ContextMenuStrip = cms;
-
+            _devices.Enabled = false;
         }
 
 
@@ -168,8 +168,7 @@ namespace RecipeApp.Models.DevicesDGV
                 ChangeToNormal();
             }
             OnChangeLock?.Invoke();
-            _isEditing = !_isEditing;
-            _devices.ReadOnly = !_devices.ReadOnly;
+            _devices.Enabled = !_devices.Enabled;
         }
         
 

@@ -23,6 +23,7 @@ namespace RecipeApp.Forms
             CtrlLblBefNameValue.Text = data.Item2[0];
             CtrlLblBefQtyValue.Text = data.Item2[1];
             CtrlLblBefUnitsValue.Text = data.Item2[2];
+            CtrlLblAftNameValue.Text = "Пока отсутствует";
             FillDGV();
         }
 

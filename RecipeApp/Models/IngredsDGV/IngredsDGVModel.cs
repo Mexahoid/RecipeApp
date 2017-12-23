@@ -14,16 +14,19 @@ namespace RecipeApp.Models.IngredsDGV
         private DataGridView _dgv;
         private event Action OnReload;
         private event Action OnChangeLock;
+        private event Action OnLock;
         private DataGridViewCellEventArgs _mouseLocation;
         private event Action<DataStructure> OnDataChange;
         private List<Tuple<string, string>> _names;
         public IngredsDGVModel(DataGridView dgv,
             Action onReload,
-            Action<DataStructure> onChange)
+            Action<DataStructure> onChange,
+            Action onLock)
         {
             _dgv = dgv;
             OnReload += onReload;
             OnDataChange += onChange;
+            OnLock += onLock;
             InitStructures();
             InitCoMeSt();
         }
@@ -61,14 +64,14 @@ namespace RecipeApp.Models.IngredsDGV
             editItem.Click += EditHandler;
             deleteItem.Click += DeleteHandler;
             addItem.Click += AddHandler;
-
+            _dgv.Enabled = false;
             _dgv.ContextMenuStrip = cms;
         }
 
 
         private void AddHandler(object sender, EventArgs e)
         {
-            List<string> lst = InvokeIngredEditor(new List<string>
+            var lst = InvokeIngredEditor(new List<string>
             {
                 "Ничто", "Нисколько", "Никакие"
             });
@@ -79,7 +82,7 @@ namespace RecipeApp.Models.IngredsDGV
                 Tuple.Create(lst[1], ""),
                 Tuple.Create(lst[2], "")));
             OnDataChange?.Invoke(_data);
-            OnChangeLock?.Invoke();
+            OnLock?.Invoke();
         }
 
         private void DeleteHandler(object sender, EventArgs e)
@@ -102,7 +105,7 @@ namespace RecipeApp.Models.IngredsDGV
                 break;
             }
             OnDataChange?.Invoke(_data);
-            OnChangeLock?.Invoke();
+            OnLock?.Invoke();
         }
 
         private void EditHandler(object sender, EventArgs e)
@@ -117,7 +120,9 @@ namespace RecipeApp.Models.IngredsDGV
                 _dgv.Rows[_mouseLocation.RowIndex].Cells[2].Value.ToString()
             });
 
-            if (string.IsNullOrEmpty(lst[0]))
+            if (string.IsNullOrEmpty(lst[0]) ||
+                string.IsNullOrEmpty(lst[1]) || 
+                string.IsNullOrEmpty(lst[2]))
                 return;
 
             for (int i = 0; i < 3; i++)
@@ -135,7 +140,7 @@ namespace RecipeApp.Models.IngredsDGV
                 break;
             }
             OnDataChange?.Invoke(_data);
-            OnChangeLock?.Invoke();
+            OnLock?.Invoke();
         }
 
 
@@ -174,6 +179,12 @@ namespace RecipeApp.Models.IngredsDGV
                     row.ItemArray[2].ToString());
             }
             OnDataChange?.Invoke(_data);
+        }
+
+        public void ChangeMode()
+        {
+            OnChangeLock?.Invoke();
+            _dgv.Enabled = !_dgv.Enabled;
         }
     }
 }

@@ -91,31 +91,7 @@ namespace RecipeApp.Controllers.RecipeNames
             {
                 case MouseButtons.Left:
                     _lastName = text;
-                    if (text == Properties.Resources.AddNewRecipe)
-                    {
-                        ans = RenameForm.Invoke();
-                        AlterAddeableRow(ans);
-                        OnChangeLock?.Invoke();
-                    }
                     OnRecipeSelect?.Invoke(text);
-                    break;
-                case MouseButtons.Right:
-                    if (!_isEditing)
-                        break;
-                    ans = JunctionForm.Invoke(text);
-                    if (ans == null)
-                        _data[index] = new Tuple<string, string>(null, _data[index].Item2);
-                    else if (ans == Properties.Resources.AddNewRecipe)
-                        OnError?.Invoke("Ты че, дурак? Зачем изменять название на системное?");
-                    else
-                    {
-                        if (CheckExistence(ans))
-                            OnError?.Invoke("Такой рецепт уже есть.");
-                        _model.SetRow(index, ans);
-                        _lastName = _data[index].Item2;   // Запомнили старое имя
-                        _data[index] = new Tuple<string, string>(ans, _data[index].Item2);
-                        OnChangeLock?.Invoke();
-                    }
                     break;
             }
 
@@ -125,16 +101,7 @@ namespace RecipeApp.Controllers.RecipeNames
         {
             return _data.Any(tuple => tuple.Item1 == text);
         }
-
-
-        private void AlterAddeableRow(string text)
-        {
-            if (text != "")
-            {
-                _model.SetRow(_data.Count - 1, text);
-            }
-        }
-
+        
         private void DataChangeHandler(List<Tuple<string, string>> rows)
         {
             _data = rows;
@@ -169,7 +136,7 @@ namespace RecipeApp.Controllers.RecipeNames
         public void HandleReject()
         {
             _model.ReloadData();
-            NewRow();
+            //NewRow();
         }
 
     }

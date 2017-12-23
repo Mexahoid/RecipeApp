@@ -116,7 +116,7 @@ namespace DBLayer
 
                 "SELECT Name FROM Device",
 
-                "SELECT Name FROM Ingreds"
+                "SELECT Name FROM Ingredient"
             };
         }
 

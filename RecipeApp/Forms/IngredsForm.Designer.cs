@@ -51,9 +51,16 @@
             // 
             // CtrlDGV
             // 
+            this.CtrlDGV.AllowUserToAddRows = false;
+            this.CtrlDGV.AllowUserToDeleteRows = false;
+            this.CtrlDGV.AllowUserToResizeColumns = false;
+            this.CtrlDGV.AllowUserToResizeRows = false;
+            this.CtrlDGV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CtrlDGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CtrlDGV.ColumnHeadersVisible = false;
             this.CtrlDGV.Location = new System.Drawing.Point(12, 12);
             this.CtrlDGV.Name = "CtrlDGV";
+            this.CtrlDGV.RowHeadersVisible = false;
             this.CtrlDGV.Size = new System.Drawing.Size(225, 398);
             this.CtrlDGV.TabIndex = 0;
             this.CtrlDGV.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CtrlDGV_CellClick);
@@ -212,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 422);
+            this.ClientSize = new System.Drawing.Size(530, 422);
             this.Controls.Add(this.CtrlLblAftNameValue);
             this.Controls.Add(this.CtrlLblAftName);
             this.Controls.Add(this.CtrlLblAft);
