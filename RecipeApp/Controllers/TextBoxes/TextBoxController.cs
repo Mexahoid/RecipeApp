@@ -56,5 +56,10 @@ namespace RecipeApp.Controllers.TextBoxes
                 //OnError?.Invoke(e.Message);
             }
         }
+
+        public void Clear()
+        {
+            _lm.SetText("");
+        }
     }
 }

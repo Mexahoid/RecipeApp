@@ -47,22 +47,6 @@ namespace RecipeApp.Controllers.MultBoxes
         {
             _mdl.ChangeLayout();
         }
-
-        private void OnTextUpdate(int pos)
-        {
-            string name = RenameForm.Invoke(false);
-            if(name != null)
-                _data[pos] = new Tuple<string, string>(_data[pos].Item1, name);
-        }
-
-        private void OnKitchenAdd()
-        {
-            string name = RenameForm.Invoke(!_mdl.IsAdded);
-            if(name != null)
-                _data[_data.Count - 1] = new Tuple<string, string>("", name);
-        }
-        
-        
         public void DataUpdateHandler(ComboBox.ObjectCollection items)
         {
             for (int i = 0; i < items.Count; i++)
@@ -154,5 +138,12 @@ namespace RecipeApp.Controllers.MultBoxes
         {
             return _mdl.GetData();
         }
+
+        public void Clear()
+        {
+            _mdl.LoadData(_data, _queries[3]);
+            _mdl.Clear();
+        }
+        
     }
 }

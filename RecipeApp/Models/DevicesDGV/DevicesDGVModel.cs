@@ -30,7 +30,6 @@ namespace RecipeApp.Models.DevicesDGV
             InitCoMeSt();
             OnLock += onLock;
 
-            _deviceNames = new List<Tuple<string, string>>();
             _recipeDevicesValues = new List<Tuple<string, string>>();
             OnDataChange += onDataChange;
             OnReload += onReload;
@@ -40,6 +39,7 @@ namespace RecipeApp.Models.DevicesDGV
 
         private void InitAllDeviceNames()
         {
+            _deviceNames = new List<Tuple<string, string>>();
             DataTable dt = Connector.GetTable(
                 QueryFactory.Queries.SelectAllDevicesNames);
 
@@ -175,6 +175,13 @@ namespace RecipeApp.Models.DevicesDGV
         private void ChangeToNormal()
         {
             OnReload?.Invoke();
+        }
+
+        public void Clear()
+        {
+            InitAllDeviceNames();
+            _devices.Rows.Clear();
+            _devices.Columns.Clear();
         }
     }
 }

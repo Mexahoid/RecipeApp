@@ -47,6 +47,11 @@ namespace RecipeApp.Controllers.DevicesDGV
         public List<Tuple<string, string>> GetDevicesForRecipe()
         {
             return _recipeDevicesValues;
-        } 
+        }
+        public void Clear()
+        {
+            _mdl.Clear();
+        }
+
     }
 }

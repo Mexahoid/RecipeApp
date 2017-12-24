@@ -37,7 +37,8 @@ namespace RecipeApp.Controllers.RecipeNames
 
         public void SelectCellWithName()
         {
-            _model.SelectNamedCell(_lastName);
+            if(!string.IsNullOrEmpty(_lastName))
+                _model.SelectNamedCell(_lastName);
         }
         
         public void Lock() => _model.Lock();
@@ -53,15 +54,12 @@ namespace RecipeApp.Controllers.RecipeNames
         
         private void CellClickHandler(int index, string text, MouseButtons mb)
         {
-            string ans;
-            switch (mb)
+            if (mb == MouseButtons.Left)
             {
-                case MouseButtons.Left:
-                    _lastName = text;
-                    OnRecipeSelect?.Invoke(text);
-                    break;
+                _currName = text;
+                _lastName = text;
+                OnRecipeSelect?.Invoke(text);
             }
-
         }
         
         
@@ -70,10 +68,10 @@ namespace RecipeApp.Controllers.RecipeNames
             _data = rows;
             foreach (var tuple in rows)
             {
-                if (tuple.Item2 == _lastName || tuple.Item2 == string.Empty)
+                if (tuple.Item1 != tuple.Item2)
                 {
                     _currName = tuple.Item1;
-                    _lastName = _currName;
+                    _lastName = tuple.Item2;
                     SelectCellWithName();
                     break;
                 }

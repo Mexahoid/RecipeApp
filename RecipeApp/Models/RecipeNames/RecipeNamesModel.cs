@@ -10,6 +10,16 @@ namespace RecipeApp.Models.RecipeNames
 {
     class RecipeNamesModel
     {
+        public enum State
+        {
+            Null,
+            Edited,
+            Deleted,
+            Added
+        }
+
+
+        private State _state = State.Null;
         private readonly DataGridView _dgv;
         private readonly ContextMenuStrip _cms;
         private DataGridViewCellEventArgs _mouseLocation;
@@ -18,6 +28,7 @@ namespace RecipeApp.Models.RecipeNames
         private event Action<List<Tuple<string, string>>> OnDataChange;
         private event Action<int, string, MouseButtons> OnCellClick;
         private event Action OnChangeLock;
+        
 
         private List<Tuple<string, string>> _data;
 
@@ -58,6 +69,7 @@ namespace RecipeApp.Models.RecipeNames
 
         }
 
+        public State GetState() => _state;
 
         private void AddHandler(object sender, EventArgs e)
         {
@@ -65,6 +77,7 @@ namespace RecipeApp.Models.RecipeNames
             _dgv.Rows.Add(newName);
             _data.Add(Tuple.Create(newName, ""));
             OnDataChange?.Invoke(_data);
+            _state = State.Added;
         }
 
         private void EditHandler(object sender, EventArgs e)
@@ -83,6 +96,7 @@ namespace RecipeApp.Models.RecipeNames
                 break;
             }
             OnDataChange?.Invoke(_data);
+            _state = State.Edited;
         }
 
         private void DeleteHandler(object sender, EventArgs e)
@@ -90,9 +104,9 @@ namespace RecipeApp.Models.RecipeNames
             if (_mouseLocation.RowIndex < 0 || _mouseLocation.RowIndex > _dgv.Rows.Count - 1)
                 return;
             string name = _dgv.Rows[_mouseLocation.RowIndex].Cells[0].Value.ToString();
-            _dgv.Rows.RemoveAt(_mouseLocation.RowIndex);
             if (ConfirmationForm.Invoke(name) != DialogResult.OK)
                 return;
+            _dgv.Rows.RemoveAt(_mouseLocation.RowIndex);
             for (int i = 0; i < _data.Count; i++)
             {
                 if (_data[i].Item1 != name)
@@ -101,6 +115,7 @@ namespace RecipeApp.Models.RecipeNames
                 break;
             }
             OnDataChange?.Invoke(_data);
+            _state = State.Deleted;
         }
         
         public void FillDataList(List<Tuple<string, string>> data)
@@ -118,26 +133,7 @@ namespace RecipeApp.Models.RecipeNames
             OnChangeLock?.Invoke();
             _editingMode = !_editingMode;
         }
-
-        public void SetRow(int index, string text)
-        {
-            _dgv.Rows[index].Cells[0].Value = text;
-            OnDataChange?.Invoke(_data);
-        }
-
-        public void AddRow()
-        {
-            _dgv.Rows.Add();
-            _dgv.Rows[_dgv.RowCount - 1].Cells[0].Value = Properties.Resources.AddNewRecipe;
-        }
-
-        public void RemoveRow(int index)
-        {
-            if (_dgv.RowCount != 0)
-            {
-                _dgv.Rows.RemoveAt(index);
-            }
-        }
+        
 
         public void ReloadData()
         {
@@ -150,7 +146,7 @@ namespace RecipeApp.Models.RecipeNames
                 _dgv.Rows.Add(dataTableRow.ItemArray[0]);
                 _data.Add(Tuple.Create(dataTableRow.ItemArray[0].ToString(), dataTableRow.ItemArray[0].ToString()));
             }
-            //_dgv.ClearSelection();
+            _state = State.Null;
         }
 
         public void SelectNamedCell(string name)
@@ -159,7 +155,7 @@ namespace RecipeApp.Models.RecipeNames
                 return;
             for (int i = 0; i < _dgv.Rows.Count; i++)
             {
-                if (_dgv.Rows[i].Cells[0].Value.ToString().ToLower() == name.ToLower())
+                if (_dgv.Rows[i].Cells[0].Value?.ToString().ToLower() == name?.ToLower())
                 {
                     DGV_Cell_Mouse_Click(_dgv, 
                         new DataGridViewCellMouseEventArgs(0, i, 0, 0,

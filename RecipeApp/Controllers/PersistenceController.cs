@@ -38,7 +38,7 @@ namespace RecipeApp.Controllers
                 Tuple.Create("@Desc", RecipeText),
                 Tuple.Create("@Link", RecipeLink),
                 Tuple.Create("@Type", RecipeType),
-                Tuple.Create("@Kitch", RecipeType));
+                Tuple.Create("@Kitch", RecipeKitchen));
         }
 
         public void PersistRecipeUpdate()
@@ -48,7 +48,7 @@ namespace RecipeApp.Controllers
                 Tuple.Create("@Desc", RecipeText),
                 Tuple.Create("@Link", RecipeLink),
                 Tuple.Create("@Type", RecipeType),
-                Tuple.Create("@Kitch", RecipeType),
+                Tuple.Create("@Kitch", RecipeKitchen),
                 Tuple.Create("@Old", RecipeName.Item2));
         }
 
@@ -60,6 +60,8 @@ namespace RecipeApp.Controllers
         
         public void DoubleListPersister(DoubleList list, DoubleLists type)
         {
+            if (list == null)
+                return;
             QueryFactory.Queries queryInsert = 0;
             QueryFactory.Queries queryUpdate = 0;
 

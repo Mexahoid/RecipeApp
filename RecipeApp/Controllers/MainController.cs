@@ -144,17 +144,34 @@ namespace RecipeApp.Controllers
             _persistor.DoubleListPersister(_devCtrl.GetDevicesNames(), PersistenceController.DoubleLists.Device);
             _persistor.DoubleListPersister(_ktc.GetMultiboxData(), PersistenceController.DoubleLists.Kitchen);
             _persistor.DoubleListPersister(_tc.GetMultiboxData(), PersistenceController.DoubleLists.Type);
+
+
             _persistor.RecipeKitchen = _ktc.GetValue();
             _persistor.RecipeType = _tc.GetValue();
             _persistor.RecipeText = _textCtrl.GetText();
             _persistor.RecipeLink = _linkCtrl.GetText();
+
+
             _persistor.RecipeName = _rnc.GetValue();
-            if(_persistor.RecipeName.Item1 != _persistor.RecipeName.Item2)
+
+            if(string.IsNullOrEmpty(_persistor.RecipeName.Item1))
+                _persistor.PersistRecipeDelete();
+            else if(_persistor.RecipeName.Item1 != _persistor.RecipeName.Item2 &&
+                !string.IsNullOrEmpty(_persistor.RecipeName.Item2))
                 _persistor.PersistRecipeUpdate();
             else
                 _persistor.PersistRecipeInsert();
-            
+            Clear();
             _rnc.Unlock();
+        }
+
+        private void Clear()
+        {
+            _ktc.Clear();
+            _tc.Clear();
+            _linkCtrl.Clear();
+            _textCtrl.Clear();
+            _devCtrl.Clear();
         }
 
         private void OnReject()
@@ -176,7 +193,6 @@ namespace RecipeApp.Controllers
 
         private void RecipeSelectHandler(string text)
         {
-            _persistor.RecipeName = Tuple.Create(text, text);
             _linkCtrl.HandleRecipeSelection(text);
             _textCtrl.HandleRecipeSelection(text);
             _ktc.HandleRecipeSelection(text);

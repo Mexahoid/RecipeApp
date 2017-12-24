@@ -95,5 +95,11 @@ namespace RecipeApp.Models.MultBoxes
         {
             return _combo.Text;
         }
+
+        public void Clear()
+        {
+            _textb.Text = "";
+            _combo.Text = "";
+        }
     }
 }
