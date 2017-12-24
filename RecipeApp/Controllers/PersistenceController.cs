@@ -30,32 +30,49 @@ namespace RecipeApp.Controllers
 
         public string RecipeKitchen { get; set; }
 
+        public TripleDoubleList Ingreds { get; set; }
 
-        public void PersistRecipeInsert()
+        public DoubleList RecipeSpecificDevices { get; set; }
+
+
+        public void PersistRecipe()
         {
-            Connector.GetTable(QueryFactory.Queries.InsertRecipe,
-                Tuple.Create("@Name", RecipeName.Item1),
-                Tuple.Create("@Desc", RecipeText),
-                Tuple.Create("@Link", RecipeLink),
-                Tuple.Create("@Type", RecipeType),
-                Tuple.Create("@Kitch", RecipeKitchen));
+            PersistRecipeSpecificDevices();
+            if (string.IsNullOrEmpty(RecipeName.Item1))
+                Connector.GetTable(QueryFactory.Queries.DeleteRecipe,
+                    Tuple.Create("@Name", RecipeName.Item2));
+            else if (!string.IsNullOrEmpty(RecipeName.Item1) &&
+                     !string.IsNullOrEmpty(RecipeName.Item2))
+                Connector.GetTable(QueryFactory.Queries.UpdateRecipePrimaryData,
+                    Tuple.Create("@Name", RecipeName.Item1),
+                    Tuple.Create("@Desc", RecipeText),
+                    Tuple.Create("@Link", RecipeLink),
+                    Tuple.Create("@Type", RecipeType),
+                    Tuple.Create("@Kitch", RecipeKitchen),
+                    Tuple.Create("@Old", RecipeName.Item2));
+            else
+                Connector.GetTable(QueryFactory.Queries.InsertRecipe,
+                    Tuple.Create("@Name", RecipeName.Item1),
+                    Tuple.Create("@Desc", RecipeText),
+                    Tuple.Create("@Link", RecipeLink),
+                    Tuple.Create("@Type", RecipeType),
+                    Tuple.Create("@Kitch", RecipeKitchen));
         }
 
-        public void PersistRecipeUpdate()
+        private void PersistRecipeSpecificDevices()
         {
-            Connector.GetTable(QueryFactory.Queries.UpdateRecipePrimaryData,
-                Tuple.Create("@Name", RecipeName.Item1),
-                Tuple.Create("@Desc", RecipeText),
-                Tuple.Create("@Link", RecipeLink),
-                Tuple.Create("@Type", RecipeType),
-                Tuple.Create("@Kitch", RecipeKitchen),
-                Tuple.Create("@Old", RecipeName.Item2));
-        }
+            foreach (var device in RecipeSpecificDevices)
+            {
+                if (string.IsNullOrEmpty(device.Item2))
+                    Connector.GetTable(QueryFactory.Queries.InsertDeviceToRecipe,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@DeviceName", device.Item1));
+                else if(string.IsNullOrEmpty(device.Item1))
+                    Connector.GetTable(QueryFactory.Queries.DeleteDeviceFromRecipeByNames,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@DeviceName", device.Item2));
 
-        public void PersistRecipeDelete()
-        {
-            Connector.GetTable(QueryFactory.Queries.DeleteRecipe,
-                Tuple.Create("@Name", RecipeName.Item2));
+            }
         }
         
         public void DoubleListPersister(DoubleList list, DoubleLists type)
@@ -100,9 +117,9 @@ namespace RecipeApp.Controllers
             }
         }
         
-        public void PersistIngredsChanges(TripleDoubleList list)
+        public void PersistIngredsChanges()
         {
-            foreach (var tuple in list)
+            foreach (var tuple in Ingreds)
             {
                 if (tuple.Item1.Item1 != tuple.Item1.Item2 ||
                     tuple.Item3.Item1 != tuple.Item3.Item2)

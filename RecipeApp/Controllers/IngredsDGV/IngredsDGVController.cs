@@ -7,24 +7,19 @@ namespace RecipeApp.Controllers.IngredsDGV
 {
     class IngredsDGVController
     {
-        private IngredsDGVModel _mdl;
+        private readonly IngredsDGVModel _mdl;
         private DataStructure _data;
         private string _currRecipe;
         public IngredsDGVController(DataGridView dgv, Action onChangeLock)
         {
-            _mdl = new IngredsDGVModel(dgv, ReloadHandler, DataChangeHandler, onChangeLock);
+            _mdl = new IngredsDGVModel(dgv, DataChangeHandler, onChangeLock);
             _data = new DataStructure();
-        }
-
-        private void ReloadHandler()
-        {
-            _mdl.LoadData(_currRecipe);
         }
 
         public void HandleRecipeSelection(string recipeName)
         {
             _currRecipe = recipeName;
-            ReloadHandler();
+            _mdl.LoadData(_currRecipe);
         }
 
         private void DataChangeHandler(DataStructure data)
@@ -35,6 +30,16 @@ namespace RecipeApp.Controllers.IngredsDGV
         public void ChangeMode()
         {
             _mdl.ChangeMode();
+        }
+
+        public DataStructure GetData()
+        {
+            return _data;
+        }
+
+        public void Clear()
+        {
+            _mdl.Clear();
         }
     }
 }

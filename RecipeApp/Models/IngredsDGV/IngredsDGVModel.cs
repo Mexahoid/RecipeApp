@@ -11,20 +11,17 @@ namespace RecipeApp.Models.IngredsDGV
     class IngredsDGVModel
     {
         private DataStructure _data;
-        private DataGridView _dgv;
-        private event Action OnReload;
+        private readonly DataGridView _dgv;
         private event Action OnChangeLock;
         private event Action OnLock;
         private DataGridViewCellEventArgs _mouseLocation;
         private event Action<DataStructure> OnDataChange;
         private List<Tuple<string, string>> _names;
         public IngredsDGVModel(DataGridView dgv,
-            Action onReload,
             Action<DataStructure> onChange,
             Action onLock)
         {
             _dgv = dgv;
-            OnReload += onReload;
             OnDataChange += onChange;
             OnLock += onLock;
             InitStructures();
@@ -44,6 +41,12 @@ namespace RecipeApp.Models.IngredsDGV
                     row.ItemArray[0].ToString(),
                     row.ItemArray[0].ToString()));
             }
+        }
+
+        public void Clear()
+        {
+            InitStructures();
+            _dgv.Rows.Clear();
         }
 
         private void InitCoMeSt()
