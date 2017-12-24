@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using RecipeApp.Models.IngredsDGV;
 using DataStructure = System.Collections.Generic.List<System.Tuple<System.Tuple<string, string>, System.Tuple<string, string>, System.Tuple<string, string>>>;
@@ -35,6 +36,11 @@ namespace RecipeApp.Controllers.IngredsDGV
         public DataStructure GetData()
         {
             return _data;
+        }
+
+        public List<Tuple<string, string>> GetNames()
+        {
+            return _mdl.GetIngredsNames();
         }
 
         public void Clear()

@@ -61,6 +61,9 @@ namespace DBLayer
             DeleteDeviceFromRecipeByNames,
             InsertDeviceToRecipe,
             
+            DeleteIngredientFromRecipe,
+            InsertIngredientToRecipe
+
         }
 
         private readonly string[] _queries;
@@ -71,7 +74,7 @@ namespace DBLayer
             {
                 "Select Name From Recipe",      //Основной вывод названий рецептов
 
-                "SELECT I.Name AS 'Название', RI.Quantity AS 'Количество', I.Units AS 'Единицы измерения'" +
+                "SELECT I.Name AS 'Название', RI.Quantity AS 'Количество', RI.Units AS 'Единицы измерения'" +
                 " FROM RecipeIngredient AS RI" +
                 " LEFT JOIN Recipe AS R ON R.ID = RI.IDRecipe" +
                 " LEFT JOIN Ingredient AS I ON I.ID = RI.IDIngred" +
@@ -140,9 +143,9 @@ namespace DBLayer
 
                 "INSERT INTO Device VALUES (@Name)",
 
-                "UPDATE Ingredient SET Name = @Name, Units = @Units WHERE Name = @Old",
+                "UPDATE Ingredient SET Name = @Name WHERE Name = @Old",
 
-                "INSERT INTO Ingredient VALUES (@Name, @Units)",
+                "INSERT INTO Ingredient VALUES (@Name)",
 
                 "UPDATE Recipe SET IDKitchen = (SELECT ID FROM Kitchen WHERE Name = @Name)",
 
@@ -166,7 +169,16 @@ namespace DBLayer
 
                 "INSERT INTO RecipeDevice VALUES (" +
                 "(SELECT ID FROM Recipe WHERE Name = @RecipeName), " +
-                "(SELECT ID FROM Device WHERE Name = @DeviceName))"
+                "(SELECT ID FROM Device WHERE Name = @DeviceName))",
+
+                "DELETE FROM RecipeIngredient WHERE IDRecipe = " +
+                "(SELECT ID FROM Recipe WHERE Name = @RecipeName) AND IDIngred = " +
+                "(SELECT ID FROM Ingredient WHERE Name = @IngredName)",
+
+                "INSERT INTO RecipeIngredient (IDRecipe, IDIngred, Quantity, Units) VALUES (" +
+                "(SELECT ID FROM Recipe WHERE Name = @RecipeName)," +
+                "(SELECT ID FROM Ingredient WHERE Name = @IngredName)," +
+                "@Quantity, @Units)"
             };
         }
 

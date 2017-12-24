@@ -38,6 +38,7 @@ namespace RecipeApp.Controllers
         public void PersistRecipe()
         {
             PersistRecipeSpecificDevices();
+            PersistRecipeSpecificIngredients();
             if (string.IsNullOrEmpty(RecipeName.Item1))
                 Connector.GetTable(QueryFactory.Queries.DeleteRecipe,
                     Tuple.Create("@Name", RecipeName.Item2));
@@ -72,6 +73,42 @@ namespace RecipeApp.Controllers
                         Tuple.Create("@RecipeName", RecipeName.Item2),
                         Tuple.Create("@DeviceName", device.Item2));
 
+            }
+        }
+
+        private void PersistRecipeSpecificIngredients()
+        {
+            foreach (var tuple in Ingreds)
+            {
+                if (tuple.Item1.Item2 == string.Empty)
+                {
+                    Connector.GetTable(QueryFactory.Queries.InsertIngredientToRecipe,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@IngredName", tuple.Item1.Item1),
+                        Tuple.Create("@Quantity", tuple.Item2.Item1),
+                        Tuple.Create("@Units", tuple.Item3.Item1));
+                }
+                else if (tuple.Item1.Item1 == string.Empty)
+                {
+                    Connector.GetTable(QueryFactory.Queries.DeleteIngredientFromRecipe,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@IngredName", tuple.Item1.Item2));
+                }
+                else if(tuple.Item1.Item1 != tuple.Item1.Item2 ||
+                        tuple.Item2.Item1 != tuple.Item2.Item2 ||
+                        tuple.Item3.Item1 != tuple.Item3.Item2)
+                {
+                    Connector.GetTable(QueryFactory.Queries.DeleteIngredientFromRecipe,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@IngredName", tuple.Item1.Item2));
+
+                    Connector.GetTable(QueryFactory.Queries.InsertIngredientToRecipe,
+                        Tuple.Create("@RecipeName", RecipeName.Item2),
+                        Tuple.Create("@IngredName", tuple.Item1.Item1),
+                        Tuple.Create("@Quantity", tuple.Item2.Item1),
+                        Tuple.Create("@Units", tuple.Item3.Item1));
+
+                }
             }
         }
         
@@ -117,25 +154,31 @@ namespace RecipeApp.Controllers
             }
         }
         
-        public void PersistIngredsChanges()
+        public void PersistIngredsChanges(DoubleList list)
         {
-            foreach (var tuple in Ingreds)
+            foreach (var tuple in list)
             {
-                if (tuple.Item1.Item1 != tuple.Item1.Item2 ||
-                    tuple.Item3.Item1 != tuple.Item3.Item2)
-                {
-                    Connector.GetTable(QueryFactory.Queries.UpdateIngredByName,
-                        Tuple.Create("@Name", tuple.Item1.Item1),
-                        Tuple.Create("@Units", tuple.Item3.Item1),
-                        Tuple.Create("@Old", tuple.Item1.Item2));
-                    continue;
-                }
-                if (tuple.Item1.Item1 != string.Empty &&
-                    tuple.Item1.Item2 == string.Empty)
+                if (tuple.Item2 == string.Empty)
                 {
                     Connector.GetTable(QueryFactory.Queries.InsertIngred,
-                        Tuple.Create("@Name", tuple.Item1.Item1),
-                        Tuple.Create("@Units", tuple.Item3.Item1));
+                        Tuple.Create("@Name", tuple.Item1));
+                } else
+                if (tuple.Item1 != tuple.Item2)
+                {
+                    Connector.GetTable(QueryFactory.Queries.UpdateIngredByName,
+                        Tuple.Create("@Name", tuple.Item1),
+                        Tuple.Create("@Old", tuple.Item2));
+                    for (int i = 0; i < Ingreds.Count; i++)
+                    {
+                        if (Ingreds[i].Item1.Item2 != tuple.Item2)
+                            continue;
+                            Ingreds[i] = new Tuple<
+                                Tuple<string, string>,
+                                Tuple<string, string>,
+                                Tuple<string, string>>(
+                                Tuple.Create(Ingreds[i].Item1.Item1, tuple.Item1), Ingreds[i].Item2, Ingreds[i].Item3);
+                        break;
+                    }
                 }
             }
         }

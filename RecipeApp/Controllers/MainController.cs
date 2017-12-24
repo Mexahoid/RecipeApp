@@ -150,7 +150,7 @@ namespace RecipeApp.Controllers
             _persistor.RecipeText = _textCtrl.GetText();
             _persistor.RecipeLink = _linkCtrl.GetText();
             _persistor.Ingreds = _ingrCtrl.GetData();
-            _persistor.PersistIngredsChanges();
+            _persistor.PersistIngredsChanges(_ingrCtrl.GetNames());
 
             _persistor.RecipeName = _rnc.GetValue();
             _persistor.RecipeSpecificDevices = _devCtrl.GetDevicesForRecipe();

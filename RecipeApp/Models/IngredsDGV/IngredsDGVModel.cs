@@ -189,5 +189,10 @@ namespace RecipeApp.Models.IngredsDGV
             OnChangeLock?.Invoke();
             _dgv.Enabled = !_dgv.Enabled;
         }
+
+        public List<Tuple<string, string>> GetIngredsNames()
+        {
+            return _names;
+        }
     }
 }
