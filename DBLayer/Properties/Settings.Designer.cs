@@ -12,7 +12,7 @@ namespace DBLayer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -22,23 +22,17 @@ namespace DBLayer.Properties {
                 return defaultInstance;
             }
         }
-
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting
-            .ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute(
-            "Data Source=MEX-NOTEBOOK;Initial Catalog=Recipe;Integrated Security=True")]
-        public string RecipeConnectionString
-        {
-            get
-            {
-                if (System.Environment.MachineName.Equals("MEX-PC"))
-                    return "Data Source=MEX-PC\\SQLDEV;Initial Catalog=Recipe;Integrated Security=True";
-                else if (System.Environment.MachineName.Equals("MEX-NOTEBOOK"))
-                    return "Data Source=MEX-NOTEBOOK;Initial Catalog=Recipe;Integrated Security=True";
-                else
-                    return "Неа";
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=tcp:mexahoidrecipe.database.windows.net,1433;Initial Catalog=RecipeAz" +
+            "ure;Persist Security Info=True;User ID=Mexahoid;Password=1Fs9ZNo7Hx4Ygz3;Multipl" +
+            "eActiveResultSets=False;Connect Timeout=30;Encrypt=True;TrustServerCertificate=F" +
+            "alse")]
+        public string RecipeConnectionString {
+            get {
+                return ((string)(this["RecipeConnectionString"]));
             }
         }
     }
