@@ -61,8 +61,6 @@ namespace RecipeApp.Models
         public void SetName(string kitchen)
         {
             _kitTb.Text = kitchen;
-            if (kitchen == "")
-                return;
             _kitCb.Text = kitchen;
             _kitCb.SelectedText = kitchen;
         }

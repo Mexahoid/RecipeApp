@@ -152,6 +152,7 @@ namespace RecipeApp.Controllers
             _linkCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectLinkByRecipeName);
             _textCtrl.HandleRecipeSelection(text, QueryFactory.Queries.SelectTextByRecipeName);
             _ktc.HandleRecipeSelection(text);
+            _tc.HandleRecipeSelection(text);
         }
 
         private void RecipeInsertHandler(string text)

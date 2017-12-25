@@ -110,7 +110,7 @@ namespace RecipeApp.Controllers
             {
                 _mdl.SetName(dt.Rows[0].ItemArray[0].ToString());
             }
-            catch (Exception e)
+            catch
             {
                 _mdl.SetName("");
             }

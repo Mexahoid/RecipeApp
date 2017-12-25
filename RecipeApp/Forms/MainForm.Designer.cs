@@ -1,4 +1,4 @@
-﻿namespace RecipeApp
+﻿namespace RecipeApp.Forms
 {
     partial class FormMain
     {
@@ -140,10 +140,11 @@
             // 
             // CtrlViewTBType
             // 
-            this.CtrlViewTBType.Location = new System.Drawing.Point(334, 38);
+            this.CtrlViewTBType.Location = new System.Drawing.Point(334, 37);
             this.CtrlViewTBType.Name = "CtrlViewTBType";
+            this.CtrlViewTBType.Multiline = true;
             this.CtrlViewTBType.ReadOnly = true;
-            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 20);
+            this.CtrlViewTBType.Size = new System.Drawing.Size(128, 21);
             this.CtrlViewTBType.TabIndex = 8;
             // 
             // CtrlViewLblType

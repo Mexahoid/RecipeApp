@@ -140,7 +140,7 @@ namespace RecipeApp.Controllers
             }
 
             _data[lastRowIndex] = new Tuple<string, string>(
-                rows[lastRowIndex].Cells[0].Value.ToString(), null);
+                rows[lastRowIndex].Cells[0].Value?.ToString(), null);
         }
 
         public void ShowRecipeNames()

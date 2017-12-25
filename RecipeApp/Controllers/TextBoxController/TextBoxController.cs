@@ -46,7 +46,7 @@ namespace RecipeApp.Controllers.TextBoxController
             {
                 SetText(dt.Rows[0].ItemArray[0].ToString());
             }
-            catch (Exception e)
+            catch
             {
                 SetText("");
                 //OnError?.Invoke(e.Message);

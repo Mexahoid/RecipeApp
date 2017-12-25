@@ -43,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ButtonController.cs" />
-    <Compile Include="Controllers\MultBoxesController.cs" />
+    <Compile Include="Controllers\MultBoxesController\MultBoxesController.cs" />
     <Compile Include="Controllers\TextBoxController\TextBoxController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\RecipeNamesController\RecipeNamesController.cs" />
@@ -117,8 +117,6 @@
       <Name>DBLayer</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\MultBoxesController\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
